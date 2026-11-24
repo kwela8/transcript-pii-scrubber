@@ -726,5 +726,67 @@ class Addresses(unittest.TestCase):
         self.assertAddress("Deliver to 22 Jordan Avenue, Hollow Bay.", "22 Jordan Avenue, Hollow Bay")
 
 
+class Dates(unittest.TestCase):
+    def assertDate(self, text, date, preset="share", **kw):
+        self.assertEqual(plain(text, preset, **kw), text.replace(date, "[date 1]"), text)
+
+    def test_a_date_with_its_time(self):
+        for date in ("2025-01-08T14:31:17", "2023-10-05T14:48:00Z", "08/15/2023 19:45",
+                     "2024-03-14 09:30:00", "14 March 2024 at 10:30",
+                     "March 3, 2024, 2:30 PM", "2024-03-14T09:30:00+01:00"):
+            self.assertDate("It was logged on %s by the desk." % date, date)
+
+    def test_a_weekday_before_the_date(self):
+        for date in ("Fri, 15 Dec 2023", "Monday 3 March 2024", "Tuesday, March 3rd"):
+            self.assertDate("Seen on %s at the clinic." % date, date)
+
+    def test_a_date_with_no_year(self):
+        for date in ("March 3rd", "3rd of March", "December 31st", "15 March",
+                     "fourteenth of March", "Dec 5", "September 15th"):
+            self.assertDate("Due on %s, please." % date, date)
+
+    def test_a_month_and_year(self):
+        for date in ("October 2023", "Oct 2023", "March of 2024"):
+            self.assertDate("Started in %s and stayed." % date, date)
+
+    def test_words_that_only_look_like_dates_stay(self):
+        for text in ("We march 3 miles a day.", "You may 2 times.", "May I have 3?",
+                     "The Mars 2 rover.", "He read 3 of May's poems.", "In 2019 we grew.",
+                     "Mix 10 to 12 June bugs.", "It costs 15 marks."):
+            self.assertEqual(plain(text), text)
+
+    def test_bare_years_are_left_by_default(self):
+        for text in ("She was born in 1985.", "In 2019 we grew.", "Class of 2010."):
+            self.assertEqual(plain(text), text)
+
+    def test_bare_years_near_a_date_word_when_asked(self):
+        years = cfg(dates={"years": "near"})
+        for text, year in (("She was born in 1985.", "1985"), ("In 2019 we grew.", "2019"),
+                           ("Class of 2010 met.", "2010"), ("Since 1999, nothing.", "1999")):
+            self.assertEqual(plain(text, config=years), text.replace(year, "[year 1]"), text)
+        for text in ("We sold 2019 units.", "Room 1985 is shut.", "It cost $2000 in all.",
+                     "Python 3.2019 is odd."):
+            self.assertEqual(plain(text, config=years), text)
+
+    def test_every_bare_year_when_asked(self):
+        every = cfg(dates={"years": "all"})
+        self.assertEqual(plain("Team 2019 won.", config=every), "Team [year 1] won.")
+        self.assertEqual(plain("It cost £2000.", config=every), "It cost £2000.")
+        # A run of digit groups is a number, never two years.
+        self.assertEqual(plain("Call 2019 2020 3333 now.", config=every), "Call [number 1] now.")
+
+    def test_a_year_can_be_flagged_instead(self):
+        flagged = cfg(dates={"years": "near"}, flag=["YEAR"])
+        result = Hush("share", config=flagged).scrub("She was born in 1985.")
+        self.assertEqual(result.text, "She was born in 1985.")
+        self.assertEqual([f["kind"] for f in result.flags], ["YEAR"])
+
+    def test_the_years_setting_is_checked(self):
+        with self.assertRaises(ValueError):
+            cfg(dates={"years": "some"})
+        with self.assertRaises(ValueError):
+            cfg(dates={"months": "all"})
+
+
 if __name__ == "__main__":
     unittest.main()

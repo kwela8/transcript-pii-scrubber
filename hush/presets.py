@@ -178,7 +178,7 @@ class Hush:
         tokens, mapping = core.scrub(
             text, mapping, packs=self.config.packs, keep=self.people.keep_words,
             people=call.detector, heuristic_names=self.preset.guess,
-            guess_filter=keep_guess if self.guess_filter else None)
+            guess_filter=keep_guess if self.guess_filter else None, years=self.config.years)
         roles, cued = transcripts.cue_roles(tokens, mapping, self.config.cues,
                                             window=self.config.cue_window)
         leave = self.renderer.leave

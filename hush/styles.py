@@ -33,7 +33,7 @@ STYLES = ("token", "label", "pseudonym", "fake")
 
 LABELS = {
     "PERSON": "person", "CLINICIAN": "person", "PLACE": "place", "EMAIL": "email",
-    "PHONE": "phone", "DATE": "date", "DOB": "date of birth", "CODE": "code",
+    "PHONE": "phone", "DATE": "date", "YEAR": "year", "DOB": "date of birth", "CODE": "code",
     "NUMBER": "number", "POSTCODE": "postcode", "ADDRESS": "address", "HOMEADDR": "address",
     "HANDLE": "username", "USERNAME": "username", "SECRET": "secret", "URL": "link",
     "NHSNUM": "NHS number", "NINO": "NI number", "CARD": "card", "SORTCODE": "sort code",

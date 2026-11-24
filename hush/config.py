@@ -71,12 +71,13 @@ _KIND = re.compile(r"[A-Z][A-Z0-9_]{1,31}\Z")
 _FIELDS = ("first", "last", "preferred", "full", "username", "email", "id", "role")
 _SPEAKERS = ("text", "keep", "relabel")
 _TOP = {"name", "description", "preset", "flag", "check", "key_env", "packs", "names",
-        "people", "words", "redact", "detectors", "transcript", "cues", "labels"}
+        "people", "words", "redact", "detectors", "transcript", "cues", "labels", "dates"}
 _TABLES = {
     "names": {"list", "any_case", "guess", "files"},
     "people": {"known", "keep", "role", "columns", "login_labels"},
     "words": {"keep", "keep_files"},
     "transcript": {"speakers", "roles"},
+    "dates": {"years"},
 }
 
 
@@ -107,6 +108,7 @@ class Config:
     speaker_roles: dict = field(default_factory=dict)
     cues: dict = field(default_factory=dict)
     cue_window: int = 4
+    years: str = "off"
 
 
 def _list(value, where):
@@ -177,6 +179,10 @@ def from_dict(data, *, base=".", source=None):
     cfg.check = check
     cfg.key_env = str(data.get("key_env") or "")
     cfg.flag = tuple(_kind(k, "flag") for k in _list(data.get("flag"), "flag"))
+    years = _table(data, "dates").get("years", "off")
+    if years not in core.YEARS:
+        raise ValueError("hush config: dates.years must be one of %s" % ", ".join(core.YEARS))
+    cfg.years = years
 
     packs = data.get("packs") or {}
     if not isinstance(packs, dict):

@@ -1226,26 +1226,79 @@ def _scrub_numbers(text, mapping):
         return "".join(pieces)
     return _outside_tokens(text, change, mapping)
 
+# A weekday before a date and a time after it go with the date: "Fri, 15 Dec 2023",
+# "2025-01-08T14:31:17Z", "08/15/2023 19:45", "14 March 2024 at 10:30".
+_WEEKDAY = (r"(?:(?-i:(?:Mon|Tues?|Wed(?:nes)?|Thu(?:rs?)?|Fri|Sat(?:ur)?|Sun)(?:day)?)\.?,?"
+            r"[ \t]+)?")
+_CLOCK = (r"(?:\d{1,2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:[ \t]?[AaPp]\.?[Mm]\.?(?!\w))?"
+          r"|\d{1,2}[ \t]?[AaPp]\.?[Mm]\.?(?!\w))"
+          r"(?:Z|[ \t]?(?:[+-]\d{2}:?\d{2}|UTC|GMT|BST|CET|EST|EDT|PST|PDT)(?!\w))?")
+_TIME_AFTER = r"(?:(?:T|,?[ \t]+(?:at[ \t]+)?)" + _CLOCK + r")?"
+# English month names, capitalised, for dates written without a year: "March 3rd",
+# "3rd of March", "October 2023". Lower case "march" and "may" are verbs.
+_MONTH_EN = (r"(?-i:(?:January|February|March|April|May|June|July|August|September|October|"
+             r"November|December|(?:Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\.?))"
+             r"(?![a-z])(?!['’]s\b)")
+# A plain day and month need a word after them that reads as a date ("15 March, at ...",
+# "15 March and"), not a noun ("12 June bugs").
+_DATE_FOLLOWS = (r"(?![ \t]+(?!(?:at|and|or|to|is|was|will|until|till|through|the|from|for|"
+                 r"when|in|on|by|this|next|last)\b)[a-z])")
+
 # Every full date, in every shape a letter or a form uses: "03/07/1981", "9/1/2019",
 # "1990-04-17", "03-Jul-1981", "3rd July 1981", "February 14, 1975". Coded out as DATE
 # tokens rather than shifted, because restore then puts back the real date exactly; a
 # shifted date a model rewrites would come back wrong and look right.
 _DATES = (
     _Rule("DATE", _rx(
-        r"(?<![\w./-])\d{1,2}[ \t]*([/.-])[ \t]*\d{1,2}[ \t]*\1[ \t]*(?:(?:19|20)\d{2}|\d{2})"
-        r"(?!\w)(?![/.-]\d)"), check=_numeric_date_check, context=_not_a_version, ocr=True),
-    _Rule("DATE", _rx(r"(?<![\w./-])(?:19|20)\d{2}([/.-])\d{1,2}\1\d{1,2}(?!\d)(?![/.-]\d)"),
+        r"(?<![\w./-])" + _WEEKDAY + r"\d{1,2}[ \t]*([/.-])[ \t]*\d{1,2}[ \t]*\1[ \t]*"
+        r"(?:(?:19|20)\d{2}|\d{2})(?!\w)(?![/.-]\d)" + _TIME_AFTER),
+        check=_numeric_date_check, context=_not_a_version, ocr=True),
+    _Rule("DATE", _rx(r"(?<![\w./-])(?:19|20)\d{2}([/.-])\d{1,2}\1\d{1,2}(?![\d/.-]\d)(?!\d)"
+                      + _TIME_AFTER),
           check=_iso_date_check, context=_not_a_version, ocr=True),
     _Rule("DATE", _rx(
-        r"(?i)(?<!\w)\d{1,2}(?:st|nd|rd|th)?[ \t]*(?:of[ \t]+)?-?" + _MONTH +
-        r"\.?[ \t,-]*(?:(?:19|20)\d{2}(?!\d)|" + _YEAR_SPOKEN + r"\b)")),
+        r"(?i)(?<!\w)" + _WEEKDAY + r"\d{1,2}(?:st|nd|rd|th)?[ \t]*(?:of[ \t]+)?-?" + _MONTH +
+        r"\.?[ \t,-]*(?:(?:19|20)\d{2}(?!\d)|" + _YEAR_SPOKEN + r"\b)" + _TIME_AFTER)),
     # A date read out: "the fourteenth of March nineteen eighty four".
     _Rule("DATE", _rx(
         r"(?i)\b" + _ORDINAL_WORD + r"(?:[ \t]+of)?[ \t]+" + _MONTH + r"[ \t,]+(?:(?:19|20)\d{2}(?!\d)|"
         + _YEAR_SPOKEN + r"\b)")),
     _Rule("DATE", _rx(
-        r"(?i)\b" + _MONTH + r"\.?[ \t]+\d{1,2}(?:st|nd|rd|th)?,?[ \t]+(?:19|20)\d{2}(?!\d)")),
+        r"(?i)(?<!\w)" + _WEEKDAY + _MONTH + r"\.?[ \t]+\d{1,2}(?:st|nd|rd|th)?,?[ \t]+"
+        r"(?:19|20)\d{2}(?!\d)" + _TIME_AFTER)),
+    # A month and a year: "October 2023", "March of 2024".
+    _Rule("DATE", _rx(
+        r"(?<!\w)" + _MONTH_EN + r",?[ \t]+(?:of[ \t]+)?(?:19|20)\d{2}(?![\d.,:/-]\d|\d)")),
+    # A date with no year: "March 3rd", "Tuesday, March 3rd", "3rd of March", "15 March",
+    # "fourteenth of March".
+    _Rule("DATE", _rx(
+        r"(?<!\w)" + _WEEKDAY + _MONTH_EN + r"[ \t]+(?:the[ \t]+)?\d{1,2}(?:st|nd|rd|th)?"
+        r"(?![\w%:]|[.,/-]\d|[ \t]*[-/][ \t]*\d)" + _TIME_AFTER)),
+    _Rule("DATE", _rx(
+        r"(?<![\w./-])" + _WEEKDAY + r"(?:\d{1,2}(?:st|nd|rd|th)[ \t]*(?:of[ \t]+)?"
+        r"|\d{1,2}[ \t]+of[ \t]+)" + _MONTH_EN + _TIME_AFTER)),
+    _Rule("DATE", _rx(
+        r"(?<![\w./-])" + _WEEKDAY + r"\d{1,2}[ \t]+" + _MONTH_EN + _DATE_FOLLOWS
+        + _TIME_AFTER)),
+    _Rule("DATE", _rx(
+        r"(?i:\b" + _ORDINAL_WORD + r")[ \t]+of[ \t]+" + _MONTH_EN)),
 )
+
+# A year on its own, off by default ("years" in a config's [dates]): "near" takes one
+# after a word that dates it ("born in 1985", "since 1999", "class of 2010"), "all" takes
+# every 1900 to 2099 that is not money, a version or part of a run of digit groups.
+_YEAR_CUE = (r"(?i:\b(?:in|since|until|till|by|from|during|circa|around|before|after|born|"
+             r"graduated|married|died|moved|joined|started|left|retired|class[ \t]+of|year)"
+             r"(?:[ \t]+(?:in|the|of|early|late|mid|summer|winter|spring|autumn|fall))*"
+             r"[ \t,]+)")
+_YEAR_BODY = r"((?:19|20)\d{2})(?![\w%]|[.,:/-]\d)(?![ \t]\d)"
+_YEARS = {
+    "near": _Rule("YEAR", _rx(r"(?<![\w.])" + _YEAR_CUE + _YEAR_BODY), group=1,
+                  context=_not_money_or_version),
+    "all": _Rule("YEAR", _rx(r"(?<![\w.,/:-])(?<!\d[ \t])" + _YEAR_BODY), group=1,
+                 context=_not_money_or_version),
+}
+YEARS = ("off", "near", "all")
 
 # Shapes: found by their form alone. Ordered so that a longer shape claims its digits
 # before a shorter one could take the middle of it.
@@ -1777,7 +1830,8 @@ def _scrub_proper(text, mapping, guess_filter=None):
 
 # --- the three verbs ------------------------------------------------------------
 def scrub(text, mapping=None, *, date_shift=0, extra_names=(), heuristic_names=True,
-          profile=None, packs=None, keep=(), people=None, guess_filter=None, students=None):
+          profile=None, packs=None, keep=(), people=None, guess_filter=None, students=None,
+          years="off"):
     """Return ``(scrubbed_text, mapping)``.
 
     ``packs`` names the detector packs to run (``PACKS``; default ``DEFAULT_PACKS``).
@@ -1806,6 +1860,9 @@ def scrub(text, mapping=None, *, date_shift=0, extra_names=(), heuristic_names=T
     ``guess_filter`` is an optional callable ``(view, start, end) -> bool`` that the
     capitalised-name guess asks before it takes ``view[start:end]``; False leaves the
     words alone (``hush.people.keep_guess``).
+
+    ``years`` is "off" (the default), "near" or "all": whether a year on its own, 1900
+    to 2099, is a YEAR token, after a word that dates it or wherever it stands.
 
     ``date_shift`` is retired and refused when not zero: every full date is a DATE token,
     which restore puts back exactly, where a shifted date a model rewrites would come back
@@ -1836,6 +1893,10 @@ def scrub(text, mapping=None, *, date_shift=0, extra_names=(), heuristic_names=T
             out = _scrub_spoken(out, mapping)
         for rule in rules:
             out = _apply(rule, out, mapping)
+        if years in _YEARS:
+            out = _apply(_YEARS[years], out, mapping)
+        elif years != "off":
+            raise ValueError("hush: years must be one of %s" % ", ".join(YEARS))
         if general:
             out = _scrub_numbers(out, mapping)
         if heuristic_names:
