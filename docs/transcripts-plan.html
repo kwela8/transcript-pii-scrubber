@@ -8,21 +8,21 @@
 :root {
   color-scheme: light;
   --bg: #fcfcfb; --surface: #f3f2ef; --ink: #0b0b0b; --ink-2: #52514e; --ink-3: #75746f;
-  --rule: #dcdbd6; --accent: #2a78d6; --s1: #2a78d6; --s2: #eb6834; --mark: #fde9a8;
+  --rule: #dcdbd6; --accent: #2a78d6; --s1: #2a78d6; --s2: #eb6834; --s3: #7a7a74; --mark: #fde9a8;
   --mark-ink: #0b0b0b;
 }
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) {
     color-scheme: dark;
     --bg: #1a1a19; --surface: #242423; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #9a998f;
-    --rule: #3a3a37; --accent: #3987e5; --s1: #3987e5; --s2: #d95926; --mark: #4a3f12;
+    --rule: #3a3a37; --accent: #3987e5; --s1: #3987e5; --s2: #d95926; --s3: #9a9a92; --mark: #4a3f12;
     --mark-ink: #f0efec;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #1a1a19; --surface: #242423; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #9a998f;
-  --rule: #3a3a37; --accent: #3987e5; --s1: #3987e5; --s2: #d95926; --mark: #4a3f12;
+  --rule: #3a3a37; --accent: #3987e5; --s1: #3987e5; --s2: #d95926; --s3: #9a9a92; --mark: #4a3f12;
   --mark-ink: #f0efec;
 }
 * { box-sizing: border-box; }
@@ -76,8 +76,9 @@ ol.steps li.check::before { content: "✓"; color: var(--accent); }
 .chart .link { stroke: var(--ink-3); stroke-width: 2; stroke-linecap: round; }
 .chart .s1 { fill: var(--s1); stroke: var(--bg); stroke-width: 2; }
 .chart .s2 { fill: var(--s2); stroke: var(--bg); stroke-width: 2; }
+.chart .s3 { fill: var(--s3); stroke: var(--bg); stroke-width: 2; }
 .chart .hit { fill: transparent; }
-.chart .mark:hover .s1, .chart .mark:hover .s2 { stroke: var(--ink); }
+.chart .mark:hover .s1, .chart .mark:hover .s2, .chart .mark:hover .s3 { stroke: var(--ink); }
 .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.88rem; color: var(--ink-2); margin: 6px 0 0; }
 .legend i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px;
   vertical-align: -1px; }

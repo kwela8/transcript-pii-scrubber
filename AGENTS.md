@@ -19,6 +19,7 @@ measured design, not inventing one.
 | `hush/transcripts.py` | Speaker labels and role cues |
 | `hush/config.py` | The config file, TOML or JSON |
 | `hush/residual.py` | The second check, written apart from the detectors |
+| `hush/quasi.py` | Counts ages, places, jobs, dates and rare details left after the scrub, for a warning; removes nothing |
 | `hush/presets.py` | The five presets, `Hush` and `Result` |
 | `hush/styles.py` | What a found value becomes: token, label, pseudonym or fake |
 | `hush/tables.py` | CSV exports, column by column |
@@ -28,10 +29,11 @@ measured design, not inventing one.
 | `bench/bench.py` | The bench, for any test set and any config |
 | `bench/general/cases.json` | A made-up general set: 41 texts, 12 with no personal data |
 | `bench/education/cases_*.json` | Three made-up school sets: 290 cases, 1,361 pupil-name sightings, 95 name-free texts |
+| `bench/public/` | The harness that scores hush, Presidio and GLiNER on five public PII sets; no data, its README says where to get them |
 | `examples/support-call/` | A config, an agents keep list and a call transcript |
 | `examples/llm-document/` | A config and meeting notes for the `ask-ai` round trip |
-| `examples/education/` | A config that reproduces hush 0.1.0's school behaviour, a class list, a ticket, an export |
-| `tests/test_hush.py` | Unit tests |
+| `examples/education/` | A config that keeps hush 0.1.0's school behaviour, a class list, a ticket, an export |
+| `tests/test_hush.py` | 124 unit tests |
 | `docs/explainer.html` | What the tool does and how well, for people |
 | `docs/transcripts-plan.html` | The design for call transcripts, with the research behind it |
 | `NOTICE`, `licences/` | Where the lists come from and their licences |
@@ -69,7 +71,11 @@ figures with the ones under "How to measure".
 4. Keep one test set unseen while you tune, and report the unseen figure as the real one.
    Education set 3 is held out. The general set was used to fix two faults after its first
    run, so it no longer counts as fully held out; write a new one before tuning general
-   behaviour, and say so.
+   behaviour, and say so. Of the public sets, the Nemotron sample, the Nemotron
+   transcripts and the chat lines are for tuning; PII-TRACE and TAB are held out, so do not
+   read their per-document misses or outputs. Their weak categories (addresses, phone
+   extensions, years) were known before the rules for them were written, so their gains
+   there are not fully independent.
 5. A name the tool cannot place is flagged for a person to look at. It is never silently
    kept.
 6. Standard library only, no network, and nothing written to disk unless the caller asks.
@@ -84,10 +90,15 @@ figures with the ones under "How to measure".
 Each found value becomes a token `<P{16 hex}_{KIND}_{NNNN}_{16 hex check}>`
 (`hush/core.py`, `TOKEN`). The first 16 hex digits are a per-run namespace, NNNN counts per
 kind, and the check is an HMAC of the value under a per-run key, so a forged token is never
-restored. The value-to-token map lives in memory only. Restore replaces only exact issued
-tokens and counts anything token-shaped that was not issued. For name kinds (PERSON,
-CLINICIAN, PLACE and every `PERSON_<ROLE>`) the same person in any case gets one token, so a
-model sees one person once; restore gives back the first casing seen. A kept name becomes a
+restored. The value-to-token map lives in memory only. Restore puts back issued tokens,
+also when a model changed their case, spacing or brackets (`Restored.variants` counts
+those), and counts and leaves as written anything token-shaped that was not issued, has
+another namespace or fails its check. For name kinds (PERSON, CLINICIAN, PLACE and every
+`PERSON_<ROLE>`) the same person in any case gets one token, so a model sees one person
+once; restore gives back the first casing seen. The spread step below asks for exact
+spellings (`Mapping.token_for(..., exact=True)`): another casing of a name already found
+gets its own token, so it comes back as written, and the same label number, so `share`
+still shows one person. A kept name becomes a
 `KEEP` token during the scrub and is put back as written in every style.
 
 ### Packs
@@ -103,12 +114,17 @@ country's rules go in a new pack, with a line in `PACKS` and its checks tagged.
 Each step only looks at text outside the tokens already issued (`core.scrub`).
 
 1. **Secret columns and emails and links**, whole (`general` pack).
-2. **Names to keep** (`people._Keep`). Each kept person gives the full name in either
+2. **Street addresses** (`_address_spans`): a house number, a street name and a street
+   word, or the street word first ("Via Roma, 42"), with a flat or unit, town, state or
+   region, postal code and country after it; PO boxes; in `north-america`, a town with its
+   state and ZIP code, and Canadian postcodes. Found before people, so a street named like
+   a person goes whole.
+3. **Names to keep** (`people._Keep`). Each kept person gives the full name in either
    order, a preferred name with the surname, each name alone, and a title with the surname
    or its initial. A lone kept surname straight after another capitalised name, and a lone
    kept first name straight before another surname, belong to someone else and are not
    kept. Keeping a person who is on the known list keeps their preferred names from it.
-3. **The people step** (`People.find`). These are found together, and where two overlap
+4. **The people step** (`People.find`). These are found together, and where two overlap
    the longer wins (`_no_overlaps`):
    - **Titled names.** `(Mr|Mrs|Ms|Miss|Mx|Dr|Prof|Sir|Dame)\.? ` then one to three
      capitalised words (ASCII, Latin-1 and Latin Extended-A letters) or an initial and a
@@ -119,8 +135,15 @@ Each step only looks at text outside the tokens already issued (`core.scrub`).
    - **Logins and handles.** Handles: `(?<![\w@.])@` then the handle, except `@here`,
      `@channel` and `@everyone`. Chat speakers at the start of a line shaped like a login.
      A value after a login label (`user`, `username`, `login`, `uid`, and the config's
-     `login_labels`) when it looks like a login. Login shapes that start with a name:
-     `name.x`, `namek3`, `mo_khan`.
+     `login_labels`, also in Markdown bold or as "the username associated with it is")
+     when it looks like a login; how sure the value must look depends on the separator.
+     Login shapes that start with a name: `name.x`, `namek3`, `mo_khan`, `Samuel1995`,
+     `Nimali.Sivagnanam`, `k.williams`, two names run together in camel case, and a
+     lower-case speaker label that is not an English word. Names run together in lower case
+     ("jbenoit") are not taken: they touched texts with no personal data.
+   - **Name cues** (`_find_cued`): one to three words after "my name is", "I'm called",
+     "call me", "this is ... speaking" or a line-start "Name:", stopping at an English
+     word unless it is capitalised and could be a name.
    - **The known people.** Full name in either order (with a comma or a line break
      between), with possessives; preferred, first and last names alone in any case.
      Accents and case are folded before comparing (NFKD, combining marks dropped, lower
@@ -138,16 +161,23 @@ Each step only looks at text outside the tokens already issued (`core.scrub`).
      words that are not English words.
    - **A capitalised word that is not an English word** before a person verb.
    - **Screenshot misreads** of known names of six letters or more.
-4. **JSON fields** and **numbers read out as words**, with double, triple and "nine
-   hundred" (`general` pack).
-5. **The packs' identifier rules**: labelled values first, then shapes, then every long
-   number.
-6. **The capitalised-name guess**, except protected words (`KEEP` and the config's
+5. **JSON fields** and **numbers read out as words**, with double, triple, "nine
+   hundred" and fillers ("um", "er") between digits (`general` pack).
+6. **The packs' identifier rules**: labelled values first, then shapes (phones with
+   extensions, a phone after "call me on", dates with a weekday or time, dates with no
+   year, plates after "licence plate"), then bare years when `[dates] years` asks (kind
+   YEAR), then every long number.
+7. **The capitalised-name guess**, except protected words (`KEEP` and the config's
    `[words]`), then **the guess filter** (`keep_guess`): a run stands only when one word is
    not an English word, or it opens with a word-name given to 1,000 babies or more, or it
    is alone and not before you, this, the and similar, or it sits straight after a name
    already taken.
-7. **The second check** reads the output only, for the packs that ran. Any hit refuses.
+8. **Every other mention** (`_propagate_names`) of each name found: the whole value and its
+   parts, in any case, with possessives. Titles, keep words and parts under two letters are
+   skipped; a lower-case mention made of English words stays, and so does an English-word
+   part at a sentence start ("Will you"). A name only the guess found spreads whole, never
+   by its parts.
+9. **The second check** reads the output only, for the packs that ran. Any hit refuses.
 
 ### Transcripts and flags
 
@@ -162,6 +192,11 @@ takes the fuller name the transcript gives it.
 sentence; the first `[cues]` role whose word or phrase is there relabels that person for the
 whole text and adds a flag. Kinds in `flag` are put back as written and flagged. A flag is
 `{"kind", "start", "end", "why"}`, positions in the output.
+
+`hush/quasi.py` counts what is left after the scrub that may identify someone together: an
+age, a place, a job, a date, a rare detail. `Result.quasi` holds the counts, and
+`Result.warnings` a line when their total reaches `[warn] quasi` (default 5; 0 turns it
+off). The command line prints the warning on standard error. Nothing is removed for it.
 
 ### Five presets
 
@@ -194,28 +229,37 @@ Figures the current code gives. General set, no config, `share` preset:
 
 | | general set |
 |---|---|
-| names | 88.5% (285 of 322) |
+| names | 88.8% (286 of 322) |
 | on the known list | 99.0% (96 of 97) |
-| nicknames, initials, reordered | 59.4% (19 of 32) |
+| nicknames, initials, reordered | 62.5% (20 of 32) |
 | not on the known list | 88.1% (170 of 193) |
 | kept names left whole | 100% (89 of 89) |
 | texts with no personal data that lost a word | 3 of 12 |
 | exact restores | 39 of 41 |
 
-Education sets, `examples/education/hush.toml`, `share` preset (the same as hush 0.1.0):
+Addresses 78.6%, usernames 93.5%.
+
+Education sets, `examples/education/hush.toml`, `share` preset (hush 0.1.0's figures or
+better):
 
 | | set 1 (tuned on) | set 2 (tuned on) | set 3 (held out) |
 |---|---|---|---|
-| pupil names | 97.7% | 92.4% | 90.5% |
-| pupils on the class list | 98.2% | 98.1% | 97.1% |
+| pupil names | 97.7% | 92.7% | 91.0% |
+| pupils on the class list | 98.2% | 98.6% | 97.8% |
 | nicknames, initials and misreads | 96.4% | 67.3% | 62.2% |
-| adults | 99.3% | 90.1% | 95.9% |
+| adults | 99.3% | 90.8% | 95.9% |
 | name-free texts that lost a word | 7 of 40 | 2 of 30 | 3 of 25 |
 | exact restores | 150 of 150 | 79 of 80 | 58 of 60 |
 
 A change that lowers any of these needs a reason in its commit message. A change that moves
 an education figure at all needs one too: the education config is the record that 0.2.0
 kept 0.1.0's behaviour.
+
+The public sets (`bench/public/`, `share` preset, no config): PII-TRACE 94.3% of marked
+spans, 0 of 218 dialogues with a name left, 30 of its 50 texts with no personal data
+touched (2.9 words per 1,000); Nemotron-PII sample 76.1%, 9.7 words wrongly removed per
+1,000; Nemotron transcripts 76.0%, 6.2; chat lines 97.2%, 0.0; TAB 68.1%, 5.8. Report
+over-redaction and the PII-TRACE texts touched with every change, beside recall.
 
 ## Transcripts: the next step
 
@@ -225,7 +269,10 @@ remove every other person's name, and flag each by the role the words around it 
 
 Built already: speaker labels (`keep`, `relabel`), names to keep per call
 (`Hush.scrub(text, keep=[...])`), known people per call (`people=[...]`), lower-case
-speech-to-text names and numbers, role cues and flags, and the second check.
+speech-to-text names and numbers, spoken digits with fillers, name and phone cues ("my
+name is", "call me on"), every mention of a name once found, role cues and flags, the
+quasi-identifier warning, restore that survives a model changing a token's case or
+brackets, and the second check.
 
 Not built:
 

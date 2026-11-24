@@ -2,7 +2,7 @@
 
 School text: support tickets, teacher and parent emails, chat, Slack, exports, logs,
 report comments and SEN notes, where most names are pupils on a class list. hush 0.1.0
-was built for this text; `hush.toml` here gives the same results with 0.2.0.
+was built for this text; `hush.toml` here gives the same results with 0.2.0, or better.
 
 ```
 python3 -m hush scrub --config examples/education/hush.toml \
@@ -63,25 +63,26 @@ Pupil names caught, with this config:
 
 | | patterns only | + first-name list | + class list | `share` preset |
 |---|---|---|---|---|
-| set 1 (tuned on) | 64.7% | 87.5% | 96.9% | 97.7% |
-| set 2 (tuned on) | 68.0% | 81.7% | 90.4% | 92.4% |
-| **set 3 (held out)** | **70.6%** | **80.5%** | **90.5%** | **90.5%** |
+| set 1 (tuned on) | 67.6% | 87.5% | 96.9% | 97.7% |
+| set 2 (tuned on) | 73.3% | 82.6% | 90.7% | 92.7% |
+| **set 3 (held out)** | **73.3%** | **82.4%** | **91.0%** | **91.0%** |
 
 Set 3 in more detail:
 
 | | patterns only | `share` |
 |---|---|---|
-| pupils on the class list (138 sightings) | 69.6% | 97.1% |
+| pupils on the class list (138 sightings) | 73.9% | 97.8% |
 | nicknames, initials, misreads of class-list pupils (45) | 51.1% | 62.2% |
 | pupils not on the class list (38) | 97.4% | 100% |
-| adults (97) | 92.8% | 95.9% |
-| logins (35) | 42.9% | 88.6% |
+| adults (97) | 93.8% | 95.9% |
+| logins (35) | 42.9% | 91.4% |
 | email, phone, UPN, ULN, date of birth, postcode (112) | 96.3 to 100% | 96.3 to 100% |
 | texts with no names that still lost a word (of 25) | 22 | 3 |
 | texts restored exactly from tokens (of 60) | 60 | 58 |
 
-Every `+ first-name list`, `+ class list`, `share` and `logs` figure on all three sets is
-the same as hush 0.1.0's. Two columns moved, both for a known reason:
+When the school parts moved into this example (commit c11f5df), every `+ first-name
+list`, `+ class list`, `share` and `logs` figure on all three sets was the same as hush
+0.1.0's. Two columns had moved, both for a known reason:
 
 - **Patterns only**: UPN on set 1 went from 96.2% to 100% and ULN on set 3 from 90.9% to
   100%, with 27 extra names taken on set 3 where 0.1.0 took 29. In 0.1.0 the UPN and ULN
@@ -92,6 +93,15 @@ the same as hush 0.1.0's. Two columns moved, both for a known reason:
   restores on set 3 where 0.1.0 had 56. 0.2.0 takes a lower-case surname after a lower-case
   first name ("daniel okafor"). The presets that use any case also pass the class list,
   and with it the figures did not move.
+
+The work on public test sets after that (see the main README) moved some figures up and
+none down, without reading these sets' misses. A name found once now goes wherever else it
+is written: set 3 pupil names went from 90.5% to 91.0% and set 2 adults from 90.1% to
+90.8%. "My name is" now marks a name: set 2 pupil names went from 92.4% to 92.7%. New login
+shapes took logins from 65.2% to 73.9% on set 2 and from 88.6% to 91.4% on set 3.
+Name-free texts touched and exact restores did not change. In the patterns-only column, log
+time stamps are now dates and found names spread, so set 3 lost 29 words that were not
+names where it lost 27.
 
 The two inexact restores are one pupil written in two casings ("taylor reid", "Taylor
 Reid"): one token, so both come back in the first casing. One fault that set 3 showed was
