@@ -523,6 +523,21 @@ def _handle_context(view, start, end):
     return value == value.lower() and value not in english_words() and value not in KEEP
 
 
+def _plate_check(text):
+    """The groups of a plate up to eight letters and digits, two at least: "AB12 CDE"
+    and not the word after it ("AB12 CDE WAS")."""
+    end = total = groups = 0
+    for match in re.finditer(r"[A-Z0-9]+", text):
+        if total + len(match.group()) > 8:
+            break
+        total += len(match.group())
+        end = match.end()
+        groups += 1
+    if total < 4 or not re.search(r"\d", text[:end]):
+        return None
+    return 0, end
+
+
 _GAP = r"[ \t]*\**[ \t]*(?:is[ \t]+)?[:#=|-]*[ \t]*\**[ \t]*(?:\n[ \t]*)?"
 # A short phrase between a cue and its number on the same line, or the cue ending its
 # line and the number starting the next. A cue never reads into the next line's prose.
@@ -937,11 +952,21 @@ _LABELLED = (
         r"(?i:\b(?:tel|telephone|phone|mobile|mob|cell|fax|landline|whatsapp)\b\.?)" + _GAP +
         r"((?:\+|\(?\d)[\d \t().\n-]{7,22}\d(?!\d)" + _EXT + r")"),
         group=1, check=_with_extension(_labelled_phone_check)),
-    # A vehicle registration after its label is a code.
+    # A number after words that say a phone number comes next: "my number is",
+    # "call me on", "reach me at". Six to fifteen digits.
+    _Rule("PHONE", _rx(
+        r"(?i:\b(?:my[ \t]+(?:(?:phone|mobile|cell|home|work)[ \t]+)?number[ \t]+is|"
+        r"(?:call|ring|text|phone|reach|contact)[ \t]+(?:me|us)[ \t]+(?:on|at))\b)[ \t:]*"
+        r"((?:\+|\(?\d)[\d \t().-]{4,20}\d(?!\d)" + _EXT + r")"),
+        group=1, check=_with_extension(_digit_span(6, 15))),
+    # A vehicle registration after its label is a code: up to three groups, four to eight
+    # letters and digits ("AB12 CDE", "KK 439 XY", "D AS 3512").
     _Rule("CODE", _rx(
         r"(?i:\b(?:reg(?:istration)?(?:[ \t]*(?:no\.?|number|mark|plate))?|vrm|number[ \t]+plate|"
-        r"vehicle[ \t]+reg(?:istration)?)\b)" + _GAP +
-        r"((?=[A-Z0-9 ]*\d)[A-Z0-9]{2,4}[ \t]?[A-Z0-9]{3,4})(?![A-Za-z0-9])"), group=1),
+        r"vehicle[ \t]+reg(?:istration)?|licen[cs]e[ \t]+plate(?:[ \t]+(?:no\.?|number))?|"
+        r"plate[ \t]+(?:no\.?|number))\b)" + _GAP +
+        r"((?=[A-Z0-9 ]*\d)[A-Z0-9]{1,4}(?:[ \t][A-Z0-9]{1,4}){0,2})(?![A-Za-z0-9])"),
+        group=1, check=_plate_check),
     _Rule("POSTCODE", _rx(
         r"(?i:\b(?:post(?:al)?[ \t-]*code|zip(?:[ \t-]*code)?|code[ \t]+postal)\b)"
         r"(?:[ \t]+(?:of|is))?" + _GAP +

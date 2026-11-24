@@ -864,5 +864,38 @@ class EveryMention(unittest.TestCase):
         self.assertNotIn("phiri", result.text.lower())
         self.assertEqual(result.restore(result.text), text)
 
+class ContextCues(unittest.TestCase):
+    """A few phrases that say what comes next. Names here are invented words, so no list
+    knows them and only the cue can find them."""
+
+    def test_a_name_after_my_name_is(self):
+        for text, name in (("my name is zorvath kellim and I need help", "zorvath kellim"),
+                           ("my name's qwilleran.", "qwilleran"),
+                           ("My name is Zorvath, thanks", "Zorvath"),
+                           ("hi, this is zorvath speaking", "zorvath"),
+                           ("you can call me zorvath.", "zorvath"),
+                           ("Name: zorvath", "zorvath")):
+            out = plain(text)
+            self.assertNotIn(name.split()[0], out, text)
+            self.assertIn("[person", out, text)
+
+    def test_a_word_after_the_cue_stays(self):
+        for text in ("call me back tomorrow", "my name is on the list", "call me when ready",
+                     "this is fine", "you can call me later."):
+            self.assertEqual(plain(text), text)
+
+    def test_a_number_after_a_phone_cue_is_a_phone(self):
+        for text in ("my number is 4471 2390", "call me on 4471 2390", "text me on 447 1239",
+                     "you can reach me at 4471-2390"):
+            self.assertIn("[phone 1]", plain(text), text)
+        self.assertEqual(plain("call me on Monday"), "call me on Monday")
+
+    def test_a_plate_after_its_label(self):
+        self.assertEqual(plain("The licence plate KK 439 XY was seen."),
+                         "The licence plate [code 1] was seen.")
+        self.assertEqual(plain("license plate number: D AS 3512"),
+                         "license plate number: [code 1]")
+
+
 if __name__ == "__main__":
     unittest.main()

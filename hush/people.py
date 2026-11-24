@@ -150,6 +150,13 @@ def _user_labelled(extra):
         r"(?<=[\s:=,\"'*])(?P<u>[A-Za-z][\w.'\-]{1,40})")
 
 
+# Words that say a name comes next, and the words a name may be made of.
+_NAME_CUE = re.compile(
+    r"(?im)(?:\bmy[ \t]+name[ \t]+is|\bmy[ \t]+name['’]s|\b(?:i[ \t]+am|i['’]m)[ \t]+called|"
+    r"\bcall[ \t]+me|\bthis[ \t]+is(?=[ \t]+[^\W\d_]+(?:[ \t]+[^\W\d_]+)?[ \t]+speaking\b)|"
+    r"^[ \t*]*name[ \t*]*:)[ \t*]*")
+_CUE_WORD = re.compile(r"[^\W\d_][\w'’-]*(?<!['’])")
+
 # Shapes of a login built from a name, each needing a name from the lists: a first name
 # and digits ("Samuel1995"), two names joined by a dot ("Nimali.Sivagnanam"), joined in
 # capitals ("SomchaiHoang") or joined by underscores ("Brent_ShadowHunter"). An initial,
@@ -720,10 +727,34 @@ class People:
         found += self._find_ids(text)
         if self.rules:
             found += self._find_usernames(text)
+            found += self._find_cued(text)
         for i, word in enumerate(words):
             found += self._at(text, words, i)
         found += self._find_misread(text, found)
         return _no_overlaps(found)
+
+    def _find_cued(self, text):
+        """The name after words that say a name comes next: "my name is", "my name's",
+        "call me", "this is ... speaking", a "Name:" field. One to three words, each a
+        name from the lists, a capitalised word that is not English, or a lower-case word
+        that is not English; the first word that is none of these ends it, so "call me
+        back" and "my name is on the list" keep their words."""
+        words, hits = english_words(), []
+        for match in _NAME_CUE.finditer(text):
+            end, taken = match.end(), 0
+            for word in _CUE_WORD.finditer(text, match.end()):
+                if taken == 3 or (taken and text[end:word.start()] not in (" ", "\t")) or \
+                        (not taken and word.start() != match.end()):
+                    break
+                value = word.group()
+                folded = fold(value)
+                if folded in self.keep or value.lower() in core.KEEP or (
+                        folded in words and not (value[0].isupper() and self._is_namey(value))):
+                    break
+                end, taken = word.end(), taken + 1
+            if taken:
+                hits.append((match.end(), end, "PERSON"))
+        return hits
 
     def _find_titled(self, text):
         """A title and the name after it: "Mrs Pemberton", "Mr J. Okafor", "MS LINDQVIST".
