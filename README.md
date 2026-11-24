@@ -304,6 +304,9 @@ Read these with care:
   tool, and hardest for hush's capitalised-name guess.
 - PII-TRACE's names are invented words, which suits hush's "not an English word" rule and
   flatters its name score. The Nemotron sets use realistic names.
+- PII-TRACE's addresses all follow one pattern ("Apt 36, 2913 Thistlebrook Avenue,
+  Pinefall"), so its address figure (80.2%) says little about addresses in general. The
+  Nemotron sets (76.9% and 67.4%) and TAB (35.9%) are the better guide.
 - hush was tuned on the Nemotron sets and the chat lines, reading their misses. PII-TRACE
   and TAB were held out: none of their misses were read. But their weak categories were
   known from the first run (PII-TRACE addresses at 0% and phones at 38%, TAB's years), so
