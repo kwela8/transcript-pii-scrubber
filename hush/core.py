@@ -435,8 +435,31 @@ def _broken_digit_span(low, high):
     return check
 
 
+# An extension after a phone number goes with it: "ext 11037", "ext. 5", "x12",
+# "extension 204", "(ext. 220)". Only straight after a number shape, so "2 x 3" and
+# "extension work" stay.
+_EXT_BODY = (r"[ \t]*[,;]?[ \t]*\(?(?i:ext(?:ension)?\.?|x)[ \t]*(?i:no\.?)?[ \t]*[.:#]?[ \t]*"
+             r"\d{1,6}\)?")
+_EXT = r"(?:" + _EXT_BODY + r"(?![\w]))?"
+_EXT_TAIL = re.compile(_EXT_BODY + r"\Z")
+
+
+def _with_extension(check=None):
+    """Run ``check`` on a phone match without its extension, then give back the whole
+    match, extension and all, when there is one."""
+    def wrapped(text):
+        tail = _EXT_TAIL.search(text)
+        head = text[:tail.start()] if tail else text
+        taken = check(head) if check is not None else (0, len(head))
+        if taken is None:
+            return None
+        return (taken[0], len(text)) if tail else taken
+    return wrapped
+
+
 def _labelled_phone_check(text):
-    """A labelled phone is one number: a + number of 8 to 15 digits, a UK one of 10 or 11."""
+    """A labelled phone is one number: a + number of 8 to 15 digits, a UK or North
+    American one of 10 or 11."""
     return (_digit_span(8, 15) if text.startswith("+") else _digit_span(10, 11))(text)
 
 
@@ -776,7 +799,8 @@ _LABELLED = (
         + _GAP + r"(" + _DATE_VALUE + r")\b"), group=1),
     _Rule("PHONE", _rx(
         r"(?i:\b(?:tel|telephone|phone|mobile|mob|cell|fax|landline|whatsapp)\b\.?)" + _GAP +
-        r"((?:\+|0)\d[\d \t().\n-]{7,22}\d)(?!\d)"), group=1, check=_labelled_phone_check),
+        r"((?:\+|\(?\d)[\d \t().\n-]{7,22}\d(?!\d)" + _EXT + r")"),
+        group=1, check=_with_extension(_labelled_phone_check)),
     # A vehicle registration after its label is a code.
     _Rule("CODE", _rx(
         r"(?i:\b(?:reg(?:istration)?(?:[ \t]*(?:no\.?|number|mark|plate))?|vrm|number[ \t]+plate|"
@@ -1005,9 +1029,13 @@ _SPOKEN_DIGIT = "(?:" + "|".join(sorted(_DIGIT_WORDS, key=len, reverse=True)) + 
 _SPOKEN_REPEAT = "(?:" + "|".join(_REPEATS) + ")"
 # "nine hundred" stands for 900 inside a run, as phone numbers are read in the UK.
 _SPOKEN_ONE = _SPOKEN_DIGIT + r"(?:[ \t]+hundred)?"
+# Between two digit words: spaces, commas, dots or dashes, and the fillers of speech
+# ("oh seven seven, um, double oh").
+_SPOKEN_FILLER = r"(?:uh|uhm|um|umm|er|erm|ah|hm|hmm|mm)"
+_SPOKEN_GAP = r"[ \t,.-]+(?:" + _SPOKEN_FILLER + r"[ \t,.-]+)*"
 _SPOKEN_RUN = re.compile(
     r"(?i)(?<![\w])(?:(?-i:[A-Z])[ \t]+){0,3}(?:plus[ \t]+)?(?:" + _SPOKEN_REPEAT + r"[ \t]+)?"
-    + _SPOKEN_ONE + r"(?:[ \t,.-]+(?:" + _SPOKEN_REPEAT + r"[ \t]+)?" + _SPOKEN_ONE
+    + _SPOKEN_ONE + r"(?:" + _SPOKEN_GAP + r"(?:" + _SPOKEN_REPEAT + r"[ \t]+)?" + _SPOKEN_ONE
     + r"){2,}(?![\w])")
 
 
@@ -1105,8 +1133,13 @@ _SHAPES = _DATES + _SPACED_SHAPES + (
           check=_iban_check),
     # A country code never starts with 0.
     _Rule("PHONE", _rx(
-        r"(?<![\w+])\+[1-9]\d{0,2}(?:[ .-]?(?:\(0\)|\(\d{1,5}\)|\d{1,6})){1,7}(?!\d)"),
-        check=_digit_span(8, 15)),
+        r"(?<![\w+])\+[1-9]\d{0,2}(?:[ .-]?(?:\(0\)|\(\d{1,5}\)|\d{1,6})){1,7}(?!\d)" + _EXT),
+        check=_with_extension(_digit_span(8, 15))),
+    # An area code in brackets, then two groups, the last of four digits: "(96) 3231-1432",
+    # "(81) 99138-7542", "(0161) 496 0000". Eight to twelve digits in all.
+    _Rule("PHONE", _rx(
+        r"(?<![\w.+(])(?<!\w[/-])\(\d{2,5}\)[ ]?\d{3,5}[ .-]\d{4}(?![ .-]?\d)" + _EXT),
+        check=_with_extension(_digit_span(8, 12))),
     # A card is unbroken, grouped with one separator used throughout (so two amounts side
     # by side never join into one), or split by single spaces or dashes.
     _Rule("CARD", _rx(
@@ -1126,22 +1159,27 @@ _SHAPES = _DATES + _SPACED_SHAPES + (
     # A 00 number needs a break somewhere, because an unbroken run that starts 00 is far
     # more often a reference with leading zeros than a number someone dialled.
     _Rule("PHONE", _rx(
-        r"(?<![\w+.])(?<!\w[/-])00[1-9]\d{0,2}(?:[ .-]?(?:\(0\)|\(\d{1,5}\)|\d{1,6})){1,7}(?!\d)"),
-        check=_broken_digit_span(10, 17)),
-    _Rule("PHONE", _rx(r"(?<!\d)(?:00)?447\d{9}(?!\d)"), pack="uk"),
+        r"(?<![\w+.])(?<!\w[/-])00[1-9]\d{0,2}(?:[ .-]?(?:\(0\)|\(\d{1,5}\)|\d{1,6})){1,7}(?!\d)"
+        + _EXT), check=_with_extension(_broken_digit_span(10, 17))),
+    _Rule("PHONE", _rx(r"(?<!\d)(?:00)?447\d{9}(?!\d)" + _EXT), check=_with_extension(),
+          pack="uk"),
     # A UK number written with its country code and no plus: "44 7700 900123".
     _Rule("PHONE", _rx(
-        r"(?<![\w+.])(?<!\w[/-])44[ .-]?(?:\(0\)[ .-]?)?[1-9]\d{1,4}(?:[ .-]?\d{2,4}){1,3}(?!\d)"),
-        check=_broken_digit_span(12, 13), pack="uk"),
+        r"(?<![\w+.])(?<!\w[/-])44[ .-]?(?:\(0\)[ .-]?)?[1-9]\d{1,4}(?:[ .-]?\d{2,4}){1,3}(?!\d)"
+        + _EXT), check=_with_extension(_broken_digit_span(12, 13)), pack="uk"),
     # A UK number starts 0 then 1 to 9: 00 is the international prefix, never a number.
     _Rule("PHONE", _rx(
-        r"(?<![\w+.])(?<!\w[/-])(?:\(0[1-9]\d{1,3}\)|0[1-9]\d{1,3})(?:[ .-]?\d{2,4}){1,3}(?!\d)"),
-        check=_digit_span(10, 11), pack="uk"),
+        r"(?<![\w+.])(?<!\w[/-])(?:\(0[1-9]\d{1,3}\)|0[1-9]\d{1,3})(?:[ .-]?\d{2,4}){1,3}(?!\d)"
+        + _EXT), check=_with_extension(_digit_span(10, 11)), pack="uk"),
     # A North American number: "(212) 555-0134", "212-555-0134", "212.555.0134" or
-    # "212 555 0134". A spaced NHS number with a good check was taken just above.
+    # "212 555 0134", with "1" or "+1" before it. A spaced NHS number with a good check was
+    # taken just above. With the area code in brackets, or dashes or dots throughout, the
+    # shape is a phone whatever its digits, as in the "(555) 015-7148" of test data; with
+    # spaces alone the exchange must start 2 to 9.
     _Rule("PHONE", _rx(
-        r"(?<![\w.])(?<!\d[ .-])(?:\([2-9]\d{2}\)[ ]?[2-9]\d{2}[ .-]\d{4}"
-        r"|[2-9]\d{2}([ .-])[2-9]\d{2}\1\d{4})(?![ .-]?\d)"), pack="north-america"),
+        r"(?<![\w.+])(?<!\w[/-])(?<!\d[ .-])(?:\+?1[ .-]?)?(?:\(\d{3}\)[ ]?\d{3}[ .-]\d{4}"
+        r"|[2-9]\d{2}([.-])\d{3}\1\d{4}|[2-9]\d{2} [2-9]\d{2} \d{4})(?![ .-]?\d)" + _EXT),
+        check=_with_extension(), pack="north-america"),
     # A UK vehicle registration, current style: "WP19 XKD", a code.
     _Rule("CODE", _rx(r"(?<![A-Za-z0-9])[A-Z]{2}\d{2}[ \t]?[A-Z]{3}(?![A-Za-z0-9])"), pack="uk"),
     # An Afrikaans or Dutch street with its type joined on: "12 Kerkstraat".

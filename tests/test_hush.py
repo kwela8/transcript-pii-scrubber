@@ -641,5 +641,46 @@ class LongCodes(unittest.TestCase):
                           if rule.pattern.pattern.replace("(?<![A-Za-z0-9.,])", "") == r"\d{10}"])
 
 
+class Phones(unittest.TestCase):
+    def assertOnePhone(self, text, number):
+        out = plain(text)
+        self.assertEqual(out, text.replace(number, "[phone 1]"), text)
+        result = Hush("ask-ai").scrub(text)
+        self.assertEqual(result.restore(result.text), text)
+
+    def test_extensions_go_with_the_number(self):
+        for number in ("+1 202 555 0137 ext 11037", "(212) 555-0134 x12", "+1 212 555 0134 x 7",
+                       "020 7946 0018 extension 204", "07700 900123 ext. 5",
+                       "+44 20 7946 0018, ext 31", "212-555-0134 (ext. 220)"):
+            self.assertOnePhone("Call %s today." % number, number)
+        self.assertOnePhone("Phone number: +1 202 555 0137 ext 11037\n",
+                            "+1 202 555 0137 ext 11037")
+
+    def test_north_american_shapes(self):
+        for number in ("(555) 015-7148", "(555)123-4567", "555-015-7148", "555.123.4567",
+                       "+1 (555) 123-4567", "1-800-555-0199", "+1-212-555-0134", "212 555 0134"):
+            self.assertOnePhone("customer rang from %s, ticket open." % number, number)
+
+    def test_international_shapes(self):
+        for number in ("+44 20 7946 0018", "+33.1.23.45.67.89", "+49-30-1234567",
+                       "+966 55 123 4567", "+61 (0)2 9374 4000", "0049 30 1234567",
+                       "(96) 3231-1432", "(81) 99138-7542"):
+            self.assertOnePhone("Reach me on %s now." % number, number)
+
+    def test_spoken_digits_with_fillers(self):
+        text = "yeah my number is oh seven seven, um, double oh nine hundred, er, one two three"
+        out = plain(text)
+        self.assertEqual(out, "yeah my number is [phone 1]")
+        text = "it's four one one one, uh, one two three four five six thanks"
+        self.assertEqual(plain(text), "it's [number 1] thanks")
+        result = Hush("ask-ai").scrub(text)
+        self.assertEqual(result.restore(result.text), text)
+
+    def test_not_phones(self):
+        for text in ("Mix 2 x 3 boxes.", "Chapter 5 extension work is due.", "Pages 555-560.",
+                     "In 2019-2020 we grew.", "The ext is fine.", "Order 12 x 400 g."):
+            self.assertEqual(plain(text), text)
+
+
 if __name__ == "__main__":
     unittest.main()
