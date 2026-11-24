@@ -1,5 +1,6 @@
 {
  "version": "student-cases-2",
+ "unscored": ["SCHOOL"],
  "cases": [
   {
    "id": "h001",

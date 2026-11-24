@@ -205,6 +205,12 @@ _CHECKS = (
      None),
 )
 
+#: The pack each check belongs to, by its place in ``_CHECKS``: the second check reads for
+#: the same packs the scrub ran, so a pack that is off is not refused for. Any check not
+#: listed is general.
+_CHECK_PACKS = {2: "uk", 3: "uk", 4: "uk", 5: "north-america", 8: "uk", 9: "uk", 10: "uk",
+                11: "uk", 12: "uk", 16: "uk", 27: "uk"}
+
 
 @dataclass(frozen=True)
 class Finding:
@@ -232,16 +238,21 @@ def scanned(text, mapping=None):
     return unicodedata.normalize("NFKC", blanked).translate(_DASHES)
 
 
-def findings(text, mapping=None):
+def findings(text, mapping=None, *, packs=None):
     """Every finding in ``text``, overlaps merged (the longest span wins), left to right.
     ``mapping`` is the Mapping that scrubbed the text: only its tokens are passed over.
+    ``packs`` are the packs the scrub ran (default: hush's default packs).
     A cell under a secret column's header that holds anything but a token is a finding."""
+    packs = hush.packs_for(packs)
     view = scanned(text, mapping)
     found = [Finding(kind, *match.span())
-             for kind, pattern, check in _CHECKS for match in pattern.finditer(view)
+             for i, (kind, pattern, check) in enumerate(_CHECKS)
+             if _CHECK_PACKS.get(i, "general") in packs
+             for match in pattern.finditer(view)
              if check is None or check(match)]
-    found += [Finding("SECRET", start, end) for start, end in hush.secret_column_spans(view)
-              if view[start:end].strip(" \t" + TOKEN_MARK)]
+    if "general" in packs:
+        found += [Finding("SECRET", start, end) for start, end in hush.secret_column_spans(view)
+                  if view[start:end].strip(" \t" + TOKEN_MARK)]
     kept = []
     for item in sorted(found, key=lambda f: (-(f.end - f.start), f.start, f.kind)):
         if any(item.start < old.end and old.start < item.end for old in kept):
@@ -250,10 +261,11 @@ def findings(text, mapping=None):
     return sorted(kept, key=lambda f: (f.start, f.end, f.kind))
 
 
-def check(text, mapping=None):
+def check(text, mapping=None, *, packs=None):
     """Counts by kind, and whether the text is clean. Any finding means it must not leave.
-    Pass the Mapping that scrubbed the text, so its tokens are read as tokens."""
+    Pass the Mapping that scrubbed the text, so its tokens are read as tokens, and the
+    packs it ran."""
     counts = {}
-    for item in findings(text, mapping):
+    for item in findings(text, mapping, packs=packs):
         counts[item.kind] = counts.get(item.kind, 0) + 1
     return {"clean": not counts, "found": counts, "version": VERSION}

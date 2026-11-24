@@ -1,0 +1,5 @@
+# Agents on the support team: kept wherever a transcript names them. One per line, or a
+# CSV with First and Last (and Preferred) columns. Every name here is made up.
+Priya Shah
+Tomasz Reid
+Femi Adebayo

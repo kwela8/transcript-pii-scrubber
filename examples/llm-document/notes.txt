@@ -1,0 +1,12 @@
+Meeting notes, Project Alder, 18 November 2026
+
+Present: Rosalind Achebe (chair), Mateusz Grabowski, Leena Varma
+Apologies: Owen Pritchard
+
+1. Halvorsen Freight renewal. Mateusz spoke to their buyer, Sunita Rao, on 12/11/2026. They
+   want the Kestrel dashboard by March. Follow-up on CASE-20417.
+2. Leena to send the draft contract to sunita.rao@example.com and call her on
+   +44 20 7946 0321 if there is no reply by Friday.
+3. Expenses: refund to account 12-34-56 41234567 approved.
+
+Actions: Rosalind to brief Owen when he is back.

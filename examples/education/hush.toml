@@ -1,0 +1,69 @@
+# Education: school text with a class list. Support tickets, teacher and parent emails,
+# chat, exports and logs, where most of the names are pupils on a class list.
+#
+# This config reproduces what hush 0.1.0 did for school text out of the box: the school
+# vocabulary, Unique Pupil Numbers and Unique Learner Numbers, school column names and
+# login labels, and "[student 1]" labels for the class list. On the three school test sets
+# in bench/education/ it gives the same figures as 0.1.0 did.
+#
+#   python3 -m hush scrub --config examples/education/hush.toml \
+#       --people examples/education/class-9X.csv examples/education/ticket.txt
+#   python3 bench/bench.py bench/education/cases_3.json --config examples/education/hush.toml
+
+name = "education"
+preset = "share"
+
+[packs]
+general = true
+uk = true
+north-america = true
+south-africa = false
+
+[people]
+# The class list is passed per school with --people (or people= in Python). A pupil whose
+# row names no role is a student, labelled "[student 1]".
+role = "student"
+login_labels = ["pupil", "student", "learner"]
+
+[people.columns]
+"Student" = "full"
+"Student name" = "full"
+"Pupil" = "full"
+"Pupil name" = "full"
+"Learner" = "full"
+"Student username" = "username"
+"School email" = "email"
+"UPN" = "id"
+"Unique pupil number" = "id"
+"ULN" = "id"
+"Unique learner number" = "id"
+
+[words]
+# Terms, roles, subjects, exam words, maths names such as Pythagoras and Pascal, and
+# homework-platform words: never taken as a name.
+keep_files = ["keep.txt"]
+
+# A Unique Pupil Number: a check letter, 11 digits, then a digit or, for a temporary
+# number, a letter. Found wherever it sits, URL paths and query strings included.
+[[detectors]]
+kind = "UPN"
+label = "UPN"
+pattern = '(?<![A-Za-z0-9])[A-Z]\d{11}[0-9A-Z](?![A-Za-z0-9])'
+
+# A Unique Learner Number: 10 digits.
+[[detectors]]
+kind = "ULN"
+label = "ULN"
+pattern = '(?<![A-Za-z0-9.,])\d{10}(?![A-Za-z0-9]|[.,]\d)'
+
+# For call transcripts between a support coach and school staff (docs/transcripts-plan.html),
+# keep the speakers and flag the names that sit near pupil words. Uncomment to use; 0.1.0
+# did not do this, so the labels it gives differ from 0.1.0's.
+#
+# [transcript]
+# speakers = "keep"
+#
+# [cues]
+# pupil = ["son", "daughter", "child", "kid", "kids", "pupil", "student", "learner",
+#          "class", "set", "form", "homework", "year 7", "year 8", "year 9", "year 10",
+#          "year 11", "year 12", "year 13"]

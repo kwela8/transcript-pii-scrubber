@@ -1,0 +1,9 @@
+[00:00:02] Priya Shah: Thanks for calling Northwind support, you're through to Priya. Can I take your name?
+[00:00:06] Gareth Lyle: Hi, it's Gareth Lyle. I'm calling about the Ellis kettle my son ordered for me.
+[00:00:12] Priya Shah: No problem, Gareth. Could you confirm the account reference and your date of birth?
+[00:00:18] Gareth Lyle: It's GL4471902, and I was born on 14/09/1961.
+[00:00:25] Priya Shah: Thank you. I can see the order from 2 November 2026. What's happened?
+[00:00:30] Gareth Lyle: It arrived dented. My son Callum Lyle took it back to the depot and a driver called Wojciech said it would be refunded, but nothing has come through.
+[00:00:41] Priya Shah: I'm sorry about that. I'll raise it with my manager, Dervla Quinn, today. Is 07700 900481 still the best number?
+[00:00:49] Gareth Lyle: Yes, or email gareth.lyle@example.com. My neighbour Ines Carvalho can take a parcel if I'm out.
+[00:00:57] Priya Shah: Lovely. You'll hear from us within two working days.

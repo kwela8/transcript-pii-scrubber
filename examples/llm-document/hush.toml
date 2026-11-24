@@ -1,0 +1,45 @@
+# A document before an AI model reads it: notes, an email thread, a report, a CV, a
+# complaint. Everything the packs know is replaced with a token, the second check refuses
+# the text if anything is left, and the model's reply comes back with the real values put
+# back (Result.restore, in the same process).
+#
+#   python3 -m hush scrub --config examples/llm-document/hush.toml examples/llm-document/notes.txt
+#
+#   from hush import Hush
+#   h = Hush(config="examples/llm-document/hush.toml")
+#   result = h.scrub(text)
+#   if not result.refused:
+#       reply = call_your_model(result.text)
+#       print(result.restore(reply))
+
+name = "llm-document"
+preset = "ask-ai"
+check = "refuse"
+
+[packs]
+general = true
+uk = true
+north-america = true
+south-africa = false
+
+[names]
+list = true
+any_case = false
+guess = true
+
+[words]
+# Your own organisation, product and project names that look like names. A phrase is
+# kept whole.
+keep = ["Kestrel", "Project Alder"]
+
+# An internal case reference, so the model sees "case" and not a stray code.
+[[detectors]]
+kind = "CASE"
+label = "case"
+pattern = '\bCASE-\d{5}\b'
+
+# A client the organisation must never name to an outside service.
+[[redact]]
+kind = "CLIENT"
+label = "client"
+words = ["Halvorsen Freight"]

@@ -1,0 +1,46 @@
+# Support calls: the transcript of a call between an agent and a customer, before it is
+# pasted into a ticket, shared for quality review, or sent to an AI model for a summary.
+#
+# The agent and the customer stay: the agents are on agents.txt, and the speakers the
+# transcript names are kept. Everyone else the call mentions (a son, a neighbour, a
+# manager) is removed, and a name with a family or work word near it is labelled by that
+# role and flagged, so a reviewer can see who was talked about without seeing the name.
+# Dates stay in place and are flagged; dates of birth go.
+#
+#   python3 -m hush scrub --config examples/support-call/hush.toml examples/support-call/call.txt
+#
+# For an AI summary, use --preset ask-ai and restore the reply in Python (README).
+# With the customer's details from the call record, pass them per call:
+#   Hush(config="examples/support-call/hush.toml").scrub(text, keep=[customer])
+
+name = "support-call"
+preset = "share"
+flag = ["DATE"]
+
+[packs]
+general = true
+uk = true
+north-america = true
+
+[people]
+keep = ["agents.txt"]
+
+[words]
+# Product and team names shaped like names.
+keep = ["Ellis", "Harper Plus", "Northwind"]
+
+[transcript]
+speakers = "keep"
+
+# A customer account reference: two letters and seven digits.
+[[detectors]]
+kind = "ACCOUNT_REF"
+label = "account"
+pattern = '\b[A-Z]{2}\d{7}\b'
+
+[cues]
+family = ["son", "daughter", "wife", "husband", "partner", "mum", "dad", "mother",
+          "father", "brother", "sister", "grandson", "granddaughter", "nan", "grandad"]
+third_party = ["neighbour", "friend", "landlord", "carer", "lodger", "flatmate"]
+staff = ["manager", "colleague", "engineer", "driver", "technician", "supervisor"]
+window = 4

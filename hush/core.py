@@ -2,25 +2,30 @@
 
 Two ideas carry it.
 
-1. **A naive scrubber destroys the question.** Strip every capitalised word and "Year 9
-   Set 2 did Pythagoras on Monday" becomes unanswerable. ``KEEP`` protects a vocabulary,
-   so the subject, the product word and the day stay in the text.
+1. **A naive scrubber destroys the question.** Strip every capitalised word and "Can
+   Teams export the March Report on Monday?" becomes unanswerable. ``KEEP`` protects a
+   vocabulary, so the product word, the month and the day stay in the text. A caller adds
+   its own words for one scrub (``keep=``): product names, a sector's vocabulary.
 
 2. **A one-way scrub makes an AI's answer useless.** If the reply comes back about a
    token, the reader has to translate it in their head. So every substitution is recorded
    in a :class:`Mapping` and :func:`restore` puts the real words back into the reply.
+
+The detectors come in packs (``PACKS``) that a caller turns on or off: ``general`` (emails,
+links, IP addresses, cards, IBANs, international phones, dates, long numbers, codes,
+labelled secrets, handles), ``uk`` (NHS and National Insurance numbers, bank details, UK
+phones, postcodes, house-number addresses), ``north-america`` (phone numbers) and
+``south-africa`` (ID numbers, Afrikaans and Dutch street names).
 
 What it removes, in this order:
 
 - tokens it did not issue (a forged token is sealed, never trusted);
 - columns headed as secrets in a table;
 - email addresses and links, whole, so a name inside an address never splits it;
-- the caller's own detector, if one is passed (``students=``: see ``hush.students``);
+- the caller's own detector, if one is passed (``people=``: see ``hush.people``);
 - the roster: names the caller already knows, as whole words, ignoring case;
 - JSON fields named as names, emails, phones, addresses, dates of birth;
-- UK identifiers by shape and check digit: NHS number (mod 11), National Insurance
-  number, sort code and account number, card (Luhn), IBAN, passport, driving licence,
-  postcode, phone, email, IP address, handle, street address, PIN and labelled secrets;
+- identifiers by label, shape and check digit, from the packs turned on;
 - every full date (a DATE token), every code that mixes letters with two or more digits
   (CODE), and every run of six digits or more (NUMBER), label or not;
 - last, a guess at capitalised names from their neighbours (``heuristic_names``).
@@ -34,6 +39,7 @@ network. Standard library only. For one Mapping the output is deterministic.
 """
 from __future__ import annotations
 
+import contextvars
 import hashlib
 import hmac
 import json
@@ -46,10 +52,10 @@ from functools import lru_cache
 TOKEN_VERSION = "hush-token-v1"
 
 # --- what must survive the scrub -------------------------------------------
-# A capitalised word here is medicine, not identity. A false entry costs a leaked
+# A capitalised word here is vocabulary, not identity. A false entry costs a leaked
 # common noun; a missing entry costs a mangled question. KEEP never removes anything:
-# it only stops the capitalised-word guess from taking a word. Roster names and every
-# pattern still apply.
+# it only stops the name rules from taking a word. Known names and every pattern still
+# apply. This is the general list; a config adds its own (``keep=`` on :func:`scrub`).
 KEEP = {
     # the calendar
     "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
@@ -57,47 +63,47 @@ KEEP = {
     "september", "october", "november", "december",
     "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct",
     "nov", "dec", "mon", "tue", "tues", "wed", "thu", "thur", "thurs", "fri", "sat", "sun",
-    "autumn", "spring", "summer", "term", "half-term", "inset",
-    # school structure and roles
-    "year", "reception", "nursery", "ks1", "ks2", "ks3", "ks4", "ks5", "sixth", "form",
-    "tutor", "head", "deputy", "headteacher", "principal", "senco", "send", "sen", "ehcp",
-    "eal", "fsm", "pp", "lac", "cla", "dsl", "slt", "smt", "hod", "hoy", "trust", "mat",
-    "academy", "school", "college", "department", "faculty", "set", "class", "group",
-    "intervention", "detention", "attendance", "behaviour", "safeguarding", "pastoral",
-    "teacher", "teachers", "student", "students", "pupil", "pupils", "parent", "parents",
-    "carer", "carers", "governor", "governors", "trainee", "ect", "nqt", "ta", "hlta",
-    # exams and the sector
-    "gcse", "gcses", "a-level", "alevel", "btec", "sats", "mock", "mocks", "ofsted", "dfe",
-    "ofqual", "aqa", "edexcel", "ocr", "wjec", "eduqas", "pearson", "jcq", "upn", "uln",
-    "mis", "sims", "arbor", "bromcom", "wonde", "scomis", "isams", "classcharts", "teams",
-    "google", "microsoft", "classroom", "chromebook", "ipad", "sso", "oauth", "csv",
-    # subjects
-    "maths", "mathematics", "english", "science", "biology", "chemistry", "physics",
-    "history", "geography", "french", "spanish", "german", "computing", "art", "music",
-    "drama", "pe", "re", "pshe", "rshe", "dt", "latin", "reader", "reading", "literacy",
-    "numeracy", "statistics", "further",
-    # maths words that start with a capital
-    "pythagoras", "pythagorean", "venn", "fibonacci", "pascal", "cartesian", "euclid",
-    "euclidean", "newton", "euler", "gauss", "leibniz", "descartes", "pi", "sine",
-    "cosine", "tangent", "trigonometry", "algebra", "geometry", "probability",
-    # homework platform words
-    "xp", "method", "homework", "leaderboard", "compulsory", "optional",
-    "independent", "learning", "target", "targets", "boost", "times", "tables", "task",
-    "tasks", "quiz", "quizzes", "assessment", "assessments", "check", "checks", "login",
+    "autumn", "spring", "summer",
+    # people by role, and the groups they work in
+    "teacher", "teachers", "student", "students", "parent", "parents", "carer", "carers",
+    "department", "group", "trust",
+    # software and service words that start with a capital
+    "teams", "google", "microsoft", "chromebook", "ipad", "sso", "oauth", "csv",
+    "optional", "target", "targets", "task", "tasks", "check", "checks", "login",
     "dashboard", "report", "reports", "insights", "settings", "support", "help",
     # roles, headings and column names that start with a capital
     "data", "manager", "officer", "coordinator", "co-ordinator", "lead", "leader",
     "director", "administrator", "admin", "assistant", "technician", "librarian",
-    "receptionist", "trustee", "chair", "bursar", "business", "exam", "exams", "board",
-    "tier", "higher", "foundation", "qualification", "qualifications", "level", "type",
+    "receptionist", "trustee", "chair", "bursar", "business", "board", "level", "type",
     "meeting", "agenda", "minutes", "scheme", "reg", "registration", "preferred", "legal",
-    "museum", "trip", "visit", "uniform", "policy", "consent", "letter", "newsletter",
+    "trip", "visit", "policy", "consent", "letter", "newsletter",
     "score", "scores", "result", "results", "grade", "grades", "marks", "progress",
     "status", "complete", "completed", "incomplete", "overdue", "submitted", "pending",
-    # a few health words that turn up in school letters
+    # a few health words that turn up in letters
     "nhs", "gp", "a&e", "adhd", "asd", "autism", "dyslexia", "dyscalculia", "dyspraxia",
     "asthma", "epipen", "covid",
 }
+
+
+def fold(text):
+    """Lower case with accents taken off: "Zoë" and "zoe" fold the same."""
+    decomposed = unicodedata.normalize("NFKD", text)
+    return "".join(ch for ch in decomposed if not unicodedata.combining(ch)).lower()
+
+
+# The words in force for the scrub in progress: KEEP and the caller's own. Set by
+# :func:`scrub` for the length of one call, so two configs in one process never mix.
+_ACTIVE_KEEP = contextvars.ContextVar("hush_keep", default=None)
+
+
+def keep_words(extra=()):
+    """The folded words that are never a name: KEEP, the words of the scrub in progress,
+    and ``extra``."""
+    active = _ACTIVE_KEEP.get()
+    base = active if active is not None else frozenset(KEEP)
+    if not extra:
+        return base
+    return base | {fold(w) for w in extra} | {w.lower() for w in extra}
 
 # A word built like a specialty, a test or a condition is medicine whatever its root:
 # "Rheumatology", "Rheumatologist", "arthritis", "colonoscopy", "angiogram".
@@ -168,8 +174,24 @@ _TOKEN_OPEN_PREFIX_LIKE = re.compile(
     r"(?i)(?:<|\[|\{|:)\s*P[0-9A-F]{8,}[A-Z0-9_]*(?:>|\]|\}|\Z)")
 _KIND = re.compile(r"[A-Z][A-Z0-9_]{1,31}\Z")
 
-#: Kinds whose values are names: matched and restored without regard to case.
-NAME_KINDS = frozenset({"PERSON", "CLINICIAN", "PLACE", "STUDENT", "STAFF"})
+#: Kinds whose values are names: matched and restored without regard to case. A known
+#: person with a role has the kind ``PERSON_`` and the role ("PERSON_CUSTOMER"), which is
+#: a name kind too (:func:`is_name_kind`).
+NAME_KINDS = frozenset({"PERSON", "CLINICIAN", "PLACE"})
+
+
+def is_name_kind(kind):
+    """True for a kind whose values are people's names or places."""
+    return kind in NAME_KINDS or kind.startswith("PERSON_")
+
+
+def role_kind(role):
+    """The token kind for a person with ``role``: PERSON for none or "person", else
+    PERSON_ and the role in capitals ("customer" gives PERSON_CUSTOMER)."""
+    word = re.sub(r"[^A-Z0-9]+", "_", (role or "").strip().upper()).strip("_")
+    if not word or word == "PERSON":
+        return "PERSON"
+    return ("PERSON_" + word)[:32].rstrip("_")
 
 
 def kind_of(token):
@@ -219,7 +241,7 @@ class Mapping:
         """The stable token for one real string, allocated on first sight."""
         if not _KIND.match(kind):
             raise ValueError("hush: %r is not a token kind" % kind)
-        key = ("name", real.lower()) if kind in NAME_KINDS else ("value", real)
+        key = ("name", real.lower()) if is_name_kind(kind) else ("value", real)
         known = self._keys.get(key)
         if known is not None:
             return known
@@ -319,7 +341,8 @@ class _Rule:
     function that is handed the replaced text and returns the (start, end) to take
     within it, or None to leave the match alone. ``groups``, when given, names several
     (group, kind) parts of one match, each replaced by its own token. ``context``, when
-    given, is handed the view and the span and says whether to take it."""
+    given, is handed the view and the span and says whether to take it. ``pack`` is the
+    pack the rule belongs to (``PACKS``)."""
     kind: str
     pattern: re.Pattern
     group: object = 0
@@ -327,6 +350,7 @@ class _Rule:
     groups: tuple = ()
     context: object = None
     ocr: bool = False
+    pack: str = "general"
 
 
 def _digits(text):
@@ -698,18 +722,18 @@ _LABELLED = (
         + _GAP + r"(\d(?:[ \t-]?\d){2,11}[#*]?)(?!\d)"), group=1),
     _Rule("NHSNUM", _rx(
         r"(?i:\bNHS[ \t]*(?:number|no\.?|num|#))" + _NEAR + r"(?<![A-Za-z0-9-])(" + _TEN_DIGITS + r")"
-        + _NO_MORE_DIGITS), group=1),
+        + _NO_MORE_DIGITS), group=1, pack="uk"),
     _Rule("NHSNUM", _rx(
-        r"(?i:\bNHS\b)" + _GAP + r"(" + _TEN_DIGITS + r")" + _NO_MORE_DIGITS), group=1),
+        r"(?i:\bNHS\b)" + _GAP + r"(" + _TEN_DIGITS + r")" + _NO_MORE_DIGITS), group=1, pack="uk"),
     _Rule("NINO", _rx(
         r"(?i:\b(?:national[ \t]*insurance(?:[ \t]*(?:no\.?|number))?|"
         r"ni[ \t]*(?:no\.?|number)|nino|ni)\b)" + _GAP +
         r"((?i:[A-Z]{2}(?:[ \t-]?\d{2}){3}[ \t-]?[A-D]?|[A-Z]{2}[ \t-]?\d{6}[ \t-]?[A-D]?))"
-        r"(?![A-Za-z0-9])"), group=1),
+        r"(?![A-Za-z0-9])"), group=1, pack="uk"),
     _Rule("NINO", _rx(
         r"(?i:\b(?:national[ \t]*insurance(?:[ \t]*(?:no\.?|number))?|"
         r"ni[ \t]*(?:no\.?|number)|nino)\b)" + _GAP +
-        r"((?=[A-Z0-9 ]*\d)[A-Z0-9][A-Z0-9 ]{4,11}[A-Z0-9])(?![A-Za-z0-9])"), group=1),
+        r"((?=[A-Z0-9 ]*\d)[A-Z0-9][A-Z0-9 ]{4,11}[A-Z0-9])(?![A-Za-z0-9])"), group=1, pack="uk"),
     _Rule("PASSPORT", _rx(
         r"(?i:\bpassport\b(?:[ \t]*(?:no\.?|number|num|#))?)" + _GAP +
         r"((?=[A-Z]{0,3}\d)[A-Z0-9]{6,9})(?![A-Za-z0-9])"), group=1),
@@ -721,7 +745,7 @@ _LABELLED = (
         r"([A-Z]{6}[A-Z0-9]{2}(?:[A-Z0-9]{3})?)(?![A-Za-z0-9])"), group=1),
     _Rule("SORTCODE", _rx(
         r"(?i:\b(?:sort[ \t-]*code|s/c)\b)" + _NEAR + r"(?<![A-Za-z0-9-])(" + _SORT_VALUE + r")"
-        + _NO_MORE_DIGITS), group=1),
+        + _NO_MORE_DIGITS), group=1, pack="uk"),
     _Rule("IBAN", _rx(
         r"(?i:\b(?:iban|account(?:[ \t]*(?:no\.?|number))?|acct)\b)" + _GAP +
         r"((?i:[a-z]{2}\d{2}(?:[ \t]?[a-z0-9]{4}){2,7}(?:[ \t]?[a-z0-9]{1,4})?))(?![A-Za-z0-9])"),
@@ -732,11 +756,11 @@ _LABELLED = (
     # A UK account number is eight digits; "near" is within a short phrase of the cue.
     _Rule("ACCOUNTNO", _rx(
         r"(?i:\b(?:account|acct|acc|a/c)\b(?![-/]))" + _NEAR + r"(?<![A-Za-z0-9-])(\d{8}|\d{4}" + _GS + r"\d{4})"
-        + _NO_MORE_DIGITS), group=1),
+        + _NO_MORE_DIGITS), group=1, pack="uk"),
     # A sort code beside an eight-digit number is a bank account, cue or no cue.
     _Rule("SORTCODE", _rx(
         r"(?<![\d.-])(\d{2}-\d{2}-\d{2})[ \t,/|;]{1,4}(\d{8})(?!\d)"),
-        groups=((1, "SORTCODE"), (2, "ACCOUNTNO"))),
+        groups=((1, "SORTCODE"), (2, "ACCOUNTNO")), pack="uk"),
     _Rule("CARD", _rx(
         r"(?i:\b(?:card|visa|mastercard|amex|debit[ \t]+card|credit[ \t]+card)\b"
         r"(?:[ \t]*(?:no\.?|number|num|#))?)" + _GAP +
@@ -764,13 +788,16 @@ _LABELLED = (
         + _SPELLED + r"))){1,7})(?![\w])"), group=1, check=_postcode_label_check),
 ) + _SECRET_POSITIONS
 
-# The document profile: classes a personal document carries and a
-# clinical note does not, labelled only, because their values are free text.
+# Labelled only, because their values are free text: a South African ID number after its
+# label, and an address after a "Home address:" label (the colon makes it a field, so
+# "your home address for the form" stays prose).
 _DOCUMENT_LABELLED = (
     _Rule("SAID", _rx(
-        r"\b(?:(?:south\s*african\s*)?id\s*(?:no|number)?)[:\s#]*(\d{13})\b", re.I), group=1),
+        r"\b(?:(?:south\s*african\s*)?id\s*(?:no|number)?)[:\s#]*(\d{13})\b", re.I), group=1,
+        pack="south-africa"),
     _Rule("HOMEADDR", _rx(
-        r"\b(?:home|residential|postal)\s*address[:\s]*([^\n;|]{8,120})", re.I), group=1),
+        r"\b(?:home|residential|postal)[ \t]*address[ \t]*:[ \t]*([^\n;|]{8,120})", re.I),
+        group=1),
 )
 
 _STREET_TYPES = (r"Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Drive|Close|Court|Ct|Way|"
@@ -868,10 +895,10 @@ def _code_check(text):
     if tail and core[-1].isdigit():
         end += len(tail)
         if suffix and sum(c.isdigit() for c in core + tail) >= 4 and \
-                suffix.strip().lower() not in KEEP | _FORM_WORDS:
+                suffix.strip().lower() not in keep_words() | _FORM_WORDS:
             end += len(suffix)
     elif not tail and suffix and sum(c.isdigit() for c in core) >= 4 and \
-            suffix.strip().lower() not in KEEP | _FORM_WORDS:
+            suffix.strip().lower() not in keep_words() | _FORM_WORDS:
         end += len(suffix)
     return 0, end
 
@@ -880,7 +907,7 @@ def _code_core_check(text):
     alnum = re.sub(r"[^A-Za-z0-9]", "", text)
     if len(alnum) < 6 or sum(c.isdigit() for c in alnum) < 2 or not re.search(r"[A-Za-z]", alnum):
         return None
-    if text.lower() in KEEP or _MEASURE.match(text):
+    if text.lower() in keep_words() or _MEASURE.match(text):
         return None
     if all(_MEASURE.match(p) or (p.isdigit() and len(p) <= 4) for p in re.split(r"[-/]", text) if p):
         return None
@@ -924,9 +951,10 @@ _SPACED_SHAPES = (
     # A UK driving licence spaced out ("MCTAG 812240 C9 9XK"), before the postcode rule
     # can take its tail, and an NI number with every character spaced.
     _Rule("LICENCE", _rx(
-        r"(?i)\b[A-Z9]{5}[ \t-]?\d{6}[ \t-]?[A-Z9]{2}[ \t-]?\d[ \t-]?[A-Z]{2}\b")),
+        r"(?i)\b[A-Z9]{5}[ \t-]?\d{6}[ \t-]?[A-Z9]{2}[ \t-]?\d[ \t-]?[A-Z]{2}\b"), pack="uk"),
     _Rule("NINO", _rx(
-        r"(?i)\b[A-CEGHJ-PR-TW-Z][ \t]{1,3}[A-CEGHJ-NPR-TW-Z](?:[ \t]{1,3}\d){6}[ \t]{1,3}[A-D]\b")),
+        r"(?i)\b[A-CEGHJ-PR-TW-Z][ \t]{1,3}[A-CEGHJ-NPR-TW-Z](?:[ \t]{1,3}\d){6}[ \t]{1,3}[A-D]\b"),
+        pack="uk"),
 )
 _CATCH_ALL = (
     # A code keeps the digit groups that follow it ("D4/7718 2290") and a short capital
@@ -975,9 +1003,11 @@ _DIGIT_WORDS = {"zero": 1, "oh": 1, "nought": 1, "nil": 1, "nul": 1, "one": 1, "
 _REPEATS = {"double": 2, "dubbel": 2, "triple": 3, "trippel": 3}
 _SPOKEN_DIGIT = "(?:" + "|".join(sorted(_DIGIT_WORDS, key=len, reverse=True)) + ")"
 _SPOKEN_REPEAT = "(?:" + "|".join(_REPEATS) + ")"
+# "nine hundred" stands for 900 inside a run, as phone numbers are read in the UK.
+_SPOKEN_ONE = _SPOKEN_DIGIT + r"(?:[ \t]+hundred)?"
 _SPOKEN_RUN = re.compile(
     r"(?i)(?<![\w])(?:(?-i:[A-Z])[ \t]+){0,3}(?:plus[ \t]+)?(?:" + _SPOKEN_REPEAT + r"[ \t]+)?"
-    + _SPOKEN_DIGIT + r"(?:[ \t,.-]+(?:" + _SPOKEN_REPEAT + r"[ \t]+)?" + _SPOKEN_DIGIT
+    + _SPOKEN_ONE + r"(?:[ \t,.-]+(?:" + _SPOKEN_REPEAT + r"[ \t]+)?" + _SPOKEN_ONE
     + r"){2,}(?![\w])")
 
 
@@ -987,6 +1017,8 @@ def _spoken_digits(run):
         low = word.lower()
         if low in _REPEATS:
             times = _REPEATS[low]
+        elif low == "hundred":
+            count += 2
         elif low in _DIGIT_WORDS:
             count += times
             times = 1
@@ -1030,7 +1062,7 @@ def _scrub_numbers(text, mapping):
                         or (_RANGE.match(run) and not prefix)
                         or not _not_money_or_version(view, start, end)):
                     continue
-                if prefix and prefix.group(1).lower() not in KEEP | _FORM_WORDS:
+                if prefix and prefix.group(1).lower() not in keep_words() | _FORM_WORDS:
                     start -= len(prefix.group(0))
                 spans.append((start, end))
         pieces, cursor = [], 0
@@ -1083,42 +1115,42 @@ _SHAPES = _DATES + _SPACED_SHAPES + (
           check=_card_check),
     _Rule("NHSNUM", _rx(
         r"(?<![\w.])\d{3}(?:[ \t]{1,2}|[.-])?\d{3}(?:[ \t]{1,2}|[.-])?\d{4}(?![\w])(?![.-]\d)"),
-        check=_nhs_check),
+        check=_nhs_check, pack="uk"),
     # UK NI number: two letters, six digits, one letter. D, F, I, Q, U and V never come
     # first or second (QQ is the published example, so it is taken too), which stops an
     # ordinary reference matching by accident. Either case, spaced or dashed.
     _Rule("NINO", _rx(
         r"(?i)\b(?!BG|GB|NK|KN|TN|NT|ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z]|QQ)"
-        r"(?:[ \t-]?\d{2}){3}[ \t-]?[A-D]\b")),
+        r"(?:[ \t-]?\d{2}){3}[ \t-]?[A-D]\b"), pack="uk"),
     # An international number dialled with 00, and a UK mobile written 447... without its +.
     # A 00 number needs a break somewhere, because an unbroken run that starts 00 is far
     # more often a reference with leading zeros than a number someone dialled.
     _Rule("PHONE", _rx(
         r"(?<![\w+.])00[1-9]\d{0,2}(?:[ .-]?(?:\(0\)|\(\d{1,5}\)|\d{1,6})){1,7}(?!\d)"),
         check=_broken_digit_span(10, 17)),
-    _Rule("PHONE", _rx(r"(?<!\d)(?:00)?447\d{9}(?!\d)")),
+    _Rule("PHONE", _rx(r"(?<!\d)(?:00)?447\d{9}(?!\d)"), pack="uk"),
     # A UK number written with its country code and no plus: "44 7700 900123".
     _Rule("PHONE", _rx(
         r"(?<![\w+.])44[ .-]?(?:\(0\)[ .-]?)?[1-9]\d{1,4}(?:[ .-]?\d{2,4}){1,3}(?!\d)"),
-        check=_broken_digit_span(12, 13)),
+        check=_broken_digit_span(12, 13), pack="uk"),
     # A UK number starts 0 then 1 to 9: 00 is the international prefix, never a number.
     _Rule("PHONE", _rx(
         r"(?<![\w+.])(?:\(0[1-9]\d{1,3}\)|0[1-9]\d{1,3})(?:[ .-]?\d{2,4}){1,3}(?!\d)"),
-        check=_digit_span(10, 11)),
+        check=_digit_span(10, 11), pack="uk"),
     # A North American number: "(212) 555-0134", "212-555-0134", "212.555.0134" or
     # "212 555 0134". A spaced NHS number with a good check was taken just above.
     _Rule("PHONE", _rx(
         r"(?<![\w.])(?<!\d[ .-])(?:\([2-9]\d{2}\)[ ]?[2-9]\d{2}[ .-]\d{4}"
-        r"|[2-9]\d{2}([ .-])[2-9]\d{2}\1\d{4})(?![ .-]?\d)")),
+        r"|[2-9]\d{2}([ .-])[2-9]\d{2}\1\d{4})(?![ .-]?\d)"), pack="north-america"),
     # A UK vehicle registration, current style: "WP19 XKD", a code.
-    _Rule("CODE", _rx(r"(?<![A-Za-z0-9])[A-Z]{2}\d{2}[ \t]?[A-Z]{3}(?![A-Za-z0-9])")),
+    _Rule("CODE", _rx(r"(?<![A-Za-z0-9])[A-Z]{2}\d{2}[ \t]?[A-Z]{3}(?![A-Za-z0-9])"), pack="uk"),
     # An Afrikaans or Dutch street with its type joined on: "12 Kerkstraat".
     _Rule("ADDRESS", _rx(
         r"(?<![\w.])\d{1,5}[A-Za-z]?,?[ \t]+[" + _U + r"][a-zà-ÿ]+(?:straat|weg|laan|rylaan|singel|"
-        r"plein|steeg|kade|gracht|pad|rinkel)\b")),
+        r"plein|steeg|kade|gracht|pad|rinkel)\b"), pack="south-africa"),
     _Rule("POSTCODE", _rx(
         r"(?i)(?<![A-Za-z0-9])(?:GIR[ \t]?0AA|[A-Z]{1,2}\d[A-Z\d]?[^\S\n]{0,2}\d[A-Z]{2})"
-        r"(?![A-Za-z0-9])"), check=_postcode_check),
+        r"(?![A-Za-z0-9])"), check=_postcode_check, pack="uk"),
     _Rule("IP", _rx(
         r"(?<![\d.])(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}"
         r"(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?!\d|\.\d)"), context=_not_a_version),
@@ -1130,27 +1162,60 @@ _SHAPES = _DATES + _SPACED_SHAPES + (
                         r"[A-Za-z0-9_][A-Za-z0-9_.]{0,30}[A-Za-z0-9_]")),
     _Rule("ADDRESS", _rx(
         r"(?<![\w.])\d{1,5}[A-Za-z]?,?[ \t]+(?:[" + _U + r"][\w'’.-]*[ \t]+){1,4}"
-        r"(?:" + _STREET_TYPES + r"|" + _STREET_TYPES.upper() + r")\b")),
+        r"(?:" + _STREET_TYPES + r"|" + _STREET_TYPES.upper() + r")\b"), pack="uk"),
     # In lower case, one or two words between the number and the street type, and not
     # a unit or a small word, so "5 minutes down the road" and "2 hours drive" are prose.
     _Rule("ADDRESS", _rx(
         r"(?<![\w.])\d{1,4}[a-z]?,?[ \t]+(?!(?:" + _NOT_A_STREET + r")\b)[a-z][a-z'’-]+"
         r"(?:[ \t]+(?!(?:" + _NOT_A_STREET + r")\b)[a-z][a-z'’-]+)?[ \t]+"
-        r"(?:street|road|avenue|lane|close|crescent|terrace|grove|gardens|mews|drive|way)\b")),
+        r"(?:street|road|avenue|lane|close|crescent|terrace|grove|gardens|mews|drive|way)\b"),
+        pack="uk"),
 ) + _CATCH_ALL
 
-PROFILES = ("clinical", "document")
+#: The detector packs, with what each holds. A pack that is off adds nothing.
+PACKS = {
+    "general": "emails, links, IP addresses, cards (Luhn), IBANs, international phones, "
+               "full dates, long numbers, codes that mix letters and digits, labelled "
+               "passwords, keys and PINs, handles, labelled passports, licences, dates of "
+               "birth and addresses, JSON fields, numbers read out as words",
+    "uk": "NHS numbers (mod 11), National Insurance numbers, sort codes and account "
+          "numbers, UK phones, postcodes, house-number addresses, UK vehicle "
+          "registrations and driving licences",
+    "north-america": "North American phone numbers",
+    "south-africa": "South African ID numbers after their label, Afrikaans and Dutch "
+                    "street names",
+}
+#: The packs on when a caller names none.
+DEFAULT_PACKS = ("general", "uk", "north-america")
+
+#: Old names for pack sets, kept so older callers work: "clinical" is the default packs,
+#: "document" adds south-africa.
+PROFILES = {"clinical": DEFAULT_PACKS, "document": DEFAULT_PACKS + ("south-africa",)}
 
 #: Kinds the catch-all and the date rule give: coded out by policy, not by a guess.
 POLICY_KINDS = frozenset({"DATE", "CODE", "NUMBER"})
 
 
-def _rules(profile):
-    if profile == "clinical":
-        return _LABELLED + _SHAPES
-    if profile == "document":
-        return _DOCUMENT_LABELLED + _LABELLED + _SHAPES
-    raise ValueError("unknown hush profile: %r" % (profile,))
+def packs_for(packs=None, profile=None):
+    """The packs to run, as a tuple: ``packs`` if given, else the profile's, else the
+    default. An unknown pack name is refused."""
+    if packs is None:
+        if profile is None:
+            return DEFAULT_PACKS
+        if profile not in PROFILES:
+            raise ValueError("unknown hush profile: %r" % (profile,))
+        return PROFILES[profile]
+    packs = tuple(packs)
+    unknown = [p for p in packs if p not in PACKS]
+    if unknown:
+        raise ValueError("hush: unknown pack %s; the packs are %s"
+                         % (", ".join(unknown), ", ".join(PACKS)))
+    return packs
+
+
+def _rules(packs):
+    return tuple(rule for rule in _DOCUMENT_LABELLED + _LABELLED + _SHAPES
+                 if rule.pack in packs)
 
 
 def _outside_tokens(text, change, mapping):
@@ -1403,7 +1468,7 @@ _HONORIFICS = {"dr", "mr", "mrs", "ms", "mx", "miss", "prof", "professor", "sir"
 
 def _protected(word):
     bare = word.strip(".,;:!?()")
-    return bare.lower() in KEEP or bool(_CLINICAL_SUFFIX.match(bare))
+    return bare.lower() in keep_words() or bool(_CLINICAL_SUFFIX.match(bare))
 
 
 def _bare(word):
@@ -1552,11 +1617,17 @@ def _scrub_proper(text, mapping, guess_filter=None):
 
 # --- the three verbs ------------------------------------------------------------
 def scrub(text, mapping=None, *, date_shift=0, extra_names=(), heuristic_names=True,
-          profile="clinical", students=None, guess_filter=None):
+          profile=None, packs=None, keep=(), people=None, guess_filter=None, students=None):
     """Return ``(scrubbed_text, mapping)``.
 
-    ``extra_names`` is the roster the caller already knows: the pupils, the staff, the
-    parents, the correspondents in the mail. Roster entries are matched
+    ``packs`` names the detector packs to run (``PACKS``; default ``DEFAULT_PACKS``).
+    ``profile`` is the older way to say the same ("clinical", "document").
+
+    ``keep`` is words the caller's text uses that are never a name (product names, a
+    sector's vocabulary), added to ``KEEP`` for this call.
+
+    ``extra_names`` is the roster the caller already knows: customers, staff, the
+    correspondents in the mail. Roster entries are matched
     as whole words, ignoring case, after email addresses and links and before every
     other rule.
 
@@ -1566,38 +1637,50 @@ def scrub(text, mapping=None, *, date_shift=0, extra_names=(), heuristic_names=T
     runs. The trade: text that survives intact, at the cost of any name that is not on
     the roster and not otherwise flagged going through.
 
-    ``students`` is an optional callable ``(text, mapping) -> text``, run after email
+    ``people`` is an optional callable ``(text, mapping) -> text``, run after email
     addresses and links and before the roster: a detector that knows more than this
-    module does (``hush.students.Pupils.detector``). It must allocate its tokens from
-    the same Mapping, so every later rule leaves them alone.
+    module does (``hush.people.People.detector``). It must allocate its tokens from
+    the same Mapping, so every later rule leaves them alone. ``students`` is its older
+    name.
 
     ``guess_filter`` is an optional callable ``(view, start, end) -> bool`` that the
     capitalised-name guess asks before it takes ``view[start:end]``; False leaves the
-    words alone (``hush.students.Pupils.keep_guess``).
+    words alone (``hush.people.keep_guess``).
 
     ``date_shift`` is retired and refused when not zero: every full date is a DATE token,
     which restore puts back exactly, where a shifted date a model rewrites would come back
     wrong.
     """
-    rules = _rules(profile)
+    packs = packs_for(packs, profile)
+    rules = _rules(packs)
+    general = "general" in packs
     if date_shift:
         raise ValueError("hush: date_shift is retired; full dates are coded out as DATE tokens")
     if mapping is None:
         mapping = Mapping()
-    out = _seal_foreign(text, mapping)
-    out = _scrub_columns(out, mapping)
-    for rule in _FIRST:
-        out = _apply(rule, out, mapping)
-    if students is not None:
-        out = students(out, mapping)
-    out = _scrub_roster(out, tuple(extra_names), mapping)
-    out = _scrub_fields(out, mapping)
-    out = _scrub_spoken(out, mapping)
-    for rule in rules:
-        out = _apply(rule, out, mapping)
-    out = _scrub_numbers(out, mapping)
-    if heuristic_names:
-        out = _scrub_proper(out, mapping, guess_filter)
+    active = _ACTIVE_KEEP.set(
+        frozenset(KEEP) | {fold(w) for w in keep} | {w.lower() for w in keep})
+    try:
+        out = _seal_foreign(text, mapping)
+        if general:
+            out = _scrub_columns(out, mapping)
+            for rule in _FIRST:
+                out = _apply(rule, out, mapping)
+        detector = people if people is not None else students
+        if detector is not None:
+            out = detector(out, mapping)
+        out = _scrub_roster(out, tuple(extra_names), mapping)
+        if general:
+            out = _scrub_fields(out, mapping)
+            out = _scrub_spoken(out, mapping)
+        for rule in rules:
+            out = _apply(rule, out, mapping)
+        if general:
+            out = _scrub_numbers(out, mapping)
+        if heuristic_names:
+            out = _scrub_proper(out, mapping, guess_filter)
+    finally:
+        _ACTIVE_KEEP.reset(active)
     return out, mapping
 
 
@@ -1661,7 +1744,7 @@ def restore(text, mapping):
     return restore_report(text, mapping).text
 
 
-def audit(text, mapping, *, profile="clinical"):
+def audit(text, mapping, *, profile=None, packs=None, keep=()):
     """What a person needs to see before they press send: what is going out, and what
     was taken out of it. Counts by class, never the values.
 
@@ -1669,17 +1752,17 @@ def audit(text, mapping, *, profile="clinical"):
     the capitalised-word guess, and reports the kinds it would still take. It can only
     report what those rules see; this is not a claim that every identifier is found.
     """
-    _rules(profile)
+    packs = packs_for(packs, profile)
     counts = {}
     for token in mapping.by_real.values():
         kind = kind_of(token)
         counts[kind] = counts.get(kind, 0) + 1
     probe = mapping.copy()
     probe.day_offset = 0
-    patterned, probe = scrub(text, probe, profile=profile, heuristic_names=False)
+    patterned, probe = scrub(text, probe, packs=packs, keep=keep, heuristic_names=False)
     before = _kind_counts(text)
     leftovers = [kind for kind, n in _kind_counts(patterned).items() if n > before.get(kind, 0)]
-    proper, _ = scrub(patterned, probe, profile=profile, heuristic_names=True)
+    proper, _ = scrub(patterned, probe, packs=packs, keep=keep, heuristic_names=True)
     if proper != patterned:
         leftovers.append("PROPER")
     return {"removed": counts,
