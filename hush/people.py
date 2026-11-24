@@ -138,10 +138,37 @@ _SPLIT = re.compile(r"[;|]")
 
 @lru_cache(maxsize=8)
 def _user_labelled(extra):
+    """A login label and its value: "username: ella.w", "**User Name:** Layla2025", "the
+    user name was mickeyberman", "user name associated with this request was lovro_b",
+    "the user w.anderson". ``sep`` is the colon, "is" or "was", or empty."""
     labels = list(LOGIN_LABELS) + [re.escape(w) for w in extra]
     return re.compile(
-        r"(?i)\b(?:" + "|".join(labels) + r")[\"']?[ \t]*"
-        r"(?:[:=]|\bis\b)[ \t]*[\"']?(?P<u>[A-Za-z][\w.'\-]{1,40})")
+        r"(?i)\b(?:" + "|".join(labels) + r")(?![\w-])[\"']?\**"
+        r"(?:[ \t]+(?:associated[ \t]+with|on|for|of|in)(?:[ \t]+[\w-]+){1,3}?"
+        r"(?=[ \t]+(?:is|was)\b))?"
+        r"[ \t]*(?P<sep>[:=]|\b(?:is|was)\b|,)?\**[ \t]*[\"']?"
+        r"(?<=[\s:=,\"'*])(?P<u>[A-Za-z][\w.'\-]{1,40})")
+
+
+# Shapes of a login built from a name, each needing a name from the lists: a first name
+# and digits ("Samuel1995"), two names joined by a dot ("Nimali.Sivagnanam"), joined in
+# capitals ("SomchaiHoang") or joined by underscores ("Brent_ShadowHunter"). An initial,
+# a dot and a word that is not English is a login with no list ("k.williams"). Names run
+# together in lower case ("jbenoit") are not taken: tried, a word list cannot tell them
+# from ordinary words it lacks.
+_NAME_DIGITS = re.compile(r"(?<![\w@.])(?P<head>[A-Z][a-z]{2,20})\d{2,4}(?![\w@])")
+_NAME_DOT_NAME = re.compile(
+    r"(?<![\w@./])(?P<head>[A-Z][a-z]{1,20})\.[A-Z][a-z]{1,30}(?![\w@]|\.[A-Za-z])")
+_CAMEL_NAMES = re.compile(
+    r"(?<![\w@.])(?P<head>[A-Z][a-z]{2,15})[A-Z][a-z]{2,15}(?:[A-Z][a-z]*)*\d{0,4}(?![\w@])")
+_UNDERSCORED = re.compile(r"(?<![\w@.])[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)+(?![\w@])")
+_INITIAL_DOT = re.compile(r"(?<![\w@./-])[a-z]\.(?P<tail>[a-z]{3,30})(?![\w@-]|\.[a-z])")
+_FILE_ENDINGS = {"com", "org", "net", "txt", "exe", "out", "csv", "pdf", "png", "jpg", "jpeg",
+                 "html", "json", "docx", "xlsx", "pptx", "log", "bak", "tmp", "yaml", "toml",
+                 "conf", "gif", "svg", "zip", "md", "py", "js", "css"}
+# A speaker in lower case that is not a word: "pmarler: Sure."
+_SPEAKER_WORD = re.compile(r"(?m)^[ \t>]*(?:\[[0-9:. ]+(?:[AaPp][Mm])?\][ \t]*)?"
+                           r"(?P<s>[a-z]{5,20})(?=:[ \t])")
 
 
 def _at_start(text, start):
@@ -732,12 +759,21 @@ class People:
                 hits.append((match.start(), match.end(), "HANDLE"))
         for match in _SPEAKER.finditer(text):
             hits.append((match.start("s"), match.end("s"), "USERNAME"))
+        words = english_words()
         for match in self._user_labelled.finditer(text):
             value = match.group("u").rstrip(".,;:)'\"-")
-            login_like = value == value.lower() or re.search(r"[\d._]", value)
+            sep = (match.group("sep") or "").lower()
+            shaped = re.search(r"[\d._]", value)
+            if sep in (":", "="):
+                login_like = value == value.lower() or shaped
+            elif sep in ("is", "was"):
+                login_like = shaped or (value == value.lower() and value not in words)
+            else:
+                login_like = shaped
             if len(value) >= 2 and login_like and \
                     value.lower() not in ("none", "null", "n/a", "unknown", "is", "the"):
                 hits.append((match.start("u"), match.start("u") + len(value), "USERNAME"))
+        hits += self._login_shapes(text, words)
         for match in _USER_SHAPED.finditer(text):
             head, tail = match.group("head"), match.group("tail") or ""
             if len(tail) > 3:
@@ -748,6 +784,36 @@ class People:
                 continue
             if self._is_namey(head) or (len(head) > 3 and self._is_namey(head[:-1])) or \
                     (len(head) > 4 and self._is_namey(head[:-2])):
+                hits.append((match.start(), match.end(), "USERNAME"))
+        return hits
+
+    def _first_name(self, word):
+        folded = fold(word)
+        return folded in self._single or (self.names and folded in self.first_names)
+
+    def _login_shapes(self, text, words):
+        hits = []
+        for match in _INITIAL_DOT.finditer(text):
+            tail = match.group("tail")
+            if tail not in words and tail not in _FILE_ENDINGS:
+                hits.append((match.start(), match.end(), "USERNAME"))
+        for match in _SPEAKER_WORD.finditer(text):
+            if match.group("s") not in words and match.group("s") not in core.KEEP:
+                hits.append((match.start("s"), match.end("s"), "USERNAME"))
+        for shape in (_NAME_DIGITS, _NAME_DOT_NAME, _CAMEL_NAMES):
+            for match in shape.finditer(text):
+                if self._first_name(match.group("head")):
+                    hits.append((match.start(), match.end(), "USERNAME"))
+                elif shape is not _NAME_DIGITS and self.names:
+                    # Two words joined by a dot or in capitals, neither of them English:
+                    # "Nimali.Sivagnanam", "SomchaiHoang" (but not "TikTok")
+                    parts = re.findall(r"[A-Z][a-z]+", match.group())
+                    if len(parts) == 2 and all(len(p) > 3 and fold(p) not in words and
+                                               fold(p) not in core.KEEP for p in parts):
+                        hits.append((match.start(), match.end(), "USERNAME"))
+        for match in _UNDERSCORED.finditer(text):
+            parts = re.findall(r"[A-Z]?[a-z]+", match.group())
+            if any(self._first_name(p) for p in parts if len(p) > 2):
                 hits.append((match.start(), match.end(), "USERNAME"))
         return hits
 

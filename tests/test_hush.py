@@ -788,5 +788,45 @@ class Dates(unittest.TestCase):
             cfg(dates={"months": "all"})
 
 
+class Usernames(unittest.TestCase):
+    def assertUser(self, text, user):
+        out = plain(text)
+        self.assertNotIn(user, out, text)
+        self.assertEqual(out, text.replace(user, "[username 1]"), text)
+
+    def test_after_a_label(self):
+        for text, user in (("**User Name:** Layla2025 | next", "Layla2025"),
+                           ("- **User Name**: r.muniz", "r.muniz"),
+                           ("The affected user name was mickeyberman.", "mickeyberman"),
+                           ("The user name associated with this request was lovro_babic.",
+                            "lovro_babic"),
+                           ("Her username on the platform is aixa.echols.", "aixa.echols"),
+                           ("The user Santiago2023 tried to log in.", "Santiago2023"),
+                           ("It was run by user name m.demir.", "m.demir"),
+                           ("On Monday the user w.anderson visited.", "w.anderson"),
+                           ("Send it to my user name, m.singh.", "m.singh")):
+            self.assertUser(text, user)
+
+    def test_shaped_like_a_login(self):
+        for text, user in (("Welcome back, Nimali.Sivagnanam.", "Nimali.Sivagnanam"),
+                           ("Feedback from Samuel1995 was kind.", "Samuel1995"),
+                           ("Please contact k.williams about it.", "k.williams"),
+                           ("Find it on my SomchaiHoang page.", "SomchaiHoang"),
+                           ("Then Brent_ShadowHunter joined.", "Brent_ShadowHunter")):
+            self.assertUser(text, user)
+
+    def test_a_login_as_the_speaker(self):
+        self.assertEqual(plain("Host: Welcome.\npmarler: Sure, thanks.\n"),
+                         "Host: Welcome.\n[username 1]: Sure, thanks.\n")
+
+    def test_ordinary_words_stay(self):
+        for text in ("The user experience was good.", "The login was successful.",
+                     "See Fig.Three below.", "TikTok posts.",
+                     "Open a.out now.",
+                     "note: bring pens", "tldr: fine",
+                     "Ask the user about it."):
+            self.assertEqual(plain(text), text)
+
+
 if __name__ == "__main__":
     unittest.main()

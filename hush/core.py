@@ -505,6 +505,19 @@ def _rx(text, flags=0):
 _SPELLED = r"(?:zero|oh|one|two|three|four|five|six|seven|eight|nine)"
 # From a label to its value: spaces, "is", a colon, hash, equals, dash or table bar,
 # and at most one line break.
+def _handle_context(view, start, end):
+    """A value after a login label with no colon or equals sign needs to look like a login,
+    a digit, a dot, an underscore or an @ in it, or not be an English word: "the login was
+    successful" keeps its word."""
+    if re.search(r"[:=#|][\s*\"']*\Z", view[max(0, start - 8):start]):
+        return True
+    value = view[start:end]
+    if re.search(r"[\d._@]", value):
+        return True
+    from hush.people import english_words
+    return value == value.lower() and value not in english_words() and value not in KEEP
+
+
 _GAP = r"[ \t]*\**[ \t]*(?:is[ \t]+)?[:#=|-]*[ \t]*\**[ \t]*(?:\n[ \t]*)?"
 # A short phrase between a cue and its number on the same line, or the cue ending its
 # line and the number starting the next. A cue never reads into the next line's prose.
@@ -850,7 +863,8 @@ _LABELLED = (
         r"((?=[A-Za-z0-9_./+=~-]*[\d_])[A-Za-z0-9_./+=~-]{12,})"), group=1),
     _Rule("HANDLE", _rx(
         r"(?i:\b(?:handle|username|user[ \t]*name|login|user[ \t]*id|screen[ \t]*name)\b)"
-        + _GAP + r"(@?[A-Za-z0-9_][A-Za-z0-9_.-]{1,30}[A-Za-z0-9_])(?![\w@])"), group=1),
+        + _GAP + r"(@?[A-Za-z0-9_][A-Za-z0-9_.-]{1,30}[A-Za-z0-9_])(?![\w@])"), group=1,
+        context=_handle_context),
     _Rule("SECRET", _rx(
         r"(?<![A-Za-z0-9])(?:sk-[A-Za-z0-9_-]{16,}|glpat-[A-Za-z0-9_-]{16,}|"
         r"ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|AKIA[0-9A-Z]{16}|"
