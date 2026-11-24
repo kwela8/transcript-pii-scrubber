@@ -1,7 +1,7 @@
-# pupil-name-scrubber
+# Transcript PII scrubber
 
-pupil-name-scrubber removes pupils' names and other personal data from school text:
-support tickets, emails, chat, exports and logs. The Python package is called `hush`. It
+Transcript PII scrubber removes pupils' names and other personal data from school text:
+call transcripts, support tickets, emails, chat, exports and logs. The Python package is called `hush`. It
 uses the standard library only, makes no network or model call, and writes nothing to disk
 unless you ask for an output file. Version 0.1.0.
 

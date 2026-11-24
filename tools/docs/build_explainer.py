@@ -109,7 +109,7 @@ PAGE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pupil-name scrubber</title>
+<title>Transcript PII scrubber</title>
 <style>
 :root {
   color-scheme: light;
@@ -198,10 +198,10 @@ footer { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--rule);
 <button class="theme" type="button" id="theme" aria-label="Switch light or dark">Light / dark</button>
 <main>
 
-<h1>Pupil-name scrubber</h1>
+<h1>Transcript PII scrubber</h1>
 <p class="lede">Takes pupils' names and other personal data out of text before it goes to an
 AI model, a Slack channel, a spreadsheet or a log tool.</p>
-<p class="byline">pupil-name-scrubber · Python package <code>hush</code> 0.1.0 · standard
+<p class="byline">Transcript PII scrubber · Python package <code>hush</code> 0.1.0 · standard
 library only, no network, no model call</p>
 
 <h2>In short</h2>

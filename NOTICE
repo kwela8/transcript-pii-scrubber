@@ -1,4 +1,4 @@
-pupil-name-scrubber (the Python package hush, version 0.1.0) includes data derived
+Transcript PII scrubber (the Python package hush, version 0.1.0) includes data derived
 from two sources.
 
 1. Office for National Statistics, "Baby names in England and Wales: 1996 to 2025",
