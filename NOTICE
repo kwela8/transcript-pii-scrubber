@@ -1,0 +1,18 @@
+pupil-name-scrubber (the Python package hush, version 0.1.0) includes data derived
+from two sources.
+
+1. Office for National Statistics, "Baby names in England and Wales: 1996 to 2025",
+   Tables 1 and 2. Contains public sector information licensed
+   under the Open Government Licence v3.0:
+   https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+   Used for hush/lists/first_names.txt, name_words.txt, common_first_names.txt and
+   name_sex.txt (names given to 10 or more babies over the years; the sex split by a
+   four-to-one rule). Source file sha256:
+   bf7b10486ab20d0b32e4bc87385112f4555210f61e34eaac3574a0d8a658c0d4
+
+2. SCOWL (Spell Checker Oriented Word Lists), as packaged in Debian and Ubuntu as
+   wbritish 2020.12.07. Used for hush/lists/words.txt and to split names from name-words.
+   Copyright 2000-2011 by Kevin Atkinson and the other copyright holders named in
+   licences/SCOWL-copyright.txt, which carries the full permission notice.
+
+Rebuild both with tools/build_names.py.

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pupil names in call transcripts: a plan</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #fcfcfb; --surface: #f3f2ef; --ink: #0b0b0b; --ink-2: #52514e; --ink-3: #75746f;
+  --rule: #dcdbd6; --accent: #2a78d6; --s1: #2a78d6; --s2: #eb6834; --mark: #fde9a8;
+  --mark-ink: #0b0b0b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --bg: #1a1a19; --surface: #242423; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #9a998f;
+    --rule: #3a3a37; --accent: #3987e5; --s1: #3987e5; --s2: #d95926; --mark: #4a3f12;
+    --mark-ink: #f0efec;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1a1a19; --surface: #242423; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #9a998f;
+  --rule: #3a3a37; --accent: #3987e5; --s1: #3987e5; --s2: #d95926; --mark: #4a3f12;
+  --mark-ink: #f0efec;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+h1 { font-size: 2.1rem; line-height: 1.15; margin: 0 0 6px; letter-spacing: -0.01em; }
+h2 { font-size: 1.3rem; margin: 44px 0 10px; padding-top: 12px; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.02rem; margin: 22px 0 6px; }
+p, li { color: var(--ink); }
+.lede { font-size: 1.15rem; color: var(--ink-2); margin: 0 0 8px; }
+.byline { color: var(--ink-3); font-size: 0.9rem; margin: 0; }
+.note { color: var(--ink-2); font-size: 0.92rem; }
+.theme { position: fixed; top: 12px; right: 12px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink-2); border-radius: 6px; padding: 4px 10px;
+  font: inherit; font-size: 0.85rem; cursor: pointer; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px;
+  margin: 16px 0; }
+.tile { background: var(--surface); border-radius: 8px; padding: 12px 14px; }
+.tile b { display: block; font-size: 1.7rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.tile span { color: var(--ink-2); font-size: 0.88rem; }
+pre, code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+code { font-size: 0.9em; background: var(--surface); padding: 1px 4px; border-radius: 4px; }
+pre { background: var(--surface); padding: 12px 14px; border-radius: 8px; overflow-x: auto;
+  font-size: 0.8rem; line-height: 1.5; white-space: pre-wrap; margin: 6px 0 0; }
+mark { background: var(--mark); color: var(--mark-ink); border-radius: 3px; padding: 0 1px; }
+.pair { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 900px) { main { max-width: 1000px; } .pair { grid-template-columns: 1fr 1fr; } }
+.label { font-size: 0.8rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; margin: 10px 0; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--ink-2); font-weight: 600; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wrap { overflow-x: auto; }
+.tok { color: var(--accent); }
+a { color: var(--accent); }
+ol.steps { padding-left: 0; list-style: none; counter-reset: s; margin: 12px 0; }
+ol.steps li { counter-increment: s; position: relative; padding: 0 0 14px 44px; }
+ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 28px;
+  height: 28px; border-radius: 50%; background: var(--surface); border: 1px solid var(--rule);
+  display: grid; place-items: center; font-size: 0.85rem; font-weight: 600; color: var(--ink-2); }
+ol.steps li::after { content: ""; position: absolute; left: 14px; top: 30px; bottom: 2px;
+  width: 1px; background: var(--rule); }
+ol.steps li:last-child::after { display: none; }
+ol.steps li.check::before { content: "✓"; color: var(--accent); }
+.chart { width: 100%; max-width: 520px; height: auto; display: block; margin: 8px 0 4px; }
+.chart .grid { stroke: var(--rule); stroke-width: 1; }
+.chart .tick { fill: var(--ink-3); font-size: 11px; }
+.chart .row { fill: var(--ink); font-size: 13px; }
+.chart .val { fill: var(--ink-2); font-size: 12px; font-variant-numeric: tabular-nums; }
+.chart .link { stroke: var(--ink-3); stroke-width: 2; stroke-linecap: round; }
+.chart .s1 { fill: var(--s1); stroke: var(--bg); stroke-width: 2; }
+.chart .s2 { fill: var(--s2); stroke: var(--bg); stroke-width: 2; }
+.chart .hit { fill: transparent; }
+.chart .mark:hover .s1, .chart .mark:hover .s2 { stroke: var(--ink); }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.88rem; color: var(--ink-2); margin: 6px 0 0; }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px;
+  vertical-align: -1px; }
+details { margin: 4px 0 12px; }
+summary { cursor: pointer; color: var(--accent); font-size: 0.92rem; }
+footer { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--ink-3);
+  font-size: 0.86rem; }
+@media print { .theme { display: none; } }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Pupil names in call transcripts</h1>
+<p class="lede">A plan for customer call transcripts between a support coach and school
+staff: take out every person's name that is not a known speaker's, and flag the ones that
+look like pupils.</p>
+<p class="byline">A design, not yet built · goes with <a href="explainer.html">explainer.html</a>
+and AGENTS.md in this repository</p>
+
+<h2>In short</h2>
+<ul>
+<li><b>Code finds the names, the model only judges them.</b> Local rules first, a Gemini call
+second, a person last for anything unsure.</li>
+<li><b>The school's class list matters most.</b> On the held-out test set in this repository,
+pupils on it were caught 97% of the time, against 84% with the first-name list alone in any
+case. The provider already holds each school's roll.</li>
+<li><b>A model alone misses names.</b> On tutoring dialogues, Gemini 3.1 Pro asked on its own
+found 77% and 39% of names on two sets; rules proposing candidates with a model ruling on
+each reached 98% [1].</li>
+<li><b>Use a contracted route.</b> The paid Gemini API or Vertex AI in London, under
+Google's data processing terms. Never the free tier.</li>
+<li><b>Call it risk reduction, not anonymisation.</b> A scrubbed transcript with its school
+and date can still point to "the Year 9 boy who broke his arm" [19].</li>
+</ul>
+
+<h2>The pipeline</h2>
+<ol class="steps">
+<li><b>Protect list</b> from the call's metadata: the known speakers (the coach and the
+member of school staff) with their first names, surnames, "Mrs X" forms, initials and likely
+transcription spellings. These stay.</li>
+<li><b>Local candidates</b>: the customer school's class list (exact, and fuzzy up to two
+letters out), the ONS first-name list in any case, the context rules from hush, and
+optionally one Apache-2.0 GLiNER model with a single "person" label at a low threshold
+[9][10].</li>
+<li><b>Redact the sure ones locally</b>: exact class-list matches and identifiers (UPN, ULN,
+emails, phones). Each person gets one stable placeholder, <code>[PUPIL_1]</code>.</li>
+<li><b>Gemini judges the rest.</b> It gets the partly scrubbed text with speaker labels, the
+protect list and the numbered candidates, in overlapping windows of about 40 turns. It
+returns JSON only: per candidate a role (pupil, staff, parent, other) and a decision
+(redact, keep, unsure), with the quote and its offsets, plus any names it thinks were
+missed [21].</li>
+<li><b>Code checks the model.</b> A quote that does not match its offsets is rejected.
+Nothing outside the redactions may change. A "keep" can never overrule a class-list
+match.</li>
+<li><b>Flag queue.</b> Every name that is not a known speaker's is removed. Unsure
+items, disagreements, fuzzy matches and names that are also words ("Grace", "Will") go to a
+person before the transcript is stored or shared.</li>
+<li class="check"><b>Second check</b> on the output for identifier shapes, as in hush.</li>
+</ol>
+
+<h3>The flag rule</h3>
+<p>A name is flagged <b>likely pupil</b> when it is not on the protect list and any of these
+hold: it is on the class list; the model says pupil; or it sits near pupil words ("my son",
+"in Year 9", "her class", "his homework", "the kids"). Other names (another teacher, a
+parent, a colleague at the provider) are removed too, labelled by role, but not flagged as
+pupils.</p>
+
+<h2>What the research says</h2>
+<div class="wrap"><table>
+<tr><th>Finding</th><th>Source</th></tr>
+<tr><td>Rules and small models proposing candidates, a local model (Gemma 31B) ruling
+redact or keep on each: recall 0.98, F1 0.95 to 0.97 on tutoring dialogues. Zero-shot
+Gemini 3.1 Pro: recall 0.77 and 0.39, worse on long dialogues.</td><td>[1] 2026</td></tr>
+<tr><td>Frontier models caught every mention of a name repeated 6 to 10 times in only 5 to
+46% of cases.</td><td>[5] 2026</td></tr>
+<tr><td>Names that are also ordinary words lose 20 to 40% recall in LLMs.</td><td>[6] FAccT 2026</td></tr>
+<tr><td>GPT-4 on 3,505 student forum posts: recall 0.96, precision 0.53, and it fixed
+grammar it was told to leave.</td><td>[3] EDM 2024</td></tr>
+<tr><td>Presidio as a name finder over-flags: recall 0.83, precision 0.24 on student
+essays.</td><td>[2] JEDM 2025</td></tr>
+<tr><td>Maths tutoring: Presidio F1 0.38; maths-aware LLM prompting 0.80 to 0.82. Numbers
+get over-redacted.</td><td>[7] 2026</td></tr>
+<tr><td>Few-shot examples help (GPT-3.5 F1 0.53 to 0.83); a per-candidate verifier raises
+precision, not recall.</td><td>[4], [2]</td></tr>
+<tr><td>Contact-centre tools (AWS, Azure, Google) redact every name or a listed set. None
+tells pupils from teachers; the pattern is a per-call allow-list plus a detector.</td><td>[17] [18]</td></tr>
+</table></div>
+<p class="note">No published benchmark matches this setting (UK school calls, transcribed
+speech). Treat these as direction, and measure on the provider's own transcripts.</p>
+
+<h2>Gemini: terms and cost</h2>
+<div class="wrap"><table>
+<tr><th>Route</th><th>What Google's pages say (read 24 November 2026)</th></tr>
+<tr><td>Gemini API, paid</td><td>Prompts not used to improve products; covered by Google's
+processor terms; logged for a limited period for abuse checks, in any country, so no UK
+residency. UK use must be on the paid tier [11][12].</td></tr>
+<tr><td>Gemini API, free or Contributor tier</td><td>Do not use: the free tier is not for UK
+use and the Contributor tier trains on your data [11].</td></tr>
+<tr><td>Vertex AI, London</td><td>No training without permission, under the Cloud data
+processing addendum [22]. Zero retention needs caching and logging turned off and no Search
+grounding [13]. London offers <code>gemini-3.5-flash</code> and
+<code>gemini-2.5-flash</code>; newer Flash models are EU-region only [14].</td></tr>
+</table></div>
+<p>Cost: <code>gemini-3.5-flash</code> on Vertex is $1.65 per million input tokens [15]. A
+30-minute call is about 4,500 words, roughly 6,000 tokens; with instructions, examples and
+overlapping windows, call it 15,000. That is about 2.5 US cents a call, before output, which
+is small.</p>
+<p class="note">Google Cloud Sensitive Data Protection's <code>PERSON_NAME</code> detector
+runs in London and can exclude a list of names per call, but has no independent accuracy
+figures and cannot tell a pupil from a teacher [16]. A third opinion at most.</p>
+
+<h2>Measure before trusting it</h2>
+<ol>
+<li>Two people annotate 150 to 300 real transcripts inside the provider's approved environment:
+every pupil-name mention, its type (full name, first name, nickname, initial, transcription
+slip, word-name, off the class list).</li>
+<li>Report recall per mention and by type, the share of transcripts leaking any pupil name,
+over-redaction, and cost per call.</li>
+<li>If 300 annotated mentions show no misses, the miss rate is under 1% with 95%
+confidence (the rule of three: 3/n). One miss in 300 does not give that bound.</li>
+<li>Keep a third of the set unseen while tuning, and report that third.</li>
+</ol>
+
+<h2>Risks and limits</h2>
+<ul>
+<li>Transcription slips spell names in ways no list holds; fuzzy matching and the model
+help, a person catches the rest.</li>
+<li>Nicknames and initials stay the weakest case: about six in ten on the test sets in this
+repository.</li>
+<li>Context identifies without names. Limit who can read scrubbed transcripts, keep
+retention short, and keep the school and date apart from the text where you can.</li>
+<li>Whether the class list may be used for this depends on the school contracts; check with
+the data protection lead.</li>
+<li>Gemini prices on the API page change on 1 January 2027 [12].</li>
+</ul>
+
+<h2>Sources</h2>
+<ol class="note">
+<li>Zhang H. et al. (2026) Redact or Keep? A fully local AI cascade for educational dialogue de-identification. arXiv:2606.18372</li>
+<li>Ji Z., Shen Y., Lin J., Koedinger K. (2025) Enhancing the de-identification of PII in educational data. JEDM 17(2). arXiv:2501.09765</li>
+<li>Singhal S. et al. (2024) De-identifying student PII with GPT-4. EDM 2024 short papers</li>
+<li>Kuo R. et al. (2025) Benchmarking transformer-based models for medical record de-identification. iScience 28(12)</li>
+<li>Zhang K. et al. (2026) PII-TRACE. arXiv:2609.22200</li>
+<li>Pham D. et al. (2026) Can large language models really recognize your name? FAccT 2026. arXiv:2505.14549</li>
+<li>Zhou Z. et al. (2026) MathEd-PII. arXiv:2602.16571</li>
+<li>Kaplan M. (2020) May I ask who's calling? W-NUT 2020</li>
+<li>Presidio repository, MIT licence: github.com/data-privacy-stack/presidio</li>
+<li>GLiNER PII model cards on Hugging Face (urchade, knowledgator, fastino: Apache-2.0; nvidia: own licence; gliner_base and Piiranha: non-commercial)</li>
+<li>Gemini API Additional Terms, effective 23 March 2026: ai.google.dev/gemini-api/terms</li>
+<li>Gemini API pricing and logs policy: ai.google.dev/gemini-api/docs/pricing</li>
+<li>Vertex AI zero data retention (updated 20 November 2026)</li>
+<li>Vertex AI data residency (updated 20 November 2026)</li>
+<li>Vertex AI generative AI pricing</li>
+<li>Sensitive Data Protection: infoType reference, inspection rules, pricing, locations</li>
+<li>Google CX Insights, importing conversations</li>
+<li>AWS Transcribe PII redaction; Azure Language PII redaction</li>
+<li>ICO anonymisation guidance, effective anonymisation and pseudonymisation (28 March 2025, under review)</li>
+<li>ICO, the Children's code and education technologies (30 May 2023)</li>
+<li>Gemini structured output: ai.google.dev/gemini-api/docs/structured-output</li>
+<li>Google Cloud Data Processing Addendum (30 October 2026)</li>
+</ol>
+
+<footer><p>All names in examples are made up. Research run 24 November 2026; every figure was re-read in its primary source.</p></footer>
+</main>
+</body>
+</html>

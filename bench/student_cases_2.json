@@ -1,0 +1,4738 @@
+{
+ "version": "student-cases-2",
+ "cases": [
+  {
+   "id": "h001",
+   "shape": "teacher_email",
+   "text": "Hi Mrs Okonkwo,\n\nQuick one about 9C3 homework. Wojciech Brzezinski has done the Method Check on quadratics three weeks running and still gets under 50%, so I think he is guessing. Blessing Adeyemi-Cole is the opposite, full marks every time, could she have a stretch task? Wojciech's seat is by the window if you want to move him next to Blessing.\n\nThanks,\nMr Patel",
+   "roster": [
+    {
+     "first": "Wojciech",
+     "last": "Brzezinski",
+     "preferred": null
+    },
+    {
+     "first": "Blessing",
+     "last": "Adeyemi-Cole",
+     "preferred": null
+    },
+    {
+     "first": "Tamsin",
+     "last": "Rowe",
+     "preferred": null
+    },
+    {
+     "first": "Ilir",
+     "last": "Hoxha",
+     "preferred": null
+    },
+    {
+     "first": "Zainab",
+     "last": "Qureshi",
+     "preferred": null
+    },
+    {
+     "first": "Declan",
+     "last": "Mulrooney",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Okonkwo",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Patel",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Wojciech Brzezinski",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Wojciech",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Blessing Adeyemi-Cole",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Blessing",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h002",
+   "shape": "teacher_email",
+   "text": "Subject: 8Y2 Independent Learning - three to flag\n\nDear Ms Fairweather,\n\nFrom this week's Independent Learning report: Hope Ndlovu has not opened a single task since half term, though hope is clearly not lost for 8Y2 as a whole because Ruairi O'Sullivan and Mei-Ling Tan both went up two Bonus Task levels. Could you have a word with Hope? Her mum emailed in October saying the Wi-Fi was the issue.\n\nKind regards\nDarius Hallett\nHead of Maths, Ashgrove Park School",
+   "roster": [
+    {
+     "first": "Hope",
+     "last": "Ndlovu",
+     "preferred": null
+    },
+    {
+     "first": "Kasim",
+     "last": "Yilmaz",
+     "preferred": null
+    },
+    {
+     "first": "Orla",
+     "last": "Brennan",
+     "preferred": null
+    },
+    {
+     "first": "Tomasz",
+     "last": "Wrona",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Fairweather",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Hope Ndlovu",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Hope",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ruairi O'Sullivan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mei-Ling Tan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Darius Hallett",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Ashgrove Park School",
+     "kind": "SCHOOL"
+    }
+   ]
+  },
+  {
+   "id": "h003",
+   "shape": "teacher_email",
+   "text": "Hi Gareth,\n\n10B/Ma2 set list has changed after the mock. Moving up: Kowalczyk, Adebayo-Smith and S. Rahimi. Moving down: T Vuong and Lucas Pereira da Silva. Can you tell Pereira da Silva first, he takes things badly.\n\nCheers,\nNia",
+   "roster": [
+    {
+     "first": "Folasade",
+     "last": "Adebayo-Smith",
+     "preferred": null
+    },
+    {
+     "first": "Shirin",
+     "last": "Rahimi",
+     "preferred": null
+    },
+    {
+     "first": "Lucas",
+     "last": "Pereira da Silva",
+     "preferred": null
+    },
+    {
+     "first": "Evie",
+     "last": "Marlow",
+     "preferred": null
+    },
+    {
+     "first": "Kamran",
+     "last": "Tahir",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Gareth",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Nia",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Kowalczyk",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Adebayo-Smith",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "S. Rahimi",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "T Vuong",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Lucas Pereira da Silva",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Pereira da Silva",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h004",
+   "shape": "teacher_email",
+   "text": "hi mr dhillon, can u check on rhiannon and jude for me, rhiannon missed the whole quadratic unit (glandular fever) and jude's laptop died. both are in 11x. also ask about nuala from 11y, she wants to join the catch up. ta, miss c",
+   "roster": [
+    {
+     "first": "Rhiannon",
+     "last": "Pugh",
+     "preferred": null
+    },
+    {
+     "first": "Judah",
+     "last": "Fenwick",
+     "preferred": null
+    },
+    {
+     "first": "Caoimhe",
+     "last": "Doyle",
+     "preferred": null
+    },
+    {
+     "first": "Sunny",
+     "last": "Gill",
+     "preferred": null
+    },
+    {
+     "first": "Elif",
+     "last": "Aksoy",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "dhillon",
+     "kind": "ADULT"
+    },
+    {
+     "value": "rhiannon",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "jude",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "nuala",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h005",
+   "shape": "teacher_email",
+   "text": "Dear Mr Abernethy,\n\nSummer has been brilliant this half term, and the Summer Term targets look safe for her. River struggled with the Summer Fair clash but caught up. Will catching up on the Times Tables tasks be possible for the others? Will Gutierrez says he will do his on Friday. The grace period for late work ends Monday.\n\nBest,\nCelia Marsh",
+   "roster": [
+    {
+     "first": "Summer",
+     "last": "Lindqvist",
+     "preferred": null
+    },
+    {
+     "first": "William",
+     "last": "Gutierrez",
+     "preferred": null
+    },
+    {
+     "first": "Grace",
+     "last": "Mbeki",
+     "preferred": null
+    },
+    {
+     "first": "Ruby",
+     "last": "Chaudhry",
+     "preferred": null
+    },
+    {
+     "first": "Sky",
+     "last": "Tran",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Abernethy",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Summer",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "River",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Will Gutierrez",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Celia Marsh",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h006",
+   "shape": "teacher_email",
+   "text": "Hello Joaquim,\n\nCan you add Oluwaseun Balogun (UPN D204816359027) to your 7G1 list? New joiner, started Monday, transferred from Hollin Vale Academy. His mum is Folake, 07700 900412. Oluwaseun can't log in yet; I have created oluwaseun.b@mail.example for now.\n\nThanks,\nRachida",
+   "roster": [
+    {
+     "first": "Tegan",
+     "last": "Moss",
+     "preferred": null
+    },
+    {
+     "first": "Bartosz",
+     "last": "Nowicki",
+     "preferred": null
+    },
+    {
+     "first": "Amira",
+     "last": "Haddad",
+     "preferred": null
+    },
+    {
+     "first": "Keanu",
+     "last": "Lyle",
+     "preferred": null
+    },
+    {
+     "first": "Sapphire",
+     "last": "Dube",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Joaquim",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Oluwaseun Balogun",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Oluwaseun",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "D204816359027",
+     "kind": "UPN"
+    },
+    {
+     "value": "Hollin Vale Academy",
+     "kind": "SCHOOL"
+    },
+    {
+     "value": "Folake",
+     "kind": "ADULT"
+    },
+    {
+     "value": "07700 900412",
+     "kind": "PHONE"
+    },
+    {
+     "value": "oluwaseun.b@mail.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Rachida",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h007",
+   "shape": "parent_email",
+   "text": "Dear Ms Whitcombe,\n\nI am writing about my son Kuba. He tells me you moved him down a set after the October test and nobody told us. Kuba Zielinski-Hart is in 9D and has always been in the top set for maths. Please can we speak. My number is 07700 900233.\n\nRegards,\nMagda Zielinski",
+   "roster": [
+    {
+     "first": "Jakub",
+     "last": "Zielinski-Hart",
+     "preferred": null
+    },
+    {
+     "first": "Niamh",
+     "last": "Colgan",
+     "preferred": null
+    },
+    {
+     "first": "Dev",
+     "last": "Mistry",
+     "preferred": null
+    },
+    {
+     "first": "Leila",
+     "last": "Sharif",
+     "preferred": null
+    },
+    {
+     "first": "Osman",
+     "last": "Warsame",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Whitcombe",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Kuba",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Kuba Zielinski-Hart",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "07700 900233",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Magda Zielinski",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h008",
+   "shape": "parent_email",
+   "text": "hi, its Precious Eze's dad. Precious says her homework wont load on the maths site and she gets in trouble. its not her fault, she is a good girl with precious little patience left. can someone ring me on 01632 960331 after 5. thanks, Chidi",
+   "roster": [
+    {
+     "first": "Precious",
+     "last": "Eze",
+     "preferred": null
+    },
+    {
+     "first": "Kelechi",
+     "last": "Obi",
+     "preferred": null
+    },
+    {
+     "first": "Hamza",
+     "last": "Latif",
+     "preferred": null
+    },
+    {
+     "first": "Ffion",
+     "last": "Bevan",
+     "preferred": null
+    },
+    {
+     "first": "Ivo",
+     "last": "Petrov",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Precious Eze",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Precious",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "01632 960331",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Chidi",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h009",
+   "shape": "parent_email",
+   "text": "Dear Mr Lindgren,\n\nMy twins Rowan and Ash have both come home upset this week. Rowan Teague says some boys keep taking his calculator, and Ash says he is being left out of group work in your lessons. They are in 8F. We are at 14 Cobblers Row, Denholme, BD7 9QX if you need to post anything.\n\nMany thanks\nBryony Teague",
+   "roster": [
+    {
+     "first": "Asher",
+     "last": "Teague",
+     "preferred": null
+    },
+    {
+     "first": "Daniyal",
+     "last": "Mirza",
+     "preferred": null
+    },
+    {
+     "first": "Keira",
+     "last": "Stott",
+     "preferred": null
+    },
+    {
+     "first": "Lubomir",
+     "last": "Hruska",
+     "preferred": null
+    },
+    {
+     "first": "Femi",
+     "last": "Ajayi",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Lindgren",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Rowan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Rowan Teague",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Ash",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "14 Cobblers Row, Denholme",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "BD7 9QX",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Bryony Teague",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h010",
+   "shape": "parent_email",
+   "text": "Dear Sir,\n\nmy daughter Rawan Al-Khatib (Y10) was marked absent on Tuesday but she was at hospital for her appointment, letter attached. also can you tell me why Rawan has a detention for no maths book, she handed it in to Mr Sandhu. Her cousin Yusuf in 7B also needs a new login.\n\nRegards\nTariq Al-Khatib",
+   "roster": [
+    {
+     "first": "Bethan",
+     "last": "Cadwallader",
+     "preferred": null
+    },
+    {
+     "first": "Marek",
+     "last": "Sikora",
+     "preferred": null
+    },
+    {
+     "first": "Abena",
+     "last": "Frimpong",
+     "preferred": null
+    },
+    {
+     "first": "Luca",
+     "last": "Ferrari",
+     "preferred": null
+    },
+    {
+     "first": "Hira",
+     "last": "Zafar",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Rawan Al-Khatib",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Rawan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Sandhu",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Yusuf",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Tariq Al-Khatib",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h011",
+   "shape": "parent_email",
+   "text": "Hello, this is Linh Nguyen's mother. Linh's homework deadline was Friday but our internet was out. Can you reopen it? Her username is linh.nguyen7 and her teacher is Miss Eze. Also my other child Bao is in Year 6 at Marlpit Primary and will join you in September. Thank you, Thu Nguyen",
+   "roster": [
+    {
+     "first": "Wei",
+     "last": "Zhao",
+     "preferred": null
+    },
+    {
+     "first": "Imogen",
+     "last": "Pask",
+     "preferred": null
+    },
+    {
+     "first": "Cian",
+     "last": "Gaffney",
+     "preferred": null
+    },
+    {
+     "first": "Samira",
+     "last": "Osman",
+     "preferred": null
+    },
+    {
+     "first": "Dmitri",
+     "last": "Volkov",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Linh Nguyen",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Linh",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "linh.nguyen7",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Eze",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Bao",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Marlpit Primary",
+     "kind": "SCHOOL"
+    },
+    {
+     "value": "Thu Nguyen",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h012",
+   "shape": "parent_email",
+   "text": "Dear Mrs Haigh,\n\nOur Mary-Kate will be away for the fair at Appleby and back Monday 7th. Can she and her brother Patrick Joseph Docherty (Joey to everyone) get the maths homework sent? Joey is in 9R, Mary-Kate is in Year 11.\n\nThank you,\nBridget Docherty",
+   "roster": [
+    {
+     "first": "Patrick Joseph",
+     "last": "Docherty",
+     "preferred": null
+    },
+    {
+     "first": "Seren",
+     "last": "Maddocks",
+     "preferred": null
+    },
+    {
+     "first": "Anwar",
+     "last": "Bashir",
+     "preferred": null
+    },
+    {
+     "first": "Yuliia",
+     "last": "Kovalenko",
+     "preferred": null
+    },
+    {
+     "first": "Tobias",
+     "last": "Fenn",
+     "preferred": null
+    },
+    {
+     "first": "Niamh",
+     "last": "Quirke",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Haigh",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Mary-Kate",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Patrick Joseph Docherty",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Joey",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Bridget Docherty",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h013",
+   "shape": "support_note",
+   "text": "Ticket 48213. Teacher at Cragmoor High (Mr Ellison) says student Tavita Faleolo cannot see Independent Learning tasks; login tavita.f2 shows 'no classes'. Checked: Tavita was removed from 10M2 in the rollover, re-added. Told Mr Ellison to ask Tavita to log out and in. Closed.",
+   "roster": [
+    {
+     "first": "Alisha",
+     "last": "Brar",
+     "preferred": null
+    },
+    {
+     "first": "Gethin",
+     "last": "Rees",
+     "preferred": null
+    },
+    {
+     "first": "Magnus",
+     "last": "Aaltonen",
+     "preferred": null
+    },
+    {
+     "first": "Zuzanna",
+     "last": "Wisniewska",
+     "preferred": null
+    },
+    {
+     "first": "Ottilie",
+     "last": "Prince",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Cragmoor High",
+     "kind": "SCHOOL"
+    },
+    {
+     "value": "Ellison",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Tavita Faleolo",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Tavita",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "tavita.f2",
+     "kind": "USERNAME"
+    }
+   ]
+  },
+  {
+   "id": "h014",
+   "shape": "support_note",
+   "text": "Chased Ms Prendergast about the missing pupils on the Year 7 import. Missing: Anwen Pritchard-Jones, Ibrahim Warsame, Oksana Bondar, Hunter Dale. The MIS export had them under 'pending'. Hunter was the odd one, entered as Dale Hunter (swapped). Fixed, reimport 15:40.",
+   "roster": [
+    {
+     "first": "Ibrahim",
+     "last": "Warsame",
+     "preferred": null
+    },
+    {
+     "first": "Hunter",
+     "last": "Dale",
+     "preferred": null
+    },
+    {
+     "first": "Beatrix",
+     "last": "Cole",
+     "preferred": null
+    },
+    {
+     "first": "Ashok",
+     "last": "Menon",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Prendergast",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Anwen Pritchard-Jones",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Ibrahim Warsame",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Oksana Bondar",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Hunter Dale",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Hunter",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dale Hunter",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h015",
+   "shape": "support_note",
+   "text": "Parent rang (Mr Kamara). Wants son's data removed from the platform. Pupil: Mohamed Kamara, DOB 03/05/2011, ULN 4028175396, 8T. I explained we need a written request via the school's DPO. Offered to send the form to dpo@brackenhill.example. Mr Kamara said he would ring back on 020 7946 0182.",
+   "roster": [
+    {
+     "first": "Eilidh",
+     "last": "Sorensen",
+     "preferred": null
+    },
+    {
+     "first": "Rafal",
+     "last": "Dudek",
+     "preferred": null
+    },
+    {
+     "first": "Nadia",
+     "last": "Benali",
+     "preferred": null
+    },
+    {
+     "first": "Jacob",
+     "last": "Pym",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Kamara",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Mohamed Kamara",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "03/05/2011",
+     "kind": "DOB"
+    },
+    {
+     "value": "4028175396",
+     "kind": "ULN"
+    },
+    {
+     "value": "dpo@brackenhill.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "020 7946 0182",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "h016",
+   "shape": "support_note",
+   "text": "Chat summary: teacher (Miss Oyelaran) asked why Bonus Task points for Kiran had vanished. Turned out two pupils are both 'Kiran S.' - Kiran Sethi and Kiran Saleem - and she had merged them. Split the accounts, restored points.",
+   "roster": [
+    {
+     "first": "Kiran",
+     "last": "Sethi",
+     "preferred": null
+    },
+    {
+     "first": "Kiran",
+     "last": "Saleem",
+     "preferred": null
+    },
+    {
+     "first": "Lorcan",
+     "last": "Hanrahan",
+     "preferred": null
+    },
+    {
+     "first": "Maja",
+     "last": "Lis",
+     "preferred": null
+    },
+    {
+     "first": "Tendai",
+     "last": "Moyo",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Oyelaran",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Kiran",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kiran S.",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Kiran Sethi",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kiran Saleem",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h017",
+   "shape": "support_note",
+   "text": "Call 12:10. Mum (Fatuma Hassan) says daughter Ilhan cannot log in on the school Chromebook, it says account locked after 5 tries. Reset done. Ilhan's username is ilhan.h14. Mum also asked about the rewards store. Told her those are school-set. Friendly, no follow up needed.",
+   "roster": [
+    {
+     "first": "Ewan",
+     "last": "McAllister",
+     "preferred": null
+    },
+    {
+     "first": "Pavel",
+     "last": "Kral",
+     "preferred": null
+    },
+    {
+     "first": "Sofia",
+     "last": "Nunes",
+     "preferred": null
+    },
+    {
+     "first": "Adaeze",
+     "last": "Nwosu",
+     "preferred": null
+    },
+    {
+     "first": "Leon",
+     "last": "Brandt",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Fatuma Hassan",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Ilhan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "ilhan.h14",
+     "kind": "USERNAME"
+    }
+   ]
+  },
+  {
+   "id": "h018",
+   "shape": "support_note",
+   "text": "School: Fenmoor Academy. Contact: Mr Boateng (Maths). Issue: leaderboard shows 'Faith' and 'Faith Mensah' as separate pupils in 8B. They are one pupil, Faith Mensah; the other is a duplicate with no surname. Merged. Also Mark Asante-Dwomoh's account shows no XP: checked, he has just been absent since 3 Nov.",
+   "roster": [
+    {
+     "first": "Faith",
+     "last": "Mensah",
+     "preferred": null
+    },
+    {
+     "first": "Imani",
+     "last": "Joseph",
+     "preferred": null
+    },
+    {
+     "first": "Shay",
+     "last": "Ellery",
+     "preferred": null
+    },
+    {
+     "first": "Pia",
+     "last": "Lund",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Fenmoor Academy",
+     "kind": "SCHOOL"
+    },
+    {
+     "value": "Boateng",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Faith",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Faith Mensah",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mark Asante-Dwomoh",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h019",
+   "shape": "support_note",
+   "text": "Parent called, did not give her name. Says her daughter 'Ceri' was shown another child's report with her name on it. Escalated to data protection lead. DO NOT discuss further. Pupil appears to be Ceri Llewellyn in 7E; other child not identified.",
+   "roster": [
+    {
+     "first": "Ceridwen",
+     "last": "Llewellyn",
+     "preferred": null
+    },
+    {
+     "first": "Tomos",
+     "last": "Griffiths",
+     "preferred": null
+    },
+    {
+     "first": "Anaya",
+     "last": "Kapoor",
+     "preferred": null
+    },
+    {
+     "first": "Leopold",
+     "last": "Weiss",
+     "preferred": null
+    },
+    {
+     "first": "Maisie",
+     "last": "Trott",
+     "preferred": null
+    },
+    {
+     "first": "Hakan",
+     "last": "Demir",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ceri",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Ceri Llewellyn",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    }
+   ]
+  },
+  {
+   "id": "h020",
+   "shape": "chat",
+   "text": "[10:02] Priya (teacher): hi, can you reset Everton's login?\n[10:03] Support: which pupil?\n[10:03] Priya (teacher): Everton Clarke-Reid 9G, username eclarkereid\n[10:04] Support: done, temp password sent to your school email.\n[10:05] Priya (teacher): thanks. also Precious is back so can you re add her to the class",
+   "roster": [
+    {
+     "first": "Precious",
+     "last": "Lamptey",
+     "preferred": null
+    },
+    {
+     "first": "Ravi",
+     "last": "Nair",
+     "preferred": null
+    },
+    {
+     "first": "Tilly",
+     "last": "Frost",
+     "preferred": null
+    },
+    {
+     "first": "Jarek",
+     "last": "Bielecki",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Priya",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Everton",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Everton Clarke-Reid",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "eclarkereid",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Precious",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h021",
+   "shape": "chat",
+   "text": "Jamila: miss when is the deadline\nMiss Adeyinka: Friday 4pm, Jamila\nTobi: Miss is Hope doing the extra task too\nMiss Adeyinka: Hope Lewandowski? She's doing the Independent Learning one, yes. Tobi you've not done yours\nTobi: i will tonight\nOmar R: can I have a hint on q4\nMiss Adeyinka: Omar, read the method again",
+   "roster": [
+    {
+     "first": "Jamila",
+     "last": "Rashid",
+     "preferred": null
+    },
+    {
+     "first": "Oluwatobi",
+     "last": "Bankole",
+     "preferred": null
+    },
+    {
+     "first": "Hope",
+     "last": "Lewandowski",
+     "preferred": null
+    },
+    {
+     "first": "Lena",
+     "last": "Fischer",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Jamila",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Adeyinka",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Tobi",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Hope",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Hope Lewandowski",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Omar R",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Omar",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h022",
+   "shape": "chat",
+   "text": "Sam B: anyone know where Teodora went? she wasnt in P3\nLoz: Teodora Ionescu? shes at the orthodontist, signed out at 1\nSam B: ta. and Cosmin?\nLoz: no idea. Cosmin Ionescu is her brother yr 8, different register",
+   "roster": [
+    {
+     "first": "Teodora",
+     "last": "Ionescu",
+     "preferred": null
+    },
+    {
+     "first": "Kwabena",
+     "last": "Ofori",
+     "preferred": null
+    },
+    {
+     "first": "Seren",
+     "last": "Hughes",
+     "preferred": null
+    },
+    {
+     "first": "Dhruv",
+     "last": "Bhatt",
+     "preferred": null
+    },
+    {
+     "first": "Helga",
+     "last": "Berg",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Sam B",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Loz",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Teodora",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Teodora Ionescu",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Cosmin",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Cosmin Ionescu",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h023",
+   "shape": "chat",
+   "text": "user: hi my sons homework is missing\nbot: Can you tell me your child's name?\nuser: Rhys\nbot: Thanks. Surname?\nuser: Pennington-Wells\nbot: Thanks, Rhys. And their school?\nuser: Wetherby Road Secondary. Rhys is in year 9",
+   "roster": [
+    {
+     "first": "Aoife",
+     "last": "Nolan",
+     "preferred": null
+    },
+    {
+     "first": "Zeynep",
+     "last": "Kaya",
+     "preferred": null
+    },
+    {
+     "first": "Hugo",
+     "last": "Bennett",
+     "preferred": null
+    },
+    {
+     "first": "Amara",
+     "last": "Okoro",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Rhys",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Pennington-Wells",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Wetherby Road Secondary",
+     "kind": "SCHOOL"
+    }
+   ]
+  },
+  {
+   "id": "h024",
+   "shape": "chat",
+   "text": "ms kaur: has anyone got liv's intervention form\nmr banham: liv who\nms kaur: liv sorensen 10c\nmr banham: nope. try hodges, he did the intervention list\nms kaur: found it under sorensen_liv.docx lol",
+   "roster": [
+    {
+     "first": "Olivia",
+     "last": "Sorensen",
+     "preferred": null
+    },
+    {
+     "first": "Ahmad",
+     "last": "Farooqui",
+     "preferred": null
+    },
+    {
+     "first": "Delphine",
+     "last": "Mbala",
+     "preferred": null
+    },
+    {
+     "first": "Rory",
+     "last": "Kinnear",
+     "preferred": null
+    },
+    {
+     "first": "Tahlia",
+     "last": "Burke",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "kaur",
+     "kind": "ADULT"
+    },
+    {
+     "value": "banham",
+     "kind": "ADULT"
+    },
+    {
+     "value": "liv",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "liv sorensen",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "hodges",
+     "kind": "ADULT"
+    },
+    {
+     "value": "sorensen",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h025",
+   "shape": "chat",
+   "text": "Agent (Joss): Hi Mrs Pellegrino, thanks for your patience. Looking at the account now, I can see Alessandra has 2 overdue tasks and Matteo has 0.\nParent: oh Matteo is the younger one, he is in 7 at the sister school. Alessandra is the one in 10.\nAgent (Joss): Understood, Matteo's account is under St Brannock's so I can't see his class",
+   "roster": [
+    {
+     "first": "Calum",
+     "last": "Reid",
+     "preferred": null
+    },
+    {
+     "first": "Najma",
+     "last": "Abdi",
+     "preferred": null
+    },
+    {
+     "first": "Bohdan",
+     "last": "Melnyk",
+     "preferred": null
+    },
+    {
+     "first": "Eden",
+     "last": "Tesfaye",
+     "preferred": null
+    },
+    {
+     "first": "Gwen",
+     "last": "Pryce",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Joss",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Pellegrino",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Alessandra",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Matteo",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "St Brannock's",
+     "kind": "SCHOOL"
+    }
+   ]
+  },
+  {
+   "id": "h026",
+   "shape": "chat",
+   "text": "TJ: lol did u see Sky's answer\nsky: dont\nRiv: sky got 100% cos her dad did it\nSky: i did NOT. mr oduya check\nTJ: ok ok ok",
+   "roster": [
+    {
+     "first": "Tyrese",
+     "last": "Jones",
+     "preferred": null
+    },
+    {
+     "first": "Skye",
+     "last": "Pemberton",
+     "preferred": null
+    },
+    {
+     "first": "River",
+     "last": "Achterberg",
+     "preferred": null
+    },
+    {
+     "first": "Kofi",
+     "last": "Danso",
+     "preferred": null
+    },
+    {
+     "first": "Maren",
+     "last": "Voss",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "TJ",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Sky",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "sky",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Riv",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "oduya",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h027",
+   "shape": "chat",
+   "text": "Agent: Hello! How can I help?\nMum: Hi its Kamile's mum, Kamile Petrauskaite in 8H. She says shes got no Times Tables tasks, is that right? Her friend Rokas says he does\nAgent: Let me check. I can see Kamile is in the class but the task was set for Tuesday groups only",
+   "roster": [
+    {
+     "first": "Kamile",
+     "last": "Petrauskaite",
+     "preferred": null
+    },
+    {
+     "first": "Gideon",
+     "last": "Marsh",
+     "preferred": null
+    },
+    {
+     "first": "Layla",
+     "last": "Ahmadi",
+     "preferred": null
+    },
+    {
+     "first": "Cormac",
+     "last": "Neary",
+     "preferred": null
+    },
+    {
+     "first": "Vesna",
+     "last": "Horvat",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Kamile",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kamile Petrauskaite",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rokas",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h028",
+   "shape": "csv",
+   "text": "UPN,Surname,Forename,DOB,Class\nA401827365194,Havlicek,Zdenek,2012-03-14,8M\nB725049183620,Okeke,Chiamaka,2012-07-02,8M\nC938161507243,Ng,Pui Shan,2012-01-29,8M",
+   "roster": [
+    {
+     "first": "Zdenek",
+     "last": "Havlicek",
+     "preferred": null
+    },
+    {
+     "first": "Pui Shan",
+     "last": "Ng",
+     "preferred": null
+    },
+    {
+     "first": "Declan",
+     "last": "Moran",
+     "preferred": null
+    },
+    {
+     "first": "Tia",
+     "last": "Fothergill",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "A401827365194",
+     "kind": "UPN"
+    },
+    {
+     "value": "B725049183620",
+     "kind": "UPN"
+    },
+    {
+     "value": "C938161507243",
+     "kind": "UPN"
+    },
+    {
+     "value": "Havlicek",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Zdenek",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Okeke",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Chiamaka",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Ng",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Pui Shan",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "2012-03-14",
+     "kind": "DOB"
+    },
+    {
+     "value": "2012-07-02",
+     "kind": "DOB"
+    },
+    {
+     "value": "2012-01-29",
+     "kind": "DOB"
+    }
+   ]
+  },
+  {
+   "id": "h029",
+   "shape": "csv",
+   "text": "Imran Qadir,imranq,9P,SEN K\nFreya Holloway-Dunn,freyahd,9P,\nStanislav Petrov,spetrov12,9P,EAL\nMaisie-Rae Tonks,mrtonks,9P,",
+   "roster": [
+    {
+     "first": "Imran",
+     "last": "Qadir",
+     "preferred": null
+    },
+    {
+     "first": "Freya",
+     "last": "Holloway-Dunn",
+     "preferred": null
+    },
+    {
+     "first": "Stanislav",
+     "last": "Petrov",
+     "preferred": null
+    },
+    {
+     "first": "Maisie-Rae",
+     "last": "Tonks",
+     "preferred": null
+    },
+    {
+     "first": "Kobe",
+     "last": "Antwi",
+     "preferred": null
+    },
+    {
+     "first": "Daria",
+     "last": "Moldovan",
+     "preferred": null
+    },
+    {
+     "first": "Elijah",
+     "last": "Bright",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Imran Qadir",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "imranq",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Freya Holloway-Dunn",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "freyahd",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Stanislav Petrov",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "spetrov12",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Maisie-Rae Tonks",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "mrtonks",
+     "kind": "USERNAME"
+    }
+   ]
+  },
+  {
+   "id": "h030",
+   "shape": "csv",
+   "text": "student,parent_email,mobile\nAnnika Strand,j.strand@mail.example,07700 900118\nDavid Okoro-Banks,okoro.banks@example.org,07700 900119\nSumayyah Begum,s.begum@mail.example,07700 900120",
+   "roster": [
+    {
+     "first": "Annika",
+     "last": "Strand",
+     "preferred": null
+    },
+    {
+     "first": "David",
+     "last": "Okoro-Banks",
+     "preferred": null
+    },
+    {
+     "first": "Wilf",
+     "last": "Tarn",
+     "preferred": null
+    },
+    {
+     "first": "Esme",
+     "last": "Ruddock",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Annika Strand",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "j.strand@mail.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "07700 900118",
+     "kind": "PHONE"
+    },
+    {
+     "value": "David Okoro-Banks",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "okoro.banks@example.org",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "07700 900119",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Sumayyah Begum",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "s.begum@mail.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "07700 900120",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "h031",
+   "shape": "csv",
+   "text": "Forename,Surname,Address,Postcode\nTeagan,\"McNally\",\"Flat 3, 22 Lime Walk, Marsby\",\"LS99 4DD\"\nRuslan,\"Ibragimov\",\"7 Quarry Bank, Marsby\",\"LS99 6FE\"\n",
+   "roster": [
+    {
+     "first": "Teagan",
+     "last": "McNally",
+     "preferred": null
+    },
+    {
+     "first": "Ruslan",
+     "last": "Ibragimov",
+     "preferred": null
+    },
+    {
+     "first": "Ellis",
+     "last": "Craddock",
+     "preferred": null
+    },
+    {
+     "first": "Nuria",
+     "last": "Soler",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Teagan",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "McNally",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Flat 3, 22 Lime Walk, Marsby",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "LS99 4DD",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Ruslan",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ibragimov",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "7 Quarry Bank, Marsby",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "LS99 6FE",
+     "kind": "POSTCODE"
+    }
+   ]
+  },
+  {
+   "id": "h032",
+   "shape": "csv",
+   "text": "Name,Homework %,Method Check\nGrace,88,pass\nHope,41,fail\nWill,73,pass\nRose,95,pass\nJack,60,fail\nMark,77,pass\nHunter,50,fail\nMason,82,pass\nKing,90,pass",
+   "roster": [
+    {
+     "first": "Grace",
+     "last": "Whitlow",
+     "preferred": null
+    },
+    {
+     "first": "Hope",
+     "last": "Daramola",
+     "preferred": null
+    },
+    {
+     "first": "Will",
+     "last": "Cheung",
+     "preferred": null
+    },
+    {
+     "first": "Rosemary",
+     "last": "Lazar",
+     "preferred": null
+    },
+    {
+     "first": "Jackson",
+     "last": "Obuya",
+     "preferred": null
+    },
+    {
+     "first": "Marcus",
+     "last": "Siddiqui",
+     "preferred": null
+    },
+    {
+     "first": "Hunter",
+     "last": "Rowley",
+     "preferred": null
+    },
+    {
+     "first": "Mason",
+     "last": "Pryce",
+     "preferred": null
+    },
+    {
+     "first": "King",
+     "last": "Osei",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Grace",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Hope",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Will",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rose",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Jack",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Mark",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Hunter",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mason",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "King",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h033",
+   "shape": "csv",
+   "text": "ozan,yildirim,7a\nnoor,al-hashimi,7a\nbronagh,tierney,7a\nkit,holloway,7a",
+   "roster": [
+    {
+     "first": "Ozan",
+     "last": "Yildirim",
+     "preferred": null
+    },
+    {
+     "first": "Noor",
+     "last": "Al-Hashimi",
+     "preferred": null
+    },
+    {
+     "first": "Bronagh",
+     "last": "Tierney",
+     "preferred": null
+    },
+    {
+     "first": "Christopher",
+     "last": "Holloway",
+     "preferred": null
+    },
+    {
+     "first": "Mikael",
+     "last": "Sahlin",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "ozan",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "yildirim",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "noor",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "al-hashimi",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "bronagh",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "tierney",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "kit",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "holloway",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h034",
+   "shape": "tsv",
+   "text": "Pupil\tTutor group\tAchievement points\tBehaviour points\nSzymon Walczak\t10R\t14\t0\nHalima Jama\t10R\t22\t1\nBeau Atherton\t10R\t3\t7\nKiyoshi Okafor-Lim\t10R\t9\t2",
+   "roster": [
+    {
+     "first": "Szymon",
+     "last": "Walczak",
+     "preferred": null
+    },
+    {
+     "first": "Kiyoshi",
+     "last": "Okafor-Lim",
+     "preferred": null
+    },
+    {
+     "first": "Ariel",
+     "last": "Peretz",
+     "preferred": null
+    },
+    {
+     "first": "Zoltan",
+     "last": "Varga",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Szymon Walczak",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Halima Jama",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Beau Atherton",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Kiyoshi Okafor-Lim",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h035",
+   "shape": "tsv",
+   "text": "Ferdia Cullen\t9K\tMon 15 Nov\tcalculator\nCleo Vasquez\t9K\tTue 16 Nov\tno homework\nAbdulrahman Sesay\t9K\tTue 16 Nov\tlate",
+   "roster": [
+    {
+     "first": "Ferdia",
+     "last": "Cullen",
+     "preferred": null
+    },
+    {
+     "first": "Abdulrahman",
+     "last": "Sesay",
+     "preferred": null
+    },
+    {
+     "first": "Imke",
+     "last": "Brandt",
+     "preferred": null
+    },
+    {
+     "first": "Torin",
+     "last": "Wolfe",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ferdia Cullen",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Cleo Vasquez",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Abdulrahman Sesay",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h036",
+   "shape": "tsv",
+   "text": "UPN\tULN\tFirst\tLast\tDOB\nT718203946571\t7316502849\tIfeoma\tNwachukwu\t14/09/2010\nT102938475610\t2947103856\tBenedict\tSzabo\t30/11/2010",
+   "roster": [
+    {
+     "first": "Ifeoma",
+     "last": "Nwachukwu",
+     "preferred": null
+    },
+    {
+     "first": "Benedict",
+     "last": "Szabo",
+     "preferred": null
+    },
+    {
+     "first": "Aled",
+     "last": "Parry",
+     "preferred": null
+    },
+    {
+     "first": "Mireille",
+     "last": "Dubois",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "T718203946571",
+     "kind": "UPN"
+    },
+    {
+     "value": "7316502849",
+     "kind": "ULN"
+    },
+    {
+     "value": "Ifeoma",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Nwachukwu",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "14/09/2010",
+     "kind": "DOB"
+    },
+    {
+     "value": "T102938475610",
+     "kind": "UPN"
+    },
+    {
+     "value": "2947103856",
+     "kind": "ULN"
+    },
+    {
+     "value": "Benedict",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Szabo",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "30/11/2010",
+     "kind": "DOB"
+    }
+   ]
+  },
+  {
+   "id": "h037",
+   "shape": "tsv",
+   "text": "Surname\tForename\tPreferred\tReg\nDe La Cruz\tMariana\tMari\t8W\nvan der Merwe\tJohannes\tJo\t8W\nO'Hagan\tSiobhan\t\t8W\nMac an tSaoir\tCathal\tCal\t8W",
+   "roster": [
+    {
+     "first": "Mariana",
+     "last": "De La Cruz",
+     "preferred": "Mari"
+    },
+    {
+     "first": "Johannes",
+     "last": "van der Merwe",
+     "preferred": "Jo"
+    },
+    {
+     "first": "Siobhan",
+     "last": "O'Hagan",
+     "preferred": null
+    },
+    {
+     "first": "Cathal",
+     "last": "Mac an tSaoir",
+     "preferred": "Cal"
+    },
+    {
+     "first": "Yasmin",
+     "last": "Rehman",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "De La Cruz",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mariana",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mari",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "van der Merwe",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Johannes",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Jo",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "O'Hagan",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Siobhan",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mac an tSaoir",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Cathal",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Cal",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    }
+   ]
+  },
+  {
+   "id": "h038",
+   "shape": "tsv",
+   "text": "Poppy Ledger\tBonus Task\t340\nRuby Chen-Wallace\tBonus Task\t280\nJack Sibanda\tBonus Task\t410\nRiver Falconer\tBonus Task\t195",
+   "roster": [
+    {
+     "first": "Poppy",
+     "last": "Ledger",
+     "preferred": null
+    },
+    {
+     "first": "Ruby",
+     "last": "Chen-Wallace",
+     "preferred": null
+    },
+    {
+     "first": "Jack",
+     "last": "Sibanda",
+     "preferred": null
+    },
+    {
+     "first": "River",
+     "last": "Falconer",
+     "preferred": null
+    },
+    {
+     "first": "Sky",
+     "last": "Boyd",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Poppy Ledger",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ruby Chen-Wallace",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Jack Sibanda",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "River Falconer",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h039",
+   "shape": "json",
+   "text": "{\"student\": {\"first_name\": \"Dagmara\", \"last_name\": \"Pietrzak\", \"upn\": \"H530917264085\", \"year\": 9, \"email\": \"dagmara.pietrzak@students.stmaelrua.example\"}, \"teacher\": \"Mrs Fenwick\", \"school\": \"St Maelrua's\"}",
+   "roster": [
+    {
+     "first": "Dagmara",
+     "last": "Pietrzak",
+     "preferred": null
+    },
+    {
+     "first": "Ewart",
+     "last": "Glass",
+     "preferred": null
+    },
+    {
+     "first": "Nasreen",
+     "last": "Bibi",
+     "preferred": null
+    },
+    {
+     "first": "Olusegun",
+     "last": "Fashola",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Dagmara",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Pietrzak",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "H530917264085",
+     "kind": "UPN"
+    },
+    {
+     "value": "dagmara.pietrzak@students.stmaelrua.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Fenwick",
+     "kind": "ADULT"
+    },
+    {
+     "value": "St Maelrua's",
+     "kind": "SCHOOL"
+    }
+   ]
+  },
+  {
+   "id": "h040",
+   "shape": "json",
+   "text": "[{\"name\":\"Ayo Bankole-Reyes\",\"score\":81},{\"name\":\"luca moretti\",\"score\":64},{\"name\":\"Phoebe Hartigan\",\"score\":90}]",
+   "roster": [
+    {
+     "first": "Ayo",
+     "last": "Bankole-Reyes",
+     "preferred": null
+    },
+    {
+     "first": "Luca",
+     "last": "Moretti",
+     "preferred": null
+    },
+    {
+     "first": "Rizwan",
+     "last": "Hussain",
+     "preferred": null
+    },
+    {
+     "first": "Tilda",
+     "last": "Svensson",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ayo Bankole-Reyes",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "luca moretti",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Phoebe Hartigan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h041",
+   "shape": "json",
+   "text": "{\"event\":\"login_failed\",\"user\":\"mkowalska.9\",\"pupil\":\"Maja Kowalska\",\"ip\":\"192.0.2.44\",\"ts\":\"2026-11-10T08:14:09Z\"}",
+   "roster": [
+    {
+     "first": "Teddy",
+     "last": "Cranmer",
+     "preferred": null
+    },
+    {
+     "first": "Nafisa",
+     "last": "Rahim",
+     "preferred": null
+    },
+    {
+     "first": "Gaspard",
+     "last": "Leclerc",
+     "preferred": null
+    },
+    {
+     "first": "Mairi",
+     "last": "Cullen",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "mkowalska.9",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Maja Kowalska",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h042",
+   "shape": "json",
+   "text": "{\"thread\":[{\"from\":\"Mrs Ribeiro\",\"body\":\"Can Dinis join Thursday catch-up with Salomé?\"},{\"from\":\"Mr Ahmed\",\"body\":\"Yes. Dinis and Salomé both please bring books.\"}]}",
+   "roster": [
+    {
+     "first": "Dinis",
+     "last": "Cardoso",
+     "preferred": null
+    },
+    {
+     "first": "Salomé",
+     "last": "Figueiredo",
+     "preferred": null
+    },
+    {
+     "first": "Alfie",
+     "last": "Dent",
+     "preferred": null
+    },
+    {
+     "first": "Maryam",
+     "last": "Chaudhary",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ribeiro",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Dinis",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Salomé",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ahmed",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h043",
+   "shape": "json",
+   "text": "{\"alias_map\": {\"Bobby\": \"Robert Ainsley\", \"Liz\": \"Elizabeth Thorne\", \"Dani\": \"Daniyal Choudhry\"}, \"class\": \"11F\"}",
+   "roster": [
+    {
+     "first": "Robert",
+     "last": "Ainsley",
+     "preferred": null
+    },
+    {
+     "first": "Elizabeth",
+     "last": "Thorne",
+     "preferred": null
+    },
+    {
+     "first": "Daniyal",
+     "last": "Choudhry",
+     "preferred": null
+    },
+    {
+     "first": "Hattie",
+     "last": "Quill",
+     "preferred": null
+    },
+    {
+     "first": "Ikenna",
+     "last": "Ude",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Bobby",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Robert Ainsley",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Liz",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Elizabeth Thorne",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dani",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Daniyal Choudhry",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h044",
+   "shape": "json",
+   "text": "{\"guardian\":{\"name\":\"Ms Teodorescu\",\"phone\":\"01632 960274\",\"address\":\"Flat 2, Orchard Court, 9 Mill Lane, Kelby\",\"postcode\":\"NG99 2AB\"},\"child\":\"Andrei Teodorescu\"}",
+   "roster": [
+    {
+     "first": "Andrei",
+     "last": "Teodorescu",
+     "preferred": null
+    },
+    {
+     "first": "Lowenna",
+     "last": "Pascoe",
+     "preferred": null
+    },
+    {
+     "first": "Idris",
+     "last": "Mwangi",
+     "preferred": null
+    },
+    {
+     "first": "Joanna",
+     "last": "Kasprzak",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Teodorescu",
+     "kind": "ADULT"
+    },
+    {
+     "value": "01632 960274",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Flat 2, Orchard Court, 9 Mill Lane, Kelby",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "NG99 2AB",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Andrei Teodorescu",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h045",
+   "shape": "log",
+   "text": "2026-11-03 08:41:17 INFO  login ok user=ewa.kaminska school=Dunmore Grange\n2026-11-03 08:41:52 WARN  homework_submit slow 4.2s user=ewa.kaminska\n2026-11-03 08:43:30 INFO  roster change msg='Ewa Kaminska moved to 9B2'\n2026-11-03 08:44:03 ERROR login failed user=tpryor attempts=5 ip=192.0.2.17",
+   "roster": [
+    {
+     "first": "Thomas",
+     "last": "Pryor",
+     "preferred": null
+    },
+    {
+     "first": "Aliyah",
+     "last": "Bello",
+     "preferred": null
+    },
+    {
+     "first": "Cormac",
+     "last": "Teague",
+     "preferred": null
+    },
+    {
+     "first": "Dario",
+     "last": "Fontana",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "ewa.kaminska",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Dunmore Grange",
+     "kind": "SCHOOL"
+    },
+    {
+     "value": "Ewa Kaminska",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "tpryor",
+     "kind": "USERNAME"
+    }
+   ]
+  },
+  {
+   "id": "h046",
+   "shape": "log",
+   "text": "[export] class=7S rows=28\n[export] skipped row 14: name='Ngozi Obiakor' reason=missing UPN\n[export] skipped row 21: name='Kit Lowe-Sims' reason=dob invalid '31/02/2014'\n[export] done 26 ok 2 skipped",
+   "roster": [
+    {
+     "first": "Ngozi",
+     "last": "Obiakor",
+     "preferred": null
+    },
+    {
+     "first": "Pranav",
+     "last": "Reddy",
+     "preferred": null
+    },
+    {
+     "first": "Selin",
+     "last": "Arslan",
+     "preferred": null
+    },
+    {
+     "first": "Matilda",
+     "last": "Gorse",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ngozi Obiakor",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kit Lowe-Sims",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "31/02/2014",
+     "kind": "DOB"
+    }
+   ]
+  },
+  {
+   "id": "h047",
+   "shape": "log",
+   "text": "Nov 12 15:02:11 relay[221]: to=<p.sandhu@mail.example> subject='Reminder: Jaspreet's homework due'\nNov 12 15:02:12 relay[221]: to=<p.sandhu@mail.example> status=sent (250 ok)",
+   "roster": [
+    {
+     "first": "Jaspreet",
+     "last": "Sandhu",
+     "preferred": null
+    },
+    {
+     "first": "Eamon",
+     "last": "Whelan",
+     "preferred": null
+    },
+    {
+     "first": "Fatou",
+     "last": "Ceesay",
+     "preferred": null
+    },
+    {
+     "first": "Rosalind",
+     "last": "Peck",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "p.sandhu@mail.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Jaspreet",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h048",
+   "shape": "log",
+   "text": "AUDIT 2026-11-09 11:20 actor=hvandenberg action=VIEW_REPORT target_pupil=Blessing Okolie class=9B\nAUDIT 2026-11-09 11:26 actor=hvandenberg action=EDIT_COMMENT target_pupil=Okolie, B\nAUDIT 2026-11-09 11:31 actor=hvandenberg action=LOGOUT",
+   "roster": [
+    {
+     "first": "Blessing",
+     "last": "Okolie",
+     "preferred": null
+    },
+    {
+     "first": "Torquil",
+     "last": "Baird",
+     "preferred": null
+    },
+    {
+     "first": "Anisa",
+     "last": "Dualeh",
+     "preferred": null
+    },
+    {
+     "first": "Pepe",
+     "last": "Santiago",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "hvandenberg",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Blessing Okolie",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Okolie, B",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    }
+   ]
+  },
+  {
+   "id": "h049",
+   "shape": "log",
+   "text": "DEBUG ner: tokens=['Mrs','Quigley','spoke','to','Eoin','and','Aoibheann']\nDEBUG ner: tags=[B-TITLE,B-PER,O,O,B-PER,O,B-PER]",
+   "roster": [
+    {
+     "first": "Eoin",
+     "last": "Brosnan",
+     "preferred": null
+    },
+    {
+     "first": "Aoibheann",
+     "last": "Costigan",
+     "preferred": null
+    },
+    {
+     "first": "Ghulam",
+     "last": "Abbasi",
+     "preferred": null
+    },
+    {
+     "first": "Livia",
+     "last": "Marin",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Quigley",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Eoin",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Aoibheann",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h050",
+   "shape": "report_comment",
+   "text": "Ottoline has made a real leap this year. Her fluency with algebra is now a strength and she explains her method clearly. Next step: check negatives. Ottoline should keep using the Method Check to catch slips.",
+   "roster": [
+    {
+     "first": "Ottoline",
+     "last": "Fairbairn",
+     "preferred": null
+    },
+    {
+     "first": "Haroon",
+     "last": "Mir",
+     "preferred": null
+    },
+    {
+     "first": "Greta",
+     "last": "Lindahl",
+     "preferred": null
+    },
+    {
+     "first": "Dafydd",
+     "last": "Rowlands",
+     "preferred": null
+    },
+    {
+     "first": "Chidinma",
+     "last": "Eze",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ottoline",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h051",
+   "shape": "report_comment",
+   "text": "Mason works hard and his marks show it. In lessons Mason is quick to help others; I would like to see him ask for help himself. With more practice on ratio, he will reach a 6. His partner Kai Wen has been a good influence.",
+   "roster": [
+    {
+     "first": "Marta",
+     "last": "Sosa",
+     "preferred": null
+    },
+    {
+     "first": "Ikram",
+     "last": "Yusuf",
+     "preferred": null
+    },
+    {
+     "first": "Fergus",
+     "last": "Dunmore",
+     "preferred": null
+    },
+    {
+     "first": "Edie",
+     "last": "Hollis",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Mason",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Kai Wen",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h052",
+   "shape": "report_comment",
+   "text": "Tegwen's progress this term has been steady rather than spectacular. Her Times Tables fluency is secure; the gap is in fractions. Compared with last year (Tegwen scored 41% in June), she is up 17 points.",
+   "roster": [
+    {
+     "first": "Zamir",
+     "last": "Qadri",
+     "preferred": null
+    },
+    {
+     "first": "Nell",
+     "last": "Ashworth",
+     "preferred": null
+    },
+    {
+     "first": "Pascal",
+     "last": "Mensah",
+     "preferred": null
+    },
+    {
+     "first": "Beata",
+     "last": "Kucharska",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Tegwen",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h053",
+   "shape": "report_comment",
+   "text": "Yaw has settled well since joining in January. He is working at the expected level. (Note to self: copied from Dilnoza's comment, check pronouns!) Yaw needs to attempt every question, even the hard ones, and to show his working.",
+   "roster": [
+    {
+     "first": "Yaw",
+     "last": "Boadu",
+     "preferred": null
+    },
+    {
+     "first": "Henrietta",
+     "last": "Cole",
+     "preferred": null
+    },
+    {
+     "first": "Tarik",
+     "last": "Benhamou",
+     "preferred": null
+    },
+    {
+     "first": "Isolde",
+     "last": "Fry",
+     "preferred": null
+    },
+    {
+     "first": "Kaden",
+     "last": "Rooney",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Yaw",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dilnoza",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h054",
+   "shape": "report_comment",
+   "text": "Rose has had a difficult term and her marks dipped. Rose Tuffnell is a bright girl, but with a rose-tinted view of her own work she sometimes skips checking. Mr Vane has moved her seat nearer the front, which should help.",
+   "roster": [
+    {
+     "first": "Rose",
+     "last": "Tuffnell",
+     "preferred": null
+    },
+    {
+     "first": "Alun",
+     "last": "Beddoes",
+     "preferred": null
+    },
+    {
+     "first": "Shabnam",
+     "last": "Ghani",
+     "preferred": null
+    },
+    {
+     "first": "Cosmo",
+     "last": "Verhoeven",
+     "preferred": null
+    },
+    {
+     "first": "Lottie",
+     "last": "Marr",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Rose",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rose Tuffnell",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Vane",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h055",
+   "shape": "report_comment",
+   "text": "Group comment 10Z: Ibtisam, Callum and Lorna-Jean have formed an excellent revision trio. Callum Prudhoe in particular has grown in confidence and now explains simultaneous equations to the others. Ibtisam should push herself to attempt the last question on each paper.",
+   "roster": [
+    {
+     "first": "Ibtisam",
+     "last": "Mahmood",
+     "preferred": null
+    },
+    {
+     "first": "Callum",
+     "last": "Prudhoe",
+     "preferred": null
+    },
+    {
+     "first": "Lorna-Jean",
+     "last": "Strachan",
+     "preferred": null
+    },
+    {
+     "first": "Ansel",
+     "last": "Kovac",
+     "preferred": null
+    },
+    {
+     "first": "Teresa",
+     "last": "Quinn",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ibtisam",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Callum",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Lorna-Jean",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Callum Prudhoe",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h056",
+   "shape": "sen_note",
+   "text": "SEN support plan review. Pupil: Dexter Ackroyd, 8P. Diagnosis on file: dyscalculia (EP report Jan). Arrangements: 25% extra time, reader for word problems, coloured overlay. Dexter responds best when instructions are chunked. Mum (Mrs Ackroyd) agrees. Review by SENCo Ms Brathwaite in March.",
+   "roster": [
+    {
+     "first": "Dexter",
+     "last": "Ackroyd",
+     "preferred": null
+    },
+    {
+     "first": "Nkechi",
+     "last": "Anyanwu",
+     "preferred": null
+    },
+    {
+     "first": "Rhodri",
+     "last": "Vaughan",
+     "preferred": null
+    },
+    {
+     "first": "Safiyya",
+     "last": "Malik",
+     "preferred": null
+    },
+    {
+     "first": "Stellan",
+     "last": "Berg",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Dexter Ackroyd",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dexter",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ackroyd",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Brathwaite",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h057",
+   "shape": "sen_note",
+   "text": "Access arrangements, Y11 mocks. Lowri Pugh-Evans: 25% extra time, separate room. Kasia Bielska: rest breaks, EAL dictionary. Zaid Ali-Reza: scribe (broken wrist, 6 weeks). Reviewed by SENCo Mr Underhill, 12 Nov.",
+   "roster": [
+    {
+     "first": "Lowri",
+     "last": "Pugh-Evans",
+     "preferred": null
+    },
+    {
+     "first": "Oscar",
+     "last": "Penhale",
+     "preferred": null
+    },
+    {
+     "first": "Tamika",
+     "last": "Ross",
+     "preferred": null
+    },
+    {
+     "first": "Zoltan",
+     "last": "Varga",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Lowri Pugh-Evans",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kasia Bielska",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Zaid Ali-Reza",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Underhill",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h058",
+   "shape": "sen_note",
+   "text": "EHCP annual review notes for Joel. Joel Appiah-Kubi, DOB 02/10/2011, ASD, speech and language. Targets: use the Independent Learning hints; ask for help with a card. TA is Mrs Santos. Joel's dad, Kwame, is happy with progress. Contact: 07700 900577.",
+   "roster": [
+    {
+     "first": "Joel",
+     "last": "Appiah-Kubi",
+     "preferred": null
+    },
+    {
+     "first": "Persephone",
+     "last": "Gray",
+     "preferred": null
+    },
+    {
+     "first": "Mustafa",
+     "last": "Duran",
+     "preferred": null
+    },
+    {
+     "first": "Ailsa",
+     "last": "Munro",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Joel",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Joel Appiah-Kubi",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "02/10/2011",
+     "kind": "DOB"
+    },
+    {
+     "value": "Santos",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Kwame",
+     "kind": "ADULT"
+    },
+    {
+     "value": "07700 900577",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "h059",
+   "shape": "sen_note",
+   "text": "Meeting with Ryan's mum (Joanne Pickard) re anxiety about tests. Ryan Pickard avoids lessons with the Method Check. Agreed: warn him in advance, no cold-calling. Shared with Ryan's tutor, Mr Zhang. NB his friend Callan was also upset, but that is for pastoral.",
+   "roster": [
+    {
+     "first": "Zahra",
+     "last": "Noor",
+     "preferred": null
+    },
+    {
+     "first": "Elliot",
+     "last": "Brightwell",
+     "preferred": null
+    },
+    {
+     "first": "Magdalena",
+     "last": "Rusin",
+     "preferred": null
+    },
+    {
+     "first": "Mairi",
+     "last": "Cullen",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ryan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Joanne Pickard",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Ryan Pickard",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Zhang",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Callan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h060",
+   "shape": "sen_note",
+   "text": "ADHD, no formal diagnosis yet (referral made). Amélie Desrosiers finds it hard to start tasks; works better with a visual timer. Seat near front, away from the door. Please do not say 'pay attention' to Amélie; she has told me it makes things worse. Updated by Mr Opoku-Mensah.",
+   "roster": [
+    {
+     "first": "Cai",
+     "last": "Morgan",
+     "preferred": null
+    },
+    {
+     "first": "Rutendo",
+     "last": "Chigumba",
+     "preferred": null
+    },
+    {
+     "first": "Anders",
+     "last": "Holm",
+     "preferred": null
+    },
+    {
+     "first": "Dario",
+     "last": "Fontana",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Amélie Desrosiers",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Amélie",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Opoku-Mensah",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h061",
+   "shape": "ocr",
+   "text": "Perm1ssion s1ip\nPupil name: Krzysztof Dabrowski\nForm: 9 L\nParent/carer: Agnieszka Dabrowska\nTel: O7700 9OO214\nSigned: A. Dabrowska   Date: 12 / 1 1 / 26",
+   "roster": [
+    {
+     "first": "Krzysztof",
+     "last": "Dabrowski",
+     "preferred": null
+    },
+    {
+     "first": "Aminata",
+     "last": "Sow",
+     "preferred": null
+    },
+    {
+     "first": "Lyle",
+     "last": "Fairclough",
+     "preferred": null
+    },
+    {
+     "first": "Odette",
+     "last": "Marchand",
+     "preferred": null
+    },
+    {
+     "first": "Bashir",
+     "last": "Noor",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Krzysztof Dabrowski",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Agnieszka Dabrowska",
+     "kind": "ADULT"
+    },
+    {
+     "value": "O7700 9OO214",
+     "kind": "PHONE"
+    },
+    {
+     "value": "A. Dabrowska",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h062",
+   "shape": "ocr",
+   "text": "NAME: Tyler-J0 Meadows\nCLASS 7 3 / M a\nTEACHER: Mr Fosu\nSCH00L: Holm Chapel High",
+   "roster": [
+    {
+     "first": "Tyler-Jo",
+     "last": "Meadows",
+     "preferred": null
+    },
+    {
+     "first": "Anvi",
+     "last": "Desai",
+     "preferred": null
+    },
+    {
+     "first": "Casimir",
+     "last": "Bruno",
+     "preferred": null
+    },
+    {
+     "first": "Ebony",
+     "last": "Salt",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Tyler-J0 Meadows",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Fosu",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Holm Chapel High",
+     "kind": "SCHOOL"
+    }
+   ]
+  },
+  {
+   "id": "h063",
+   "shape": "ocr",
+   "text": "Dear Mr Penhaligon,\nI am writing to ask that my daughter Wynn is excused from the trip on 5th Dec. Wynn Trethewey-Lloyd has a hospital appt. Pleasc find the letter attached.\nYours sincerely\nMrs Delyth Trethewey",
+   "roster": [
+    {
+     "first": "Wynn",
+     "last": "Trethewey-Lloyd",
+     "preferred": null
+    },
+    {
+     "first": "Kasimir",
+     "last": "Nowak",
+     "preferred": null
+    },
+    {
+     "first": "Lalitha",
+     "last": "Raman",
+     "preferred": null
+    },
+    {
+     "first": "Dougal",
+     "last": "McBride",
+     "preferred": null
+    },
+    {
+     "first": "Imelda",
+     "last": "Ofori",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Penhaligon",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Wynn",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Wynn Trethewey-Lloyd",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Delyth Trethewey",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h064",
+   "shape": "ocr",
+   "text": "Rcg   Name               Att\n8H    Jonah Whitfield     P\n8H    Esra Çelik          P\n8H    Lubna  Chowdhury    A\n8H    Noa Ben-David       L",
+   "roster": [
+    {
+     "first": "Lubna",
+     "last": "Chowdhury",
+     "preferred": null
+    },
+    {
+     "first": "Noa",
+     "last": "Ben-David",
+     "preferred": null
+    },
+    {
+     "first": "Winnie",
+     "last": "Aboagye",
+     "preferred": null
+    },
+    {
+     "first": "Edie",
+     "last": "Hollis",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Jonah Whitfield",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Esra Çelik",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Lubna  Chowdhury",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Noa Ben-David",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h065",
+   "shape": "ocr",
+   "text": "HOMEWORK LOG - Ye ar 10\nStudent: BRYNNE JONES\nTeacher: Mrs Oyedele\nUsername: bjones.10\nPostcode on form: M99 3XY",
+   "roster": [
+    {
+     "first": "Brynne",
+     "last": "Jones",
+     "preferred": null
+    },
+    {
+     "first": "Ciaran",
+     "last": "Hegarty",
+     "preferred": null
+    },
+    {
+     "first": "Vanessa",
+     "last": "Okafor",
+     "preferred": null
+    },
+    {
+     "first": "Leopold",
+     "last": "Zeman",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "BRYNNE JONES",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Oyedele",
+     "kind": "ADULT"
+    },
+    {
+     "value": "bjones.10",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "M99 3XY",
+     "kind": "POSTCODE"
+    }
+   ]
+  },
+  {
+   "id": "h066",
+   "shape": "slack",
+   "text": "#maths-dept\n@natasha: anyone else got Eesha Rao on their Independent Learning off-track list?\n@jules: yep, and Eesha's cousin Zara (Y7)\n@natasha: Zara is fine, just new. Eesha is the worry",
+   "roster": [
+    {
+     "first": "Eesha",
+     "last": "Rao",
+     "preferred": null
+    },
+    {
+     "first": "Dougie",
+     "last": "Pell",
+     "preferred": null
+    },
+    {
+     "first": "Aniela",
+     "last": "Mazur",
+     "preferred": null
+    },
+    {
+     "first": "Tuyet",
+     "last": "Pham",
+     "preferred": null
+    },
+    {
+     "first": "Raphael",
+     "last": "Stone",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "natasha",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "jules",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Eesha Rao",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Eesha",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Zara",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h067",
+   "shape": "slack",
+   "text": "Rhona [10:14] Does Brandon have a TA tomorrow?\nOsei [10:15] Brandon Achterberg? Yes Mrs Lyle is with him P3 & 4\nRhona [10:15] ta. And Saoirse's Wi-Fi thing?\nOsei [10:17] sorted, IT reset her account",
+   "roster": [
+    {
+     "first": "Tae",
+     "last": "Nakamura",
+     "preferred": null
+    },
+    {
+     "first": "Eliza",
+     "last": "Frobisher",
+     "preferred": null
+    },
+    {
+     "first": "Gift",
+     "last": "Banda",
+     "preferred": null
+    },
+    {
+     "first": "Zoltan",
+     "last": "Varga",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Rhona",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Osei",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Brandon",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Brandon Achterberg",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Lyle",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Saoirse",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h068",
+   "shape": "slack",
+   "text": "jhernandez: heads up, Mohammed Ali Raza has been moved to 7C (was 7B)\nsteve.t: is that Mo Raza?\njhernandez: yes, goes by Mo",
+   "roster": [
+    {
+     "first": "Mohammed Ali",
+     "last": "Raza",
+     "preferred": null
+    },
+    {
+     "first": "Sorcha",
+     "last": "Kinane",
+     "preferred": null
+    },
+    {
+     "first": "Yiannis",
+     "last": "Pappas",
+     "preferred": null
+    },
+    {
+     "first": "Harriet",
+     "last": "Beal",
+     "preferred": null
+    },
+    {
+     "first": "Ngaire",
+     "last": "Tane",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "jhernandez",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Mohammed Ali Raza",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "steve.t",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Mo Raza",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Mo",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    }
+   ]
+  },
+  {
+   "id": "h069",
+   "shape": "slack",
+   "text": "<Annabel> morning all. Reminder: Hunter's mum is in at 3:30, and Mason's dad at 4. Rubi will sit in.\n<Dev> I'll take Hunter. Hunter has done nothing since Mon.\n<Annabel> Mason is lovely though.",
+   "roster": [
+    {
+     "first": "Hunter",
+     "last": "Maddox",
+     "preferred": null
+    },
+    {
+     "first": "Mason",
+     "last": "Quarshie",
+     "preferred": null
+    },
+    {
+     "first": "Ingrid",
+     "last": "Solberg",
+     "preferred": null
+    },
+    {
+     "first": "Tobenna",
+     "last": "Eke",
+     "preferred": null
+    },
+    {
+     "first": "Leyla",
+     "last": "Karaca",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Annabel",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Hunter",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mason",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rubi",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Dev",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h070",
+   "shape": "slack",
+   "text": "#pastoral\nMs Iqbal: Anyone know why Jovan has stopped coming to maths?\nMr Tennant: Jovan Markovic? Dad lost his job, they might be moving. I haven't heard more.\nMs Iqbal: Thanks, I'll ask Mrs Danjuma if the family has been in touch.",
+   "roster": [
+    {
+     "first": "Kalinda",
+     "last": "Reyes",
+     "preferred": null
+    },
+    {
+     "first": "Ross",
+     "last": "Appleyard",
+     "preferred": null
+    },
+    {
+     "first": "Mehwish",
+     "last": "Anwar",
+     "preferred": null
+    },
+    {
+     "first": "Mairi",
+     "last": "Cullen",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Iqbal",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Jovan",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Jovan Markovic",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Tennant",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Danjuma",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h071",
+   "shape": "email_thread",
+   "text": "From: Cheryl Voisey <c.voisey@oakridge.example>\nSent: 18 November 2026 09:12\nTo: Amit Grewal <a.grewal@oakridge.example>\nSubject: RE: Y9 intervention list\n\nThanks Amit. I'll add Tadeusz Mazur and Elspeth Rowntree. Not Lakshmi, she has been fine since the retake.\n\nCheryl\n\n--\nCheryl Voisey | Assistant Head\nOakridge School | 01632 960155\n\n> On 17 Nov 2026, Amit Grewal wrote:\n> Cheryl, here's my shortlist for intervention: Tadeusz M, Elspeth R and Lakshmi Venkataraman. Tadeusz particularly.\n> Amit",
+   "roster": [
+    {
+     "first": "Tadeusz",
+     "last": "Mazur",
+     "preferred": null
+    },
+    {
+     "first": "Elspeth",
+     "last": "Rowntree",
+     "preferred": null
+    },
+    {
+     "first": "Lakshmi",
+     "last": "Venkataraman",
+     "preferred": null
+    },
+    {
+     "first": "Odhran",
+     "last": "Keane",
+     "preferred": null
+    },
+    {
+     "first": "Safiya",
+     "last": "Warsi",
+     "preferred": null
+    },
+    {
+     "first": "Brodie",
+     "last": "Lamont",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Cheryl Voisey",
+     "kind": "ADULT"
+    },
+    {
+     "value": "c.voisey@oakridge.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Amit Grewal",
+     "kind": "ADULT"
+    },
+    {
+     "value": "a.grewal@oakridge.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Amit",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Cheryl",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Tadeusz Mazur",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Elspeth Rowntree",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Lakshmi",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Oakridge School",
+     "kind": "SCHOOL"
+    },
+    {
+     "value": "01632 960155",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Tadeusz M",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Elspeth R",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Lakshmi Venkataraman",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Tadeusz",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h072",
+   "shape": "email_thread",
+   "text": "Hi Mrs Kellaway,\n\nForwarding as asked. Not sure what to do about Isla.\n\nRegards\nSimon Tebbutt\n\n---------- Forwarded message ----------\nFrom: Fiona Brodie <fbrodie@mail.example>\nDate: Mon, 16 Nov 2026\nSubject: Isla's maths\n\nDear Mr Tebbutt\n\nIsla Brodie-Frame (8N) has been in tears over the Method Check. She says she copies the answers wrong and then gets told off. Her friend Elodie told me it's the same for her. Can we meet? I'm free Thursday, 07700 900868.\n\nFiona Brodie",
+   "roster": [
+    {
+     "first": "Isla",
+     "last": "Brodie-Frame",
+     "preferred": null
+    },
+    {
+     "first": "Callum",
+     "last": "Yeo",
+     "preferred": null
+    },
+    {
+     "first": "Parveen",
+     "last": "Dhesi",
+     "preferred": null
+    },
+    {
+     "first": "Nikodem",
+     "last": "Rutkowski",
+     "preferred": null
+    },
+    {
+     "first": "Aurelia",
+     "last": "Cox",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Kellaway",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Simon Tebbutt",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Fiona Brodie",
+     "kind": "ADULT"
+    },
+    {
+     "value": "fbrodie@mail.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Tebbutt",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Isla",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Isla Brodie-Frame",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Elodie",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "07700 900868",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "h073",
+   "shape": "email_thread",
+   "text": "On Tue, 3 Nov 2026 at 16:40, Ruth Achebe <ruth.achebe@mail.example> wrote:\n> Hello, Poppy has lost her login sheet again! Can she have a new one? Faith in her class has hers.\n\nHi Ruth,\nNo problem, I'll print a new sheet for Poppy tomorrow. Faith can't share hers, though.\nMr Lawlor\nHead of Year 8 | Westbourne Comp",
+   "roster": [
+    {
+     "first": "Poppy",
+     "last": "Achebe-Hill",
+     "preferred": null
+    },
+    {
+     "first": "Faith",
+     "last": "Aldred",
+     "preferred": null
+    },
+    {
+     "first": "Declan",
+     "last": "Moyes",
+     "preferred": null
+    },
+    {
+     "first": "Shreya",
+     "last": "Patil",
+     "preferred": null
+    },
+    {
+     "first": "Yosef",
+     "last": "Mizrahi",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ruth Achebe",
+     "kind": "ADULT"
+    },
+    {
+     "value": "ruth.achebe@mail.example",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Poppy",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Faith",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ruth",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Lawlor",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Westbourne Comp",
+     "kind": "SCHOOL"
+    }
+   ]
+  },
+  {
+   "id": "h074",
+   "shape": "email_thread",
+   "text": "Re: Will Hartnoll - homework\n\nHi both,\n\nWill is going to hand it in Friday - I spoke to him. Will you be able to mark it before the parents' evening?\n\nBest,\nZoe\n\n> From: Craig Mellor\n> Sent: 5 Nov\n> To: Zoe Ansah\n> Will Hartnoll has not submitted the Independent Learning task. Hope to get it by Friday.\n> Craig Mellor, Maths",
+   "roster": [
+    {
+     "first": "William",
+     "last": "Hartnoll",
+     "preferred": null
+    },
+    {
+     "first": "Anjali",
+     "last": "Mehta",
+     "preferred": null
+    },
+    {
+     "first": "Torsten",
+     "last": "Bell",
+     "preferred": null
+    },
+    {
+     "first": "Winifred",
+     "last": "Okoye",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Will Hartnoll",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Will",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Zoe",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Craig Mellor",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Zoe Ansah",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h075",
+   "shape": "email_thread",
+   "text": "-----Original Message-----\nFrom: Sinead Moloney\nTo: Support\nSubject: Another child on same account\n\nMy son Fionn (Y7) shows up under my daughter Roisin's login (Y10). Roisin Moloney is the one who should be there. Please separate. Thanks, Sinead\n\n-----Reply-----\nHi Sinead, I've split them. Fionn now has his own username, fionn.m7. Regards, Ben, Support Team",
+   "roster": [
+    {
+     "first": "Roisin",
+     "last": "Moloney",
+     "preferred": null
+    },
+    {
+     "first": "Blessing",
+     "last": "Uche",
+     "preferred": null
+    },
+    {
+     "first": "Cassius",
+     "last": "Reed",
+     "preferred": null
+    },
+    {
+     "first": "Dalia",
+     "last": "Mansour",
+     "preferred": null
+    },
+    {
+     "first": "Heidi",
+     "last": "Strand",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Sinead Moloney",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Fionn",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    },
+    {
+     "value": "Roisin",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Roisin Moloney",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Sinead",
+     "kind": "ADULT"
+    },
+    {
+     "value": "fionn.m7",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Ben",
+     "kind": "ADULT"
+    }
+   ]
+  },
+  {
+   "id": "h076",
+   "shape": "meeting_notes",
+   "text": "Pastoral meeting, Year 9, Tues 10 Nov\nPresent: Mrs Haldane (chair), Mr Oyelowo, Ms Cadogan\n1. Attendance: Kayleigh Rudd 71%, Tomasz Nowacki 78%. Letters out.\n2. Behaviour: Sipho Ndebele had two removals in maths; agreed a report card.\n3. Safeguarding: Mr Oyelowo to speak to Kayleigh re home.\nActions: Mrs Haldane to ring Tomasz's mother.",
+   "roster": [
+    {
+     "first": "Kayleigh",
+     "last": "Rudd",
+     "preferred": null
+    },
+    {
+     "first": "Tomasz",
+     "last": "Nowacki",
+     "preferred": null
+    },
+    {
+     "first": "Sipho",
+     "last": "Ndebele",
+     "preferred": null
+    },
+    {
+     "first": "Alma",
+     "last": "Vidal",
+     "preferred": null
+    },
+    {
+     "first": "Rhydian",
+     "last": "Cope",
+     "preferred": null
+    },
+    {
+     "first": "Chioma",
+     "last": "Obi",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Haldane",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Oyelowo",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Cadogan",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Kayleigh Rudd",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Tomasz Nowacki",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Sipho Ndebele",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kayleigh",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Tomasz",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h077",
+   "shape": "meeting_notes",
+   "text": "SEN review, Thursday. Attendees: SENCo (L. Bright), TAs. Items: new EAL arrivals: Dilfuza Rakhimova (Uzbek), Kasper Lindahl (Danish), Rahim Sultani (Pashto). Dilfuza has no English; Kasper fluent; Rahim fluent in Dari.",
+   "roster": [
+    {
+     "first": "Dilfuza",
+     "last": "Rakhimova",
+     "preferred": null
+    },
+    {
+     "first": "Kasper",
+     "last": "Lindahl",
+     "preferred": null
+    },
+    {
+     "first": "Rahim",
+     "last": "Sultani",
+     "preferred": null
+    },
+    {
+     "first": "Bryher",
+     "last": "Penrose",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "L. Bright",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Dilfuza Rakhimova",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kasper Lindahl",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rahim Sultani",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dilfuza",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kasper",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rahim",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h078",
+   "shape": "meeting_notes",
+   "text": "Minutes, dept meeting 19.11. Apologies: Gareth Hollis. Marking: agreed Method Check marks go on SIMS. Set changes: promote Ahmed Sayeed, Elsie Warburton, Ravinder; demote Callum Dowd. Ravinder's surname to check, maybe Dhillon or Dhaliwal. AOB: Summer Fair stall, volunteers please.",
+   "roster": [
+    {
+     "first": "Ahmed",
+     "last": "Sayeed",
+     "preferred": null
+    },
+    {
+     "first": "Elsie",
+     "last": "Warburton",
+     "preferred": null
+    },
+    {
+     "first": "Ravinder",
+     "last": "Dhillon",
+     "preferred": null
+    },
+    {
+     "first": "Callum",
+     "last": "Dowd",
+     "preferred": null
+    },
+    {
+     "first": "Jessamy",
+     "last": "Pike",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Gareth Hollis",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Ahmed Sayeed",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Elsie Warburton",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ravinder",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Callum Dowd",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dhillon",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dhaliwal",
+     "kind": "STUDENT",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "h079",
+   "shape": "meeting_notes",
+   "text": "Behaviour panel, 5 Nov. Pupil: Lennox Baptiste (10D). Incident: shouting at Ms Farrow after the Method Check. Lennox says he was upset about his grade, apologised. Outcome: restorative meeting; parents (Mr and Mrs Baptiste) informed by letter. Also discussed: Jemima Strutt, who was with him. No sanction for Jemima.",
+   "roster": [
+    {
+     "first": "Lennox",
+     "last": "Baptiste",
+     "preferred": null
+    },
+    {
+     "first": "Jemima",
+     "last": "Strutt",
+     "preferred": null
+    },
+    {
+     "first": "Orin",
+     "last": "Tavares",
+     "preferred": null
+    },
+    {
+     "first": "Bukola",
+     "last": "Ajibade",
+     "preferred": null
+    },
+    {
+     "first": "Mairead",
+     "last": "Foley",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Lennox Baptiste",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Farrow",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Lennox",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Baptiste",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Jemima Strutt",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Jemima",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "h080",
+   "shape": "meeting_notes",
+   "text": "Year 11 data drop meeting. Below target in maths: Nkosana Dube, Ola Adeniran, Sophie-Anne Gilchrist, Ashraf Haddad. Mr Quayle will run Tuesday intervention in room M4. Ola and Ashraf both have EHCPs. Thanks to Ms Perrin for the data.",
+   "roster": [
+    {
+     "first": "Nkosana",
+     "last": "Dube",
+     "preferred": null
+    },
+    {
+     "first": "Olamide",
+     "last": "Adeniran",
+     "preferred": null
+    },
+    {
+     "first": "Sophie-Anne",
+     "last": "Gilchrist",
+     "preferred": null
+    },
+    {
+     "first": "Ashraf",
+     "last": "Haddad",
+     "preferred": null
+    },
+    {
+     "first": "Rafferty",
+     "last": "Bloom",
+     "preferred": null
+    },
+    {
+     "first": "Mina",
+     "last": "Takeda",
+     "preferred": null
+    }
+   ],
+   "spans": [
+    {
+     "value": "Nkosana Dube",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ola Adeniran",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Sophie-Anne Gilchrist",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ashraf Haddad",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Quayle",
+     "kind": "ADULT"
+    },
+    {
+     "value": "Ola",
+     "kind": "STUDENT",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Ashraf",
+     "kind": "STUDENT",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Perrin",
+     "kind": "ADULT"
+    }
+   ]
+  }
+ ],
+ "negatives": [
+  {
+   "id": "hn001",
+   "shape": "teacher_email",
+   "text": "Hi all,\n\nIndependent Learning for the Year 9 sets is due Friday. The Head of Year 9 will check Method Check completion on Monday in Period 3. Please remind classes 9X1 to 9X4.\n\nThanks,\nHead of Maths"
+  },
+  {
+   "id": "hn002",
+   "shape": "parent_email",
+   "text": "Dear Parent or Carer,\n\nThe Summer Fair is on Saturday 13 June at Hope Street Hall. Please send in cakes (no nuts) by Friday. Rose Garden Road car park will be closed all day, so please use the Town Hall car park in Kendal.\n\nKind regards,\nThe School Office"
+  },
+  {
+   "id": "hn003",
+   "shape": "support_note",
+   "text": "Ticket 50388. Bonus Task not showing on the Leaderboard after rollover. Checked: MIS sync ran at 02:00, Year 10 class 10M2 loaded 28 rows. Cause: the Group mapping pointed at last year's Tutor Group. Fixed, resynced. Closed."
+  },
+  {
+   "id": "hn004",
+   "shape": "chat",
+   "text": "Q: Will this mark scheme do for Paper 2?\nA: Yes, it is the Edexcel Foundation one from the June series. The Mark Scheme is on the Exams Officer's share.\nQ: And Grace marks are not given for working out, right?\nA: Method marks are. Hope that helps!"
+  },
+  {
+   "id": "hn005",
+   "shape": "csv",
+   "text": "Topic,Questions,Average\nQuadratics,12,64\nSimultaneous Equations,8,51\nTimes Tables,20,78\nPythagoras,10,70"
+  },
+  {
+   "id": "hn006",
+   "shape": "tsv",
+   "text": "Day\tPeriod\tRoom\nMonday\tPeriod 1\tM4\nTuesday\tPeriod 3\tM2\nWednesday\tPeriod 2\tS1"
+  },
+  {
+   "id": "hn007",
+   "shape": "json",
+   "text": "{\"class\":\"11F\",\"year\":\"Year 11\",\"subject\":\"Mathematics\",\"board\":\"Edexcel\",\"tier\":\"Higher\",\"term\":\"Autumn Term\"}"
+  },
+  {
+   "id": "hn008",
+   "shape": "log",
+   "text": "2026-11-03 02:00:01 INFO sync start source=SIMS\n2026-11-03 02:00:44 INFO sync rows=1432 classes=57\n2026-11-03 02:00:45 WARN column UPN present, 0 values changed\n2026-11-03 02:00:46 INFO sync complete"
+  },
+  {
+   "id": "hn009",
+   "shape": "report_comment",
+   "text": "This term the class has covered Algebra, Ratio and Proportion and Pythagoras. Targets for the Spring Term: Probability and Statistics. Homework is set on Fridays through Independent Learning, and the Method Check is marked by the class teacher."
+  },
+  {
+   "id": "hn010",
+   "shape": "sen_note",
+   "text": "SEN policy reminder: all Access Arrangements must be approved by the SENCo and logged by the Exams Officer before the Mocks. Evidence includes the Educational Psychologist report and Form 8. Extra Time is 25% unless otherwise agreed."
+  },
+  {
+   "id": "hn011",
+   "shape": "ocr",
+   "text": "Y e a r 1 0 Mathcs Homew0rk\nSect1on B: Gradient and Intercept\nTime allowed: 45 minutes\nCalculator allowed: Yes"
+  },
+  {
+   "id": "hn012",
+   "shape": "slack",
+   "text": "#maths-dept\n@here The Spring Term Scheme of Work is in the shared drive. Please check the Year 8 Autumn Term assessment dates. Mock Exams start Monday 7 December in the Sports Hall."
+  },
+  {
+   "id": "hn013",
+   "shape": "email_thread",
+   "text": "From: Exams Officer\nSubject: RE: Mocks timetable\n\nThanks. Maths Paper 1 Higher is Monday 7 December, Period 1, Sports Hall. Foundation is Period 3.\n\n> From: Head of Maths\n> Can you confirm which Hall for Paper 1?\n> Thanks"
+  },
+  {
+   "id": "hn014",
+   "shape": "meeting_notes",
+   "text": "Department meeting, Thursday 19 November. Agenda: 1. Autumn Term assessment 2. Year 7 Transition 3. Ofsted Deep Dive prep 4. Summer Fair stall rota. Actions: Head of Department to circulate the Calculator Policy."
+  },
+  {
+   "id": "hn015",
+   "shape": "chat",
+   "text": "Is it Pythagoras Theorem or Pythagorean Theorem? Both. In the UK we mostly say Pythagoras. And SOHCAHTOA is for Right-Angled Triangles only. Will that be on the Foundation paper? Yes, most years."
+  },
+  {
+   "id": "hn016",
+   "shape": "teacher_email",
+   "text": "Hope you had a good weekend. Will you be at the Year 11 Parents' Evening on Thursday? Grace and favour is no use to us; we need the Marks by Wednesday. Mark Book to go to the Data Manager, please."
+  },
+  {
+   "id": "hn017",
+   "shape": "parent_email",
+   "text": "Dear Parents,\n\nPlease note Rose Lane will be closed on Friday. Buses will use Summer Street instead. Hunter Road is also affected. The Sky Park stop is unchanged. Mason Way is open as usual.\n\nYours,\nTransport Office"
+  },
+  {
+   "id": "hn018",
+   "shape": "support_note",
+   "text": "Customer asked how Bonus Task works. Explained: Bonus Task gives double points for 24 hours after a Method Check is passed. Sent the link to the help page. Customer was happy. Closed."
+  },
+  {
+   "id": "hn019",
+   "shape": "csv",
+   "text": "Code,Description\nIL,Independent Learning\nMC,Method Check\nBT,Bonus Task\nTT,Times Tables\nHoY,Head of Year"
+  },
+  {
+   "id": "hn020",
+   "shape": "json",
+   "text": "{\"towns\":[\"Kendal\",\"Penrith\",\"Appleby\",\"Keswick\"],\"region\":\"Cumbria\",\"exam_board\":\"AQA\"}"
+  },
+  {
+   "id": "hn021",
+   "shape": "log",
+   "text": "ERROR 2026-11-05 login page 500: Teacher Dashboard timeout\nINFO retry ok\nINFO Parent Portal healthy"
+  },
+  {
+   "id": "hn022",
+   "shape": "report_comment",
+   "text": "The department had a Grade 4 pass rate of 78% in the Summer series. Foundation entries rose and Higher Tier entries stayed level. The Autumn Term Progress Check shows Year 9 on track and Year 11 slightly below target."
+  },
+  {
+   "id": "hn023",
+   "shape": "ocr",
+   "text": "NOTlCE\nParents' Evenmg - Year 8\nThursday 26 November\nHall B, Hope Street Campus\nAppointments from 4.00pm"
+  },
+  {
+   "id": "hn024",
+   "shape": "slack",
+   "text": "#general\nFriendly reminder: Summer Fair raffle prizes can go to the Main Office. Mason jars for the sweet stall too! Poppy Appeal collection is on Wednesday."
+  },
+  {
+   "id": "hn025",
+   "shape": "email_thread",
+   "text": "Subject: Re: Reports\n\nHi, Reports go out on Friday 18 December via the Parent Portal. Head of Year to check comments for Year 9. Thanks, Data Manager\n\n> On Monday, SLT wrote:\n> When do reports go home?\n> Thanks, Deputy Head"
+  },
+  {
+   "id": "hn026",
+   "shape": "meeting_notes",
+   "text": "SENCo meeting notes: discussed EHCP annual review timetable, Educational Psychologist visit dates, Teaching Assistant deployment for Year 7. No pupils named. Next meeting: Autumn Term, Week 8."
+  },
+  {
+   "id": "hn027",
+   "shape": "sen_note",
+   "text": "Template for Pupil Passport: Strengths; Barriers; Strategies; Targets. To be completed by the Class Teacher with the SENCo. Share with Teaching Assistants and Head of Year."
+  },
+  {
+   "id": "hn028",
+   "shape": "chat",
+   "text": "Where is the Method Check on the homework site? Under Independent Learning, then Tasks, then Method Check. Click Submit. Thanks! No worries, Will it show for Year 7 too? Yes."
+  },
+  {
+   "id": "hn029",
+   "shape": "tsv",
+   "text": "Year Group\tClasses\tRole\nYear 7\t7A to 7H\tHead of Year\nYear 8\t8A to 8H\tHead of Year\nYear 11\t11A to 11F\tHead of Year"
+  },
+  {
+   "id": "hn030",
+   "shape": "json",
+   "text": "{\"menu\":[\"Independent Learning\",\"Method Check\",\"Bonus Task\",\"Times Tables\"],\"theme\":\"Dark\",\"locale\":\"en-GB\"}"
+  }
+ ]
+}
