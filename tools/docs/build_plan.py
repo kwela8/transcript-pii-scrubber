@@ -89,8 +89,7 @@ family, staff and third party. A person keeps the first role found for every men
 the call. Names with no role are removed as <code>[person n]</code> and counted.</p>
 <p class="note">For school calls, the education example's config has pupil cues ready to
 turn on ("my son", "in Year 9", "her class", "his homework"), so names near them come out as
-<code>[pupil n]</code> and flagged. An earlier version of this plan was written for calls
-between a support coach and school staff; that case is now one config.</p>
+<code>[pupil n]</code> and flagged.</p>
 
 <h2>What the research says</h2>
 <div class="wrap"><table>

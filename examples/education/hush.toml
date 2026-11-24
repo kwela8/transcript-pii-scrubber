@@ -56,7 +56,7 @@ kind = "ULN"
 label = "ULN"
 pattern = '(?<![A-Za-z0-9.,])\d{10}(?![A-Za-z0-9]|[.,]\d)'
 
-# For call transcripts between a support coach and school staff (docs/transcripts-plan.html),
+# For call transcripts between a support team and school staff (docs/transcripts-plan.html),
 # keep the speakers and flag the names that sit near pupil words. Uncomment to use; 0.1.0
 # did not do this, so the labels it gives differ from 0.1.0's.
 #
