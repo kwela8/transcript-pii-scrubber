@@ -1,0 +1,2925 @@
+{
+ "version": "general-cases-1",
+ "cases": [
+  {
+   "id": "g001",
+   "shape": "support_call",
+   "text": "Agent: Good morning, Northvale Energy, you're speaking to Priya. Can I take your name, please?\nCustomer: Hi Priya, it's Daniel Okafor.\nAgent: Thanks, Daniel. Can you confirm the first line of the address and the postcode?\nCustomer: 27 Larkspur Close, LS6 2ZZ.\nAgent: Lovely. What can I help with today?\nCustomer: My mum, Margaret Okafor, moved in with us in September. I'd like her added to the account so she can ring you when I'm away.\nAgent: No problem. I'll need Margaret Okafor's date of birth and a contact number.\nCustomer: She was born on 3 July 1951. Her mobile is 07700 900417.\nAgent: Thank you. Is there an email address for her?\nCustomer: Use mine, d.okafor@example.com.\nAgent: Done. And your account number is NVE-4471-2983, is that right?\nCustomer: Yes. Oh, and the engineer last week, Tomasz Wróbel, said the meter needs swapping.\nAgent: I can see his notes. I'll book that in and text you the date.",
+   "roster": [
+    {
+     "first": "Daniel",
+     "last": "Okafor",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Priya",
+     "last": "Shah",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Priya",
+     "last": "Shah"
+    },
+    {
+     "first": "Daniel",
+     "last": "Okafor"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Priya",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Daniel Okafor",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Daniel",
+     "kind": "KEEP"
+    },
+    {
+     "value": "27 Larkspur Close",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "LS6 2ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Margaret Okafor",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "3 July 1951",
+     "kind": "DOB"
+    },
+    {
+     "value": "07700 900417",
+     "kind": "PHONE"
+    },
+    {
+     "value": "d.okafor@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "NVE-4471-2983",
+     "kind": "REF"
+    },
+    {
+     "value": "Tomasz Wróbel",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g002",
+   "shape": "support_call",
+   "text": "Speaker 1: Brightwater Broadband, Callum speaking.\nSpeaker 2: Hiya, it's Chi Eze. I rang on Monday about the router.\nSpeaker 1: Hi Chi. Let me pull that up. Can you confirm the account holder's full name?\nSpeaker 2: Chinonso Eze. It's in my name, but my partner Funmi does most of the gaming, so she noticed first.\nSpeaker 1: And the customer number?\nSpeaker 2: BWB-0093317.\nSpeaker 1: Thanks. I can see Bethan spoke to you on Monday and sent a replacement router.\nSpeaker 2: She did, but it went next door. Mr Szymański brought it round yesterday.\nSpeaker 1: Sorry about that. Our records have the delivery address as 10 Wren Terrace.\nSpeaker 2: We're 10A Wren Terrace. Can you change that?\nSpeaker 1: Done. One last thing: the router admin password is still the default, so do change it.\nSpeaker 2: I already have, it's Blue-Heron-1987.\nSpeaker 1: Please don't read passwords out on a call. I'll put a note on the account.",
+   "roster": [
+    {
+     "first": "Chinonso",
+     "last": "Eze",
+     "preferred": "Chi",
+     "role": "customer"
+    },
+    {
+     "first": "Bethan",
+     "last": "Pritchard",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Callum",
+     "last": "Rees",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Callum",
+     "last": "Rees"
+    },
+    {
+     "first": "Chinonso",
+     "last": "Eze"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Callum",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Chi Eze",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Chi",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Chinonso Eze",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Funmi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "BWB-0093317",
+     "kind": "REF"
+    },
+    {
+     "value": "Bethan",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mr Szymański",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "10 Wren Terrace",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "10A Wren Terrace",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "Blue-Heron-1987",
+     "kind": "SECRET"
+    }
+   ]
+  },
+  {
+   "id": "g003",
+   "shape": "support_call",
+   "text": "[00:00:04] Siân: Kestrel Home Insurance claims, Siân speaking. How can I help?\n[00:00:09] Imran: Hello, it's Imran Qureshi. I've got a claim open for a leak, reference KHI-CL-558102.\n[00:00:21] Siân: Thanks, Mr Qureshi. Can you confirm your date of birth for me?\n[00:00:25] Imran: 22/11/1979.\n[00:00:31] Siân: Thank you. I can see Gareth booked a loss adjuster for Thursday morning.\n[00:00:38] Imran: That's the problem, I'm at work on Thursday. My son Zain will be in. Can the adjuster ring him on 07700 900152?\n[00:00:52] Siân: Yes, I'll add that number as a second contact. Did anyone else see the damage?\n[00:00:57] Imran: The plumber, Declan Fitzgerald. He left an invoice.\n[00:01:02] Siân: Great, please send that in. And where did the water come from?\n[00:01:06] Imran: The flat upstairs. Mrs Abdi said it was her washing machine hose.\n[00:01:15] Siân: Thanks. I'll send a summary to imran.q@example.net today.",
+   "keep": [
+    {
+     "first": "Siân",
+     "last": "Morgan"
+    },
+    {
+     "first": "Imran",
+     "last": "Qureshi"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Siân",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Imran",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Imran Qureshi",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Mr Qureshi",
+     "kind": "KEEP"
+    },
+    {
+     "value": "KHI-CL-558102",
+     "kind": "REF"
+    },
+    {
+     "value": "22/11/1979",
+     "kind": "DOB"
+    },
+    {
+     "value": "Gareth",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Zain",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "07700 900152",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Declan Fitzgerald",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mrs Abdi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "imran.q@example.net",
+     "kind": "EMAIL"
+    }
+   ]
+  },
+  {
+   "id": "g004",
+   "shape": "support_call",
+   "text": "OKSANA (10:02): Fenmoor Water, Oksana speaking.\nRUTH (10:02): Hello, I'm calling about our direct debit. The account is in the name of Ruth Abernethy-Clarke.\nOKSANA (10:03): Thanks, Ruth. Can I have the account reference?\nRUTH (10:03): FW 7720 1184 03.\nOKSANA (10:03): And the postcode at the property?\nRUTH (10:03): EX4 9ZZ.\nOKSANA (10:04): Thank you. What would you like to change?\nRUTH (10:04): We've switched banks. My husband, Geoff Abernethy-Clarke, wants it to come from his account now. Sort code 40-11-62, account 31926819.\nOKSANA (10:05): As it's his account, I'll need Geoff Abernethy-Clarke to agree to that. Is he with you?\nRUTH (10:05): He's right here, I'll put him on speaker.\nOKSANA (10:07): That's all set up. Anything else today?\nRUTH (10:07): Only to say the man who came about the stopcock, Kwame Mensah, was brilliant.\nOKSANA (10:08): I'll pass that on to his team.",
+   "roster": [
+    {
+     "first": "Ruth",
+     "last": "Abernethy-Clarke",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Geoffrey",
+     "last": "Abernethy-Clarke",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Oksana",
+     "last": "Kovalenko",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Oksana",
+     "last": "Kovalenko"
+    },
+    {
+     "first": "Ruth",
+     "last": "Abernethy-Clarke"
+    }
+   ],
+   "spans": [
+    {
+     "value": "OKSANA",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Oksana",
+     "kind": "KEEP"
+    },
+    {
+     "value": "RUTH",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Ruth",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Ruth Abernethy-Clarke",
+     "kind": "KEEP"
+    },
+    {
+     "value": "FW 7720 1184 03",
+     "kind": "REF"
+    },
+    {
+     "value": "EX4 9ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Geoff Abernethy-Clarke",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "40-11-62",
+     "kind": "BANK"
+    },
+    {
+     "value": "31926819",
+     "kind": "BANK"
+    },
+    {
+     "value": "Kwame Mensah",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g005",
+   "shape": "support_call",
+   "text": "Tunde Bakare: Thanks for calling Larchfield Home, Tunde here.\nEleni Papadopoulou: Hi Tunde, I'm chasing an order for my daughter's birthday. The order number is LH-20931-K.\nTunde Bakare: Let me look. Is that going to Eleni Papadopoulou at 5 Quarry Lane?\nEleni Papadopoulou: That's me. It was meant to arrive on Saturday for Sophia's party.\nTunde Bakare: The courier's notes say the driver, Marek, tried at 14:10 and left a card.\nEleni Papadopoulou: Nobody knocked, I was in all day. Hannah from your chat team said I'd get a refund if it was late.\nTunde Bakare: I can refund the delivery charge, or send you a £10 voucher.\nEleni Papadopoulou: The voucher's fine. Please send it to eleni.p@example.org.\nTunde Bakare: Done. I've also asked the courier to redeliver tomorrow before noon.",
+   "keep": [
+    {
+     "first": "Tunde",
+     "last": "Bakare"
+    },
+    {
+     "first": "Eleni",
+     "last": "Papadopoulou"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Tunde Bakare",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Tunde",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Eleni Papadopoulou",
+     "kind": "KEEP"
+    },
+    {
+     "value": "LH-20931-K",
+     "kind": "REF"
+    },
+    {
+     "value": "5 Quarry Lane",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "Sophia",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Marek",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Hannah",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "eleni.p@example.org",
+     "kind": "EMAIL"
+    }
+   ]
+  },
+  {
+   "id": "g006",
+   "shape": "support_call",
+   "text": "00:00:02 Agent: You're through to Corrin Mobile security, my name is Agnieszka.\n00:00:07 Customer: Hi, it's Liam Doherty. I got a text saying someone signed into my account.\n00:00:15 Agent: I'm sorry to hear that, Liam. What's your username?\n00:00:19 Customer: ldoherty88.\n00:00:26 Agent: Thanks. There was a sign-in at 23:40 last night from 203.0.113.47. Was that you?\n00:00:33 Customer: No. My sister Niamh borrowed my laptop last week, but she's back in Derry now.\n00:01:02 Agent: I'll lock the account now. Ravi on the day team will call you back on 01632 960284 to reset everything.\n00:01:10 Customer: Is that the landline? My mobile's in the repair shop.\n00:01:18 Agent: Yes, that's the landline we have for you.\n00:03:14 Customer: Grand. One more thing, my old PIN was 4471. Should I change that too?\n00:03:20 Agent: Yes please, and never share it, even with us.",
+   "roster": [
+    {
+     "first": "Liam",
+     "last": "Doherty",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Ravi",
+     "last": "Menon",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Agnieszka",
+     "last": "Zielińska",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Agnieszka",
+     "last": "Zielińska"
+    },
+    {
+     "first": "Liam",
+     "last": "Doherty"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Agnieszka",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Liam Doherty",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Liam",
+     "kind": "KEEP"
+    },
+    {
+     "value": "ldoherty88",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "203.0.113.47",
+     "kind": "IP"
+    },
+    {
+     "value": "Niamh",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Ravi",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "01632 960284",
+     "kind": "PHONE"
+    },
+    {
+     "value": "4471",
+     "kind": "SECRET"
+    }
+   ]
+  },
+  {
+   "id": "g007",
+   "shape": "support_call",
+   "text": "Advisor: Hollin Vale Council, council tax team, Megan speaking.\nCaller: Hello. My name is Abdirahman Warsame, but everyone calls me Abdi.\nAdvisor: Hi Abdi, how can I help?\nCaller: We moved into 41 Cedar Rise in August and the bill still has the old tenant's name on it, Craig Whitlock.\nAdvisor: I'll close his account from the day you moved in. Can I take your National Insurance number to open yours?\nCaller: QQ 12 34 56 C.\nAdvisor: Thank you. Does anyone else over 18 live with you?\nCaller: My wife, Hodan. Our daughter Sagal is seven.\nAdvisor: Then the bill will be in both your names. What's the best phone number?\nCaller: +44 7700 900861.\nAdvisor: Your new reference is CT-0058821. The bill will follow in about ten days.",
+   "roster": [
+    {
+     "first": "Abdirahman",
+     "last": "Warsame",
+     "preferred": "Abdi",
+     "role": "customer"
+    },
+    {
+     "first": "Hodan",
+     "last": "Ali",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Megan",
+     "last": "Lloyd",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Megan",
+     "last": "Lloyd"
+    },
+    {
+     "first": "Abdirahman",
+     "last": "Warsame"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Megan",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Abdirahman Warsame",
+     "kind": "KEEP"
+    },
+    {
+     "value": "Abdi",
+     "kind": "KEEP"
+    },
+    {
+     "value": "41 Cedar Rise",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "Craig Whitlock",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "QQ 12 34 56 C",
+     "kind": "NINO"
+    },
+    {
+     "value": "Hodan",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Sagal",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "+44 7700 900861",
+     "kind": "PHONE"
+    },
+    {
+     "value": "CT-0058821",
+     "kind": "REF"
+    }
+   ]
+  },
+  {
+   "id": "g008",
+   "shape": "support_call",
+   "text": "A: Ironleaf Fitness memberships, Rhian speaking.\nC: Hi, it's João Gonçalves. I'd like to cancel my membership, please.\nA: Sorry to hear that, João. Can I take your membership number?\nC: PF-118274.\nA: Thank you. Can I ask why you're leaving?\nC: We're moving to Leeds in January. My partner Beatriz has a new job there.\nA: Congratulations. I see your trainer, Mark, has asked me to mark your last session as the 19th.\nC: That's right. Mark's been great, please tell him thanks.\nA: I will. The final payment comes from your card on 1 December.\nC: Can it come off a different card? It's 4000 0566 5566 5556.\nA: I can't take card details on this line, sorry. You can change it in the app.\nC: My login's joao.goncalves, but I've forgotten the password.\nA: I'll send a reset link to the email we hold.",
+   "roster": [
+    {
+     "first": "João",
+     "last": "Gonçalves",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Mark",
+     "last": "Tennant",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Rhian",
+     "last": "Jenkins",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Rhian",
+     "last": "Jenkins"
+    },
+    {
+     "first": "João",
+     "last": "Gonçalves"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Rhian",
+     "kind": "KEEP"
+    },
+    {
+     "value": "João Gonçalves",
+     "kind": "KEEP"
+    },
+    {
+     "value": "João",
+     "kind": "KEEP"
+    },
+    {
+     "value": "PF-118274",
+     "kind": "REF"
+    },
+    {
+     "value": "Beatriz",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mark",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "4000 0566 5566 5556",
+     "kind": "CARD"
+    },
+    {
+     "value": "joao.goncalves",
+     "kind": "USERNAME"
+    }
+   ]
+  },
+  {
+   "id": "g009",
+   "shape": "support_call",
+   "text": "good afternoon larchmont building society you are speaking with aaron how can i help.\nhi aaron my name is kasia nowak well katarzyna on the account.\nthanks kasia can i take your membership number please.\nyes it is four four seven one two nine eight three.\nand your date of birth.\nfourteenth of march nineteen eighty six.\nthank you. and a phone number in case we get cut off.\noh seven seven double oh nine double oh four one seven.\nlovely. what can i do for you today.\ni want to add my son kuba to my savings account. he is sixteen now.\nno problem. he will need to come into a branch with some id.\nand can my neighbour mrs obrien drop the forms in for me. she has a key.\nwe would need a letter signed by you but yes that is fine.",
+   "roster": [
+    {
+     "first": "Katarzyna",
+     "last": "Nowak",
+     "preferred": "Kasia",
+     "role": "customer"
+    },
+    {
+     "first": "Aaron",
+     "last": "Fletcher",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Aaron",
+     "last": "Fletcher"
+    },
+    {
+     "first": "Katarzyna",
+     "last": "Nowak"
+    }
+   ],
+   "spans": [
+    {
+     "value": "aaron",
+     "kind": "KEEP"
+    },
+    {
+     "value": "kasia nowak",
+     "kind": "KEEP"
+    },
+    {
+     "value": "kasia",
+     "kind": "KEEP"
+    },
+    {
+     "value": "katarzyna",
+     "kind": "KEEP"
+    },
+    {
+     "value": "four four seven one two nine eight three",
+     "kind": "REF"
+    },
+    {
+     "value": "fourteenth of march nineteen eighty six",
+     "kind": "DOB"
+    },
+    {
+     "value": "oh seven seven double oh nine double oh four one seven",
+     "kind": "PHONE"
+    },
+    {
+     "value": "kuba",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "mrs obrien",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g010",
+   "shape": "support_call",
+   "text": "speaker 1 thank you for calling tallis telecom this is ollie.\nspeaker 2 hi ollie its ravinder sandhu. i called last week and spoke to fiona hughes about my bill.\nspeaker 1 ok let me find that. can you give me the account number.\nspeaker 2 its seven seven three oh two one one five.\nspeaker 1 thank you mr sandhu. and the number you are calling about.\nspeaker 2 oh two oh seven nine four six oh three three eight.\nspeaker 1 right i can see fiona added a credit of twelve pounds. it will show on your next bill.\nspeaker 2 but the bill went to my old address twelve mill street. we are at nine harbour view now.\nspeaker 1 i will update that. and the postcode for nine harbour view.\nspeaker 2 ls6 2zz.\nspeaker 1 done. is there anything else.\nspeaker 2 my wife amandeep wants to be a named person on the account.\nspeaker 1 she can call us herself or you can add her in the app.",
+   "roster": [
+    {
+     "first": "Ravinder",
+     "last": "Sandhu",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Ffion",
+     "last": "Hughes",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Ollie",
+     "last": "Barnes",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Ollie",
+     "last": "Barnes"
+    },
+    {
+     "first": "Ravinder",
+     "last": "Sandhu"
+    }
+   ],
+   "spans": [
+    {
+     "value": "ollie",
+     "kind": "KEEP"
+    },
+    {
+     "value": "ravinder sandhu",
+     "kind": "KEEP"
+    },
+    {
+     "value": "mr sandhu",
+     "kind": "KEEP"
+    },
+    {
+     "value": "fiona hughes",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "fiona",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "seven seven three oh two one one five",
+     "kind": "REF"
+    },
+    {
+     "value": "oh two oh seven nine four six oh three three eight",
+     "kind": "PHONE"
+    },
+    {
+     "value": "twelve mill street",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "nine harbour view",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "ls6 2zz",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "amandeep",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g011",
+   "shape": "support_call",
+   "text": "agent good morning hollins and pike insurance nadia speaking.\ncustomer hello it is xiulan zhang. i have a renewal letter here.\nagent thank you. what is the policy number at the top of the letter.\ncustomer h p two two oh nine eight four seven.\nagent and the phone number on the policy.\ncustomer oh one six three two nine six oh five five one.\nagent thank you mrs zhang. i can see the renewal is for you with li wei as a named driver.\ncustomer yes that is my husband. he passed his test in may.\nagent can i confirm your email address.\ncustomer xiulan dot zhang at example dot com.\nagent that matches. would you like to pay by card today.\ncustomer yes the card number is four one one one one one one one one one one one one one one one.\nagent thank you that has gone through. your new documents will be emailed today.",
+   "roster": [
+    {
+     "first": "Xiulan",
+     "last": "Zhang",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Wei",
+     "last": "Li",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Nadia",
+     "last": "Rahman",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "keep": [
+    {
+     "first": "Nadia",
+     "last": "Rahman"
+    },
+    {
+     "first": "Xiulan",
+     "last": "Zhang"
+    }
+   ],
+   "spans": [
+    {
+     "value": "nadia",
+     "kind": "KEEP"
+    },
+    {
+     "value": "xiulan zhang",
+     "kind": "KEEP"
+    },
+    {
+     "value": "mrs zhang",
+     "kind": "KEEP"
+    },
+    {
+     "value": "h p two two oh nine eight four seven",
+     "kind": "REF"
+    },
+    {
+     "value": "oh one six three two nine six oh five five one",
+     "kind": "PHONE"
+    },
+    {
+     "value": "li wei",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "xiulan dot zhang at example dot com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "four one one one one one one one one one one one one one one one",
+     "kind": "CARD"
+    }
+   ]
+  },
+  {
+   "id": "g012",
+   "shape": "support_call",
+   "text": "hello you are through to northvale energy my name is ewan.\nhiya ewan its dafydd evans here. i am phoning about the refund jade promised me.\nok dafydd let me find the account. what is the account number.\nit is n v e five five oh two eight one.\nthanks. and the first line of the address.\nseventeen heol y parc.\nlovely. i can see the refund of eighty two pounds. jade set it to go to your bank.\nyes but i have changed banks. the new sort code is four oh one one six two and the account is three one nine two six eight one nine.\ni have updated that. can i check a mobile number for the confirmation text.\noh seven seven double oh nine double oh seven seven three.\nthank you. it should arrive in five working days.\nmy daughter seren set up the online login for me. do i need that.\nnot for this no.",
+   "keep": [
+    {
+     "first": "Ewan",
+     "last": "Grant"
+    },
+    {
+     "first": "Dafydd",
+     "last": "Evans"
+    }
+   ],
+   "spans": [
+    {
+     "value": "ewan",
+     "kind": "KEEP"
+    },
+    {
+     "value": "dafydd evans",
+     "kind": "KEEP"
+    },
+    {
+     "value": "dafydd",
+     "kind": "KEEP"
+    },
+    {
+     "value": "jade",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "n v e five five oh two eight one",
+     "kind": "REF"
+    },
+    {
+     "value": "seventeen heol y parc",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "four oh one one six two",
+     "kind": "BANK"
+    },
+    {
+     "value": "three one nine two six eight one nine",
+     "kind": "BANK"
+    },
+    {
+     "value": "oh seven seven double oh nine double oh seven seven three",
+     "kind": "PHONE"
+    },
+    {
+     "value": "seren",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g013",
+   "shape": "meeting_notes",
+   "text": "Hatherley Road Allotment Society\nCommittee minutes, 12 March\n\nPresent: Grace Adeyemi (chair), Will Hartley (treasurer), Rose Kaczmarek, Hamza Iqbal\nApologies: Summer Lewis\n\n1. Rents. Will reported that water charges rose by 9% this year. The committee will keep plot rents the same and give tenants a grace period of 30 days for late payment.\n2. Plot 14. Grace said the tenant has not worked the plot since last summer. Rose will write to them.\n3. Open day. Hamza offered to run the seed swap. Summer has said by email that she can help on the day.\n\nActions\n- Will: send the rent letters by 1 April.\n- Rose: letter to the plot 14 tenant.\n- Hamza: book the hall for the open day.",
+   "roster": [
+    {
+     "first": "Grace",
+     "last": "Adeyemi",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Will",
+     "last": "Hartley",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Rose",
+     "last": "Kaczmarek",
+     "preferred": null,
+     "role": "person"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Grace Adeyemi",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Will Hartley",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rose Kaczmarek",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Hamza Iqbal",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Summer Lewis",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Will",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Grace",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rose",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Hamza",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Summer",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g014",
+   "shape": "meeting_notes",
+   "text": "Ops weekly, Fernbank Logistics\nAttendees: Mark Oduya, Hope Mwangi, Frank Delaney, Aleksandra Wójcik-Bell, Bilal Hussain\nApologies: Bill Ashworth\n\nNotes\nMark opened with the depot numbers. We hope to clear the Leeds backlog by Friday.\nHope asked for a frank conversation about overtime. Frank agreed, and said the agency bill for October was £14,200, which is over budget.\nAleksandra will mark late loads in red on the tracker so the night supervisor can see them.\nBilal raised the van hire contract. Bill sent notes on it before the meeting; Mark to read them and reply to Bill.\n\nActions\n1. Overtime proposal for next week: owner Hope, with Frank.\n2. Tracker colours: Aleksandra.\n3. Reply to Bill about van hire: Mark.",
+   "spans": [
+    {
+     "value": "Mark Oduya",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Hope Mwangi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Frank Delaney",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Aleksandra Wójcik-Bell",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Bilal Hussain",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Bill Ashworth",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mark",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Hope",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Frank",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Aleksandra",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Bilal",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Bill",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g015",
+   "shape": "meeting_notes",
+   "text": "Riverside Food Larder: trustees' meeting, 4 November\n\nPresent: Joanna Kowalczyk (JK, chair), Robert Patel (RP), Adaeze Okoro (AO), Ciarán Ó Briain (CÓB)\nIn attendance: Sunita Rao, volunteer coordinator\nApologies: Thomas Lin\n\n1. The minutes of the last meeting were agreed.\n2. Finance. RP reported £8,450 in the bank. Rob will move the reserve into the savings account at Larchmont Building Society.\n3. Volunteers. Sunita said 46 volunteers are active and two more start next week.\n4. Premises. AO and CÓB met the landlord's agent. Ciarán will chase the lease renewal.\n5. Next meeting: 2 December.\n\nActions\nJK: write to the council about the grant.\nRP (Rob): savings transfer.\nCÓB: lease.",
+   "roster": [
+    {
+     "first": "Joanna",
+     "last": "Kowalczyk",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Robert",
+     "last": "Patel",
+     "preferred": "Rob",
+     "role": "person"
+    },
+    {
+     "first": "Adaeze",
+     "last": "Okoro",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Ciarán",
+     "last": "Ó Briain",
+     "preferred": null,
+     "role": "person"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Joanna Kowalczyk",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "JK",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Robert Patel",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "RP",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Rob",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Adaeze Okoro",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "AO",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Ciarán Ó Briain",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "CÓB",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Ciarán",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Sunita Rao",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Sunita",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Thomas Lin",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g016",
+   "shape": "meeting_notes",
+   "text": "Kick-off: new booking system\nAttendees: Li Na Zhou (product), Abdullahi Hassan (engineering), Rosie Fairweather (support), Gwilym Parry (finance)\nApologies: Callum Hendry\nNotes taken by: Mei Ling Tan\n\nLi Na walked through the scope. Support want customers to see their past bookings, and Rosie will share the top ten ticket themes.\nAbdullahi said the old system's export is unreliable, so we need two weeks to clean the data first.\nGwilym asked who signs off spend over £5k. Answer: Li Na, then finance.\nThe vendor's account manager is Hannah Brooke-Taylor (hannah.bt@example.com, 020 7946 0715).\n\nActions\n- Rosie: ticket themes by Friday\n- Abdullahi: data clean-up plan\n- Mei Ling: book weekly check-ins with Hannah",
+   "spans": [
+    {
+     "value": "Li Na Zhou",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Li Na",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Abdullahi Hassan",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Abdullahi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Rosie Fairweather",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Rosie",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Gwilym Parry",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Gwilym",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Callum Hendry",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mei Ling Tan",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mei Ling",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Hannah Brooke-Taylor",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Hannah",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "hannah.bt@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "020 7946 0715",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "g017",
+   "shape": "meeting_notes",
+   "text": "Tavistock Road Cricket Club: committee meeting\nPresent: Imran Akhtar (chair), Summer Okafor-Reid, Mark Liddell, Precious Moyo, Dai Rowlands\nApologies: Grace Fenwick, Wojciech Nowicki\n\n1. Nets. Mark has quotes from two firms. We will mark out the new nets in early spring rather than summer, so they are ready for the season.\n2. Subs. Summer proposed a grace period for junior subs until the end of April. Agreed.\n3. Bar. Dai said the bar made a small loss over the summer. Precious will look at prices.\n4. Grace sent a note: she is happy to keep running the scorers' course.\n\nActions: Mark (nets), Summer (subs letter), Precious (bar prices), Imran (email Wojciech about the fixtures list).",
+   "roster": [
+    {
+     "first": "Imran",
+     "last": "Akhtar",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Mark",
+     "last": "Liddell",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Precious",
+     "last": "Moyo",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Grace",
+     "last": "Fenwick",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "David",
+     "last": "Rowlands",
+     "preferred": null,
+     "role": "person"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Imran Akhtar",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Imran",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Summer Okafor-Reid",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Summer",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mark Liddell",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mark",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Precious Moyo",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Precious",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dai Rowlands",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Dai",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Grace Fenwick",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Grace",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Wojciech Nowicki",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Wojciech",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g018",
+   "shape": "meeting_notes",
+   "text": "IT steering group, 21 October\nChair: Nkechi Obi\nPresent: Will Foster, Tariq Mahmood, Ewa Lis, Owen Pritchard-Davies\nApologies: Bethany Holt\nGuest: Rachel Kim, Corvane Systems\n\nWill presented the laptop refresh plan. Tariq asked whether the budget will cover docking stations; Will thinks it will if we reuse the old monitors.\nEwa reported that three phishing emails reached staff last week. One was made to look as if it came from Owen.\nRachel can be reached on 07700 900238 with questions about the support contract.\n\nActions\nWF: order list to finance\nTM: check monitor stock\nEL: phishing reminder to all staff\nOPD: supplier review with Rachel",
+   "spans": [
+    {
+     "value": "Nkechi Obi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Will Foster",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Will",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Tariq Mahmood",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Tariq",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Ewa Lis",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Ewa",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Owen Pritchard-Davies",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Owen",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Bethany Holt",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Rachel Kim",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Rachel",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "07700 900238",
+     "kind": "PHONE"
+    },
+    {
+     "value": "WF",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "TM",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "EL",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "OPD",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g019",
+   "shape": "cv",
+   "text": "OLUWASEUN ADEBAYO\n14 Fernhill Road, Leicester LE3 9ZZ\n07700 900583 | seun.adebayo@example.com\nDate of birth: 05/02/1990\n\nProfile\nOperations manager with eight years in warehousing and last-mile delivery. Known to most colleagues as Seun.\n\nExperience\nFernbank Logistics, Depot Manager, 2021 to now\nKestrel Parcels, Shift Lead, 2016 to 2021\n\nEducation\nBSc Business Management, University of Harrowfield, 2012\n\nReferee\nFrank Delaney, Regional Director, Fernbank Logistics\nfrank.delaney@example.net, 01632 960417",
+   "spans": [
+    {
+     "value": "OLUWASEUN ADEBAYO",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "14 Fernhill Road",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "LE3 9ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "07700 900583",
+     "kind": "PHONE"
+    },
+    {
+     "value": "seun.adebayo@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "05/02/1990",
+     "kind": "DOB"
+    },
+    {
+     "value": "Seun",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Frank Delaney",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "frank.delaney@example.net",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "01632 960417",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "g020",
+   "shape": "cv",
+   "text": "Curriculum vitae\n\nAyesha Siddiqui\nFlat 3, 88 Mulberry Street, Manchester M14 6ZZ\nMobile: +44 7700 900964\nEmail: ayesha.siddiqui@example.org\n\nPersonal statement\nI am a payroll specialist with six years of experience in the public and charity sectors. I like untangling messy data and explaining it plainly.\n\nEmployment\n2022 to present: Payroll Officer, Hollin Vale Council\n2019 to 2022: Payroll Assistant, Northvale Energy\n2018 to 2019: Temp, Brightstaff Recruitment\n\nSkills\nPayroll systems, spreadsheets, pensions auto-enrolment\n\nReferences\nMrs Nasreen Akhtar, Payroll Manager, Hollin Vale Council, nasreen.akhtar@example.org\nGareth Lloyd-Hughes, Finance Director, Northvale Energy, 020 7946 0482",
+   "roster": [
+    {
+     "first": "Ayesha",
+     "last": "Siddiqui",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Nasreen",
+     "last": "Akhtar",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Ayesha Siddiqui",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Flat 3, 88 Mulberry Street",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "M14 6ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "+44 7700 900964",
+     "kind": "PHONE"
+    },
+    {
+     "value": "ayesha.siddiqui@example.org",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Mrs Nasreen Akhtar",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "nasreen.akhtar@example.org",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Gareth Lloyd-Hughes",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "020 7946 0482",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "g021",
+   "shape": "cv",
+   "text": "Jenny Chen (Chen Jing) is a data engineer based in Cardiff. Since 2020 she has worked at Corvane Systems, where she moved the reporting stack from overnight batch jobs to streaming. Before that she spent three years as an analyst at Tallis Telecom. Jenny mentors two junior engineers and speaks Mandarin, English and Welsh. Her open-source work is under the handle jchen-dev. She can be contacted at jenny.chen@example.net or on 07700 900309. Her manager at Corvane, Matthew O'Rourke, has agreed to act as a referee.",
+   "spans": [
+    {
+     "value": "Jenny Chen",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Chen Jing",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Jenny",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "jchen-dev",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "jenny.chen@example.net",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "07700 900309",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Matthew O'Rourke",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g022",
+   "shape": "cv",
+   "text": "MARIANA COSTA FERREIRA\nChef de partie\nmariana.cf@example.com · 020 7946 0127 · 9 Kiln Yard, Leeds LS6 2ZZ\n\nKitchen experience\n- The Larder House, Leeds: chef de partie, 2023 to now. Runs the pastry section for 90 covers.\n- Casa Azul, Lisbon: commis chef, 2018 to 2022.\n\nTraining\nLevel 3 Food Hygiene, 2023\n\nLanguages: Portuguese, English, Spanish\n\nReferees\nPiotr Zawadzki, Head Chef, The Larder House, piotr.z@example.com\nAna Ribeiro, Owner, Casa Azul, ana.ribeiro@example.test",
+   "spans": [
+    {
+     "value": "MARIANA COSTA FERREIRA",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "mariana.cf@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "020 7946 0127",
+     "kind": "PHONE"
+    },
+    {
+     "value": "9 Kiln Yard",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "LS6 2ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Piotr Zawadzki",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "piotr.z@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Ana Ribeiro",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "ana.ribeiro@example.test",
+     "kind": "EMAIL"
+    }
+   ]
+  },
+  {
+   "id": "g023",
+   "shape": "complaint_email",
+   "text": "Subject: Complaint about estimated bills, account NVE-6620-1457\n\nDear Northvale Energy,\n\nI am writing to complain about how my account has been handled since June. My name is Grzegorz Lewandowski and I live at 63 Thornbury Avenue, Swindon SN2 7ZZ with my partner, Hannah Owusu.\n\nWe have sent meter readings every month through the app, but every bill has been estimated. In September you took £312 by direct debit, three times the usual amount. Hannah rang on 2 October and an adviser called Josh told her it would be refunded within ten days. Nothing has arrived.\n\nOur neighbour, Mrs Pauline Hargreaves, is with you too and has had the same problem, so I do not think this is a one-off.\n\nPlease refund the overpayment and note on the account that our readings are correct. You can reach me on 07700 900726 or at greg.lewandowski@example.com.\n\nYours faithfully,\nGrzegorz (Greg) Lewandowski",
+   "roster": [
+    {
+     "first": "Grzegorz",
+     "last": "Lewandowski",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Hannah",
+     "last": "Owusu",
+     "preferred": null,
+     "role": "customer"
+    }
+   ],
+   "spans": [
+    {
+     "value": "NVE-6620-1457",
+     "kind": "REF"
+    },
+    {
+     "value": "Grzegorz Lewandowski",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "63 Thornbury Avenue",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "SN2 7ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Hannah Owusu",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Hannah",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Josh",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mrs Pauline Hargreaves",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "07700 900726",
+     "kind": "PHONE"
+    },
+    {
+     "value": "greg.lewandowski@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Grzegorz",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Greg",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Lewandowski",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "g024",
+   "shape": "complaint_email",
+   "text": "From: Nkem Chukwu <nkem.chukwu@example.net>\nTo: Larchfield Home customer care\nSubject: Order LH-77310-B arrived broken, second time\n\nHello,\n\nThis is the second time an order of mine has turned up smashed (LH-77310-B this week, LH-76984-A last month). The driver, who said his name was Stuart, left the box on the wall outside 2 Cobbler's Row, Hexham NE46 1ZZ, even though I was in.\n\nMy husband Emeka took photos and sent them through your chat. The agent, Chloe, gave him case number CS-0041192, but nobody has replied.\n\nI paid by card, 5555 5555 5555 4444. I want a full refund to that card, not a voucher.\n\nRegards,\nNkem Chukwu\n07700 900195",
+   "spans": [
+    {
+     "value": "Nkem Chukwu",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "nkem.chukwu@example.net",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "LH-77310-B",
+     "kind": "REF"
+    },
+    {
+     "value": "LH-76984-A",
+     "kind": "REF"
+    },
+    {
+     "value": "Stuart",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "2 Cobbler's Row",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "NE46 1ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Emeka",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Chloe",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "CS-0041192",
+     "kind": "REF"
+    },
+    {
+     "value": "5555 5555 5555 4444",
+     "kind": "CARD"
+    },
+    {
+     "value": "07700 900195",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "g025",
+   "shape": "complaint_email",
+   "text": "Dear Fenwick Lane Lettings,\n\nRe: deposit for 19B Albion Street, tenancy reference FLL-T-20417\n\nI moved out of 19B Albion Street on 31 August after three years. My deposit of £1,150 has still not been returned, and the landlord, Mr Desmond Achterberg, has not answered any of my emails.\n\nYour colleague Stacey Whitfield did the check-out with me and agreed the flat was in good order. She took photos. My friend Tomás Ferreira was there too and is happy to confirm this.\n\nI have since moved abroad, so please pay the deposit to my account, IBAN GB82 WEST 1234 5698 7654 32, in the name of Hyun-woo Park.\n\nIf I have not heard from you by 30 November I will raise a dispute with the deposit scheme.\n\nYours sincerely,\nHyun-woo Park\nhyunwoo.park@example.org",
+   "roster": [
+    {
+     "first": "Hyun-woo",
+     "last": "Park",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Stacey",
+     "last": "Whitfield",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Desmond",
+     "last": "Achterberg",
+     "preferred": null,
+     "role": "customer"
+    }
+   ],
+   "spans": [
+    {
+     "value": "19B Albion Street",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "FLL-T-20417",
+     "kind": "REF"
+    },
+    {
+     "value": "Mr Desmond Achterberg",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Stacey Whitfield",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Tomás Ferreira",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "GB82 WEST 1234 5698 7654 32",
+     "kind": "BANK"
+    },
+    {
+     "value": "Hyun-woo Park",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "hyunwoo.park@example.org",
+     "kind": "EMAIL"
+    }
+   ]
+  },
+  {
+   "id": "g026",
+   "shape": "complaint_email",
+   "text": "From: Rhodri Bevan <r.bevan@example.com>\nSubject: bins missed AGAIN\n\nhi, this is the fourth week running the recycling at 7 Garth Close hasnt been collected. my neighbour Bronwen says hers was missed too. i reported it online (ref HV-ENV-339120) and someone called darren rang me back on 07700 900640 and said it was sorted. it wasnt. please send someone this week.\nthanks\nrhodri",
+   "spans": [
+    {
+     "value": "Rhodri Bevan",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "r.bevan@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "7 Garth Close",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "Bronwen",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "HV-ENV-339120",
+     "kind": "REF"
+    },
+    {
+     "value": "darren",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "07700 900640",
+     "kind": "PHONE"
+    },
+    {
+     "value": "rhodri",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g027",
+   "shape": "complaint_email",
+   "text": "Subject: Missed engineer appointment, account BWB-0418865\n\nTo whom it may concern,\n\nI took Tuesday off work for an engineer visit between 8am and 1pm at 31 St Kevin's Road. Nobody came and nobody rang. When I chased it, an adviser called Ifeanyi told me the job had been \"closed by the engineer\", and gave the engineer's name as Paul Kirwan.\n\nMy daughter Aoife has exams next month and needs a working connection for revision, which is the only reason we upgraded.\n\nYour chat bot asked for my online login and account PIN, so for the record they are maeve.dunne and 2846. I would rather not have had to share them.\n\nPlease book a new appointment and compensate me for the missed one.\n\nMaeve Dunne",
+   "spans": [
+    {
+     "value": "BWB-0418865",
+     "kind": "REF"
+    },
+    {
+     "value": "31 St Kevin's Road",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "Ifeanyi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Paul Kirwan",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Aoife",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "maeve.dunne",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "2846",
+     "kind": "SECRET"
+    },
+    {
+     "value": "Maeve Dunne",
+     "kind": "PERSON",
+     "on_roster": "no"
+    }
+   ]
+  },
+  {
+   "id": "g028",
+   "shape": "chat_log",
+   "text": "[09:02] jo.k: morning! @sam.t can you pick up the Harlow invoice today?\n[09:04] sam.t: yep. who's the contact there now, still deepa?\n[09:05] jo.k: no, deepa left in august. it's Callum Fraser now, callum.fraser@example.com\n[09:06] sam.t: ta\n[09:11] priyanka.r: fyi I'm off tomorrow, @jo.k is covering my queue\n[09:12] jo.k: news to me but ok\n[09:14] priyanka.r: sorry!! tomasz has the supplier portal login if you need it, it's rpatel42",
+   "roster": [
+    {
+     "first": "Deepa",
+     "last": "Raman",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Callum",
+     "last": "Fraser",
+     "preferred": null,
+     "role": "person"
+    },
+    {
+     "first": "Tomasz",
+     "last": "Zieliński",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "spans": [
+    {
+     "value": "jo.k",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "@jo.k",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "@sam.t",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "sam.t",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "priyanka.r",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "rpatel42",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "deepa",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Callum Fraser",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "callum.fraser@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "tomasz",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "g029",
+   "shape": "chat_log",
+   "text": "Hodan Farah  10:42\nHas anyone got a number for the new tenant at 22 Ashgrove Court? Repairs want to book the boiler service.\n\nBen Whitaker  10:44\nI think Kev spoke to her last week. Kev?\n\nKevin Mulligan  10:51\nYes, it's Mrs Ewa Sobczak, 07700 900349. She works nights, so call after 2.\nHer son Filip sometimes answers and is fine to book it.\n\nHodan Farah  10:52\nPerfect, thanks Kevin. Booking it now.",
+   "roster": [
+    {
+     "first": "Hodan",
+     "last": "Farah",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Ben",
+     "last": "Whitaker",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Kevin",
+     "last": "Mulligan",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Ewa",
+     "last": "Sobczak",
+     "preferred": null,
+     "role": "customer"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Hodan Farah",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "22 Ashgrove Court",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "Ben Whitaker",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Kev",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Kevin Mulligan",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Mrs Ewa Sobczak",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "07700 900349",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Filip",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Kevin",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "g030",
+   "shape": "chat_log",
+   "text": "[22/11/2026, 18:03] Funke: Hi all, Tobi's party is at 15 Meadow Bank on Saturday from 2pm\n[22/11/2026, 18:05] Gosia: Lovely! Is it ok if Zuzia's cousin comes too?\n[22/11/2026, 18:06] Funke: Of course!\n[22/11/2026, 18:20] Marcus: What's the postcode for the satnav?\n[22/11/2026, 18:21] Funke: GL50 3ZZ, the house with the blue door\n[22/11/2026, 18:40] +44 7700 900512: Hi, it's Shabnam, Arman's mum. We'd love to come but he has football until 1\n[22/11/2026, 18:41] Funke: no problem shabnam, come when you can\n[22/11/2026, 19:02] Marcus: Funke can you add Dariusz to the group? His number is 07700 900877",
+   "spans": [
+    {
+     "value": "Funke",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Tobi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "15 Meadow Bank",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "Gosia",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Zuzia",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Marcus",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "GL50 3ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "+44 7700 900512",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Shabnam",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Arman",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "shabnam",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Dariusz",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "07700 900877",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "g031",
+   "shape": "chat_log",
+   "text": "#incident-2291\n14:02 @oyelaran.d: heads up, repeated failed logins on one customer account\n14:03 @oyelaran.d: user=mwilliams_77 src=198.51.100.23 attempts=48\n14:05 @lukas.b: is that the Megan Williams who emailed support yesterday? megan.w@example.org\n14:06 @oyelaran.d: yes. she said her ex may still have her password\n14:07 @lukas.b: ok, locking it. @rach can you ring her? the number on the ticket is 01632 960705\n14:09 @rach: on it\n14:21 @rach: spoke to Megan, she's reset it and turned on 2FA. closing\n14:22 @oyelaran.d: thanks Rach",
+   "roster": [
+    {
+     "first": "Megan",
+     "last": "Williams",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Rachel",
+     "last": "Osei",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "spans": [
+    {
+     "value": "@oyelaran.d",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "mwilliams_77",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "198.51.100.23",
+     "kind": "IP"
+    },
+    {
+     "value": "@lukas.b",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Megan Williams",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "megan.w@example.org",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "@rach",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "01632 960705",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Megan",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Rach",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    }
+   ]
+  },
+  {
+   "id": "g032",
+   "shape": "chat_log",
+   "text": "10:15 Lan Nguyen: abdi's on leave today so I'm on the front desk\n10:16 Fatima Zahra Benali: ok. Ngozi wants the keys for room 4 at 11, can you leave them out?\n10:18 Lan Nguyen: will do. also a visitor called Mr Petrov is booked in at 2pm to see Dominic\n10:19 Fatima Zahra Benali: dominic's in Leeds today, I'll message him\n10:24 Fatima Zahra Benali: Dom says move Petrov to Thursday at 10\n10:25 Lan Nguyen: done, I've emailed him at a.petrov@example.net",
+   "roster": [
+    {
+     "first": "Lan",
+     "last": "Nguyen",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Abdirahman",
+     "last": "Yusuf",
+     "preferred": "Abdi",
+     "role": "staff"
+    },
+    {
+     "first": "Fatima Zahra",
+     "last": "Benali",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Dominic",
+     "last": "Asante",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Lan Nguyen",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "abdi",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Fatima Zahra Benali",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Ngozi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mr Petrov",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Dominic",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "dominic",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Dom",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Petrov",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "a.petrov@example.net",
+     "kind": "EMAIL"
+    }
+   ]
+  },
+  {
+   "id": "g033",
+   "shape": "chat_log",
+   "text": "08:47 Kemi: running late, train cancelled again\n08:48 Rhys: no worries. siobhan's covering the 9am with the Corvane team\n08:48 Kemi: thank you!! can you tell her their contact is Alun Prys-Jones now, not Sarah\n08:50 Rhys: will do. btw the courier needs a home address for your new monitor\n08:52 Kemi: 4 Tŷ Gwyn Terrace, CF24 3ZZ. they can ring 07700 900428 if they can't find it",
+   "spans": [
+    {
+     "value": "Kemi",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Rhys",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "siobhan",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Alun Prys-Jones",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Sarah",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "4 Tŷ Gwyn Terrace",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "CF24 3ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "07700 900428",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "g034",
+   "shape": "letter",
+   "text": "Ashgrove Housing\nRent Services\n\nMr Kofi Boateng\nFlat 12, Linden House\n40 Station Road\nReading RG1 4ZZ\n\n18 November 2026\n\nOur ref: TEN-208813\n\nDear Mr Boateng,\n\nThank you for meeting our income officer, Shona McAllister, on 11 November to agree a payment plan.\n\nAs agreed, you will pay £45 a week towards the arrears on top of your rent, starting on Monday 24 November. The payments will be collected by direct debit from the account you gave us (sort code 20-00-00, account 55779911).\n\nYou told us that your brother, Yaw Boateng, will help with the payments for the first two months. That is fine, but the tenancy and the arrears stay in your name.\n\nIf anything changes, please call Shona on 020 7946 0263 as soon as you can.\n\nYours sincerely,\n\nShona McAllister\nIncome Officer",
+   "spans": [
+    {
+     "value": "Mr Kofi Boateng",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Flat 12, Linden House",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "40 Station Road",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "RG1 4ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "TEN-208813",
+     "kind": "REF"
+    },
+    {
+     "value": "Mr Boateng",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Shona McAllister",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "20-00-00",
+     "kind": "BANK"
+    },
+    {
+     "value": "55779911",
+     "kind": "BANK"
+    },
+    {
+     "value": "Yaw Boateng",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Shona",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "020 7946 0263",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "g035",
+   "shape": "hr_note",
+   "text": "HR file note\nEmployee: Rukhsana Begum (payroll no. 004417)\nManager: Gavin Theobald\nMeeting date: 6 November 2026\nAlso present: Marta Silva (HR), Joe Clancy (note taker)\n\nRukhsana asked to move to a compressed week, four longer days, so she can do the school run on Fridays. Gavin is supportive but worried about cover on the Friday helpdesk rota. Marta suggested pairing Rukhsana with Precious Ndlovu, who already works Monday to Thursday.\n\nAgreed: a three-month trial from 5 January, with a review by Gavin and Marta at the end of March.\n\nHome address on file confirmed as 52 Wycliffe Road, Northampton NN1 5ZZ. NI number on file: QQ123456A.",
+   "roster": [
+    {
+     "first": "Rukhsana",
+     "last": "Begum",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Gavin",
+     "last": "Theobald",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Marta",
+     "last": "Silva",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Joseph",
+     "last": "Clancy",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Precious",
+     "last": "Ndlovu",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Rukhsana Begum",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "004417",
+     "kind": "REF"
+    },
+    {
+     "value": "Gavin Theobald",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Marta Silva",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Joe Clancy",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Rukhsana",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Gavin",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Marta",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Precious Ndlovu",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "52 Wycliffe Road",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "NN1 5ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "QQ123456A",
+     "kind": "NINO"
+    }
+   ]
+  },
+  {
+   "id": "g036",
+   "shape": "form",
+   "text": "HILLSIDE SWIMMING CLUB: MEMBERSHIP FORM\n\nSection A: About you\nFull name: Aleksandra Maria\nWiśniewska-Kowalczyk\nKnown as: Ola\nDate of birth: 29/04/1988\nAddress: 6 Orchard Mews\nTown: Exeter        Postcode: EX4 9ZZ\nPhone: 07700 900056\nEmail: ola.wk@example.com\n\nSection B: Emergency contact\nName: Bartosz Wiśniewski        Relationship: brother\nPhone: 01632 960931\n\nSection C: Payment\nCard number: 4111 1111 1111 1111\nName on card: A M WISNIEWSKA-KOWALCZYK\n\nSection D: Office use\nReceived by: K. Adeyemi        Membership no.: HSC-2026-0317",
+   "roster": [
+    {
+     "first": "Aleksandra",
+     "last": "Wiśniewska-Kowalczyk",
+     "preferred": "Ola",
+     "role": "person"
+    },
+    {
+     "first": "Kayode",
+     "last": "Adeyemi",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "spans": [
+    {
+     "value": "Aleksandra Maria\nWiśniewska-Kowalczyk",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Ola",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "29/04/1988",
+     "kind": "DOB"
+    },
+    {
+     "value": "6 Orchard Mews",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "EX4 9ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "07700 900056",
+     "kind": "PHONE"
+    },
+    {
+     "value": "ola.wk@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "Bartosz Wiśniewski",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "01632 960931",
+     "kind": "PHONE"
+    },
+    {
+     "value": "4111 1111 1111 1111",
+     "kind": "CARD"
+    },
+    {
+     "value": "A M WISNIEWSKA-KOWALCZYK",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "K. Adeyemi",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "HSC-2026-0317",
+     "kind": "REF"
+    }
+   ]
+  },
+  {
+   "id": "g037",
+   "shape": "report",
+   "text": "Site visit report: 14 Kingfisher Way\nPrepared by: Andrzej Mazur, surveyor\nClient: Oakhurst Homes\n\nSummary\nI visited 14 Kingfisher Way on 3 November with the site manager, Lee Brannigan, to look at the cracking reported by the owner, Mrs Rosa Pinto. Mrs Pinto's husband, Rui, let us in.\n\nThe cracks in the rear extension are hairline and consistent with normal settlement. I recommend filling and redecorating them, then checking again in six months.\n\nThe owners asked that further visits be arranged through their daughter, Inês Pinto, on 07700 900690, as they are both away in January.\n\nAndrzej Mazur",
+   "spans": [
+    {
+     "value": "14 Kingfisher Way",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "Andrzej Mazur",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Lee Brannigan",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mrs Rosa Pinto",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mrs Pinto",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Rui",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Inês Pinto",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "07700 900690",
+     "kind": "PHONE"
+    }
+   ]
+  },
+  {
+   "id": "g038",
+   "shape": "app_log",
+   "text": "2026-11-21T08:14:03Z INFO  auth.login user=rpatel42 ip=203.0.113.18 result=success\n2026-11-21T08:14:09Z INFO  profile.view user=rpatel42 section=addresses\n2026-11-21T08:15:44Z WARN  auth.login user=ahmed.k ip=198.51.100.77 result=bad_password attempts=3\n2026-11-21T08:16:02Z INFO  email.send to=karim.ahmed@example.com template=password_reset\n2026-11-21T08:16:40Z ERROR payment.capture order=ORD-55120 card=5555555555554444 name=\"Karim Ahmed\" msg=\"card declined\"\n2026-11-21T08:17:12Z DEBUG api.call key=nvk_live_3f9a2c71d0b84e6fa5c2 endpoint=orders.list status=200\n2026-11-21T08:18:30Z INFO  auth.logout user=rpatel42",
+   "spans": [
+    {
+     "value": "rpatel42",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "203.0.113.18",
+     "kind": "IP"
+    },
+    {
+     "value": "ahmed.k",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "198.51.100.77",
+     "kind": "IP"
+    },
+    {
+     "value": "karim.ahmed@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "ORD-55120",
+     "kind": "REF"
+    },
+    {
+     "value": "5555555555554444",
+     "kind": "CARD"
+    },
+    {
+     "value": "Karim Ahmed",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "nvk_live_3f9a2c71d0b84e6fa5c2",
+     "kind": "SECRET"
+    }
+   ]
+  },
+  {
+   "id": "g039",
+   "shape": "csv",
+   "text": "customer_id,first_name,last_name,email,phone,postcode,signup_date,plan\nC-10021,Olamide,Adewale,olamide.a@example.com,07700 900114,LS6 2ZZ,2025-03-14,Pro\nC-10022,Mairead,O'Callaghan,mairead.oc@example.net,+44 20 7946 0551,EX4 9ZZ,2025-03-15,Basic\nC-10023,Xu,Ming,xu.ming@example.org,07700 900990,M14 6ZZ,2025-04-02,Pro\nC-10024,Dylan,ap Gruffydd,dylan.apg@example.com,01632 960112,CF24 3ZZ,2025-04-09,Basic",
+   "spans": [
+    {
+     "value": "C-10021",
+     "kind": "REF"
+    },
+    {
+     "value": "C-10022",
+     "kind": "REF"
+    },
+    {
+     "value": "C-10023",
+     "kind": "REF"
+    },
+    {
+     "value": "C-10024",
+     "kind": "REF"
+    },
+    {
+     "value": "Olamide",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Adewale",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Mairead",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "O'Callaghan",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Xu",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Ming",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Dylan",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "ap Gruffydd",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "olamide.a@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "mairead.oc@example.net",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "xu.ming@example.org",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "dylan.apg@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "07700 900114",
+     "kind": "PHONE"
+    },
+    {
+     "value": "+44 20 7946 0551",
+     "kind": "PHONE"
+    },
+    {
+     "value": "07700 900990",
+     "kind": "PHONE"
+    },
+    {
+     "value": "01632 960112",
+     "kind": "PHONE"
+    },
+    {
+     "value": "LS6 2ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "EX4 9ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "M14 6ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "CF24 3ZZ",
+     "kind": "POSTCODE"
+    }
+   ]
+  },
+  {
+   "id": "g040",
+   "shape": "json_record",
+   "text": "{\n  \"booking_ref\": \"KX7P2M\",\n  \"lead_guest\": {\n    \"name\": \"Amara Nwankwo\",\n    \"dob\": \"1993-06-21\",\n    \"email\": \"amara.n@example.com\",\n    \"phone\": \"+44 7700 900272\"\n  },\n  \"other_guests\": [\n    {\"name\": \"Chidi Nwankwo\"},\n    {\"name\": \"Lily-Mae Nwankwo\"}\n  ],\n  \"address\": {\"line1\": \"8 Saltings Lane\", \"town\": \"Whitstable\", \"postcode\": \"CT5 1ZZ\"},\n  \"payment\": {\"method\": \"card\", \"status\": \"paid\"},\n  \"notes\": \"Asked for a cot in the room. Hamish rang on 12 Oct to confirm arrival time.\"\n}",
+   "roster": [
+    {
+     "first": "Amara",
+     "last": "Nwankwo",
+     "preferred": null,
+     "role": "customer"
+    },
+    {
+     "first": "Hamish",
+     "last": "Dunbar",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "spans": [
+    {
+     "value": "KX7P2M",
+     "kind": "REF"
+    },
+    {
+     "value": "Amara Nwankwo",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "1993-06-21",
+     "kind": "DOB"
+    },
+    {
+     "value": "amara.n@example.com",
+     "kind": "EMAIL"
+    },
+    {
+     "value": "+44 7700 900272",
+     "kind": "PHONE"
+    },
+    {
+     "value": "Chidi Nwankwo",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "Lily-Mae Nwankwo",
+     "kind": "PERSON",
+     "on_roster": "no"
+    },
+    {
+     "value": "8 Saltings Lane",
+     "kind": "ADDRESS"
+    },
+    {
+     "value": "CT5 1ZZ",
+     "kind": "POSTCODE"
+    },
+    {
+     "value": "Hamish",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    }
+   ]
+  },
+  {
+   "id": "g041",
+   "shape": "helpdesk_ticket",
+   "text": "Ticket: INC-0084513\nOpened: 20 Nov 2026 09:41\nRequester: Dariusz Kamiński (dkaminski)\nAssigned to: Femi Ogunleye\nPriority: P3\n\nDescription\nI can't get into the expenses system since the password change. I've tried the reset link twice. My manager, Lucy Hartigan, needs to approve my October claims by Friday.\n\nUpdate (Femi, 10:12)\nSpoke to Dariusz. His account locked after 5 failed tries from 192.0.2.55. Unlocked it and set a temporary password, Temp-4829-Kite. Asked him to change it at first login.\n\nUpdate (Femi, 10:30)\nLucy confirmed by email that she can approve once he is in. Resolved.",
+   "roster": [
+    {
+     "first": "Dariusz",
+     "last": "Kamiński",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Oluwafemi",
+     "last": "Ogunleye",
+     "preferred": null,
+     "role": "staff"
+    },
+    {
+     "first": "Lucy",
+     "last": "Hartigan",
+     "preferred": null,
+     "role": "staff"
+    }
+   ],
+   "spans": [
+    {
+     "value": "INC-0084513",
+     "kind": "REF"
+    },
+    {
+     "value": "Dariusz Kamiński",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "dkaminski",
+     "kind": "USERNAME"
+    },
+    {
+     "value": "Femi Ogunleye",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Lucy Hartigan",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "Femi",
+     "kind": "PERSON",
+     "on_roster": "variant"
+    },
+    {
+     "value": "Dariusz",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    },
+    {
+     "value": "192.0.2.55",
+     "kind": "IP"
+    },
+    {
+     "value": "Temp-4829-Kite",
+     "kind": "SECRET"
+    },
+    {
+     "value": "Lucy",
+     "kind": "PERSON",
+     "on_roster": "yes"
+    }
+   ]
+  }
+ ],
+ "negatives": [
+  {
+   "id": "gn001",
+   "shape": "release_notes",
+   "text": "Version 4.2.0, released 18 November\n\nNew\n- Dark mode for the dashboard, following the system setting.\n- Export any report to CSV from the report menu.\n- Bulk edit for up to 500 items at once.\n\nFixed\n- The date picker no longer jumps to January when you clear a field.\n- Search results keep their sort order after paging.\n- Notifications marked as read stay read after a refresh.\n\nChanged\n- Sessions now time out after 30 minutes of inactivity instead of 15.\n- The minimum supported browser versions have been raised."
+  },
+  {
+   "id": "gn002",
+   "shape": "policy",
+   "text": "Data retention policy, section 4\n\nWe keep customer records for six years after the end of the contract, because that is the period in which a claim can be brought. Call recordings are kept for 90 days unless a complaint is open, in which case they are kept until the complaint is closed. Staff must not copy customer data into personal email or chat tools. Requests to see or delete data should be passed to the data protection officer within one working day. Exceptions to this policy need written approval from the head of compliance."
+  },
+  {
+   "id": "gn003",
+   "shape": "agenda",
+   "text": "Quarterly review: agenda\n\n1. Welcome and apologies (Chair)\n2. Minutes of the last meeting (Secretary)\n3. Finance update (Treasurer)\n4. Service performance (Head of Operations)\n5. Customer complaints summary (Complaints Lead)\n6. Risks and issues (Programme Manager)\n7. Any other business\n8. Date of next meeting\n\nPapers to the Secretary by noon on the Friday before."
+  },
+  {
+   "id": "gn004",
+   "shape": "product_faq",
+   "text": "Frequently asked questions\n\nHow do I reset my password?\nChoose \"Forgot password\" on the sign-in page and follow the link we email you. The link lasts 30 minutes.\n\nCan I change my delivery day?\nYes. Go to Account, then Deliveries, and pick a new day. Changes made before 6pm apply to the next delivery.\n\nDo you deliver on bank holidays?\nWe deliver on every bank holiday except Christmas Day and New Year's Day.\n\nHow do I cancel?\nYou can cancel at any time from the Account page. There is no cancellation fee."
+  },
+  {
+   "id": "gn005",
+   "shape": "call_transcript",
+   "text": "Agent: Thanks for calling, how can I help today?\nCustomer: Hi, I want to check when my parcel will arrive.\nAgent: Of course. Do you have the tracking email to hand?\nCustomer: I do. It says out for delivery.\nAgent: Then it should arrive today before 9pm. If it doesn't, the courier will leave a card.\nCustomer: Can they leave it with a neighbour?\nAgent: Yes, you can set that on the tracking page under delivery preferences.\nCustomer: Great, that's all. Thanks.\nAgent: You're welcome. Have a good evening."
+  },
+  {
+   "id": "gn006",
+   "shape": "headings",
+   "text": "Getting Started With Your New Account\nSetting Up Two-Step Verification\nManaging Team Members And Permissions\nBilling, Invoices And Payment Methods\nConnecting Third-Party Integrations\nExporting Your Data\nTroubleshooting Common Sign-In Problems\nClosing Your Account"
+  },
+  {
+   "id": "gn007",
+   "shape": "word_names",
+   "text": "Will you check the Grace Period on the new policy before Friday?\nThe Summer Sale starts on Monday, with up to 40% off garden furniture.\nMeet us by the Rose Garden at the main entrance at half past ten.\nTap Mark as read to clear all your notifications at once.\nFrank feedback on the draft is welcome, so please be honest."
+  },
+  {
+   "id": "gn008",
+   "shape": "word_names",
+   "text": "Bill payments made after 8pm show on the next working day.\nHope for the best and plan for the worst, as the saying goes.\nGrace notes are short notes played just before the main note.\nWill this setting apply to everyone in the team?\nSterling rose against the euro in early trading.\nSummer opening hours run from June to September.\nMark the boxes that apply and return the form by post."
+  },
+  {
+   "id": "gn009",
+   "shape": "app_log",
+   "text": "2026-11-20T02:00:01Z INFO  backup.start job=nightly target=archive-bucket\n2026-11-20T02:14:37Z INFO  backup.finish job=nightly files=18432 size=4.2GB\n2026-11-20T02:15:02Z WARN  cache.evict reason=memory_pressure freed=512MB\n2026-11-20T02:30:00Z INFO  scheduler.tick jobs_pending=0\n2026-11-20T03:00:00Z INFO  report.build name=weekly_summary status=ok duration_ms=8812"
+  },
+  {
+   "id": "gn010",
+   "shape": "call_transcript",
+   "text": "hello you are through to customer services how can i help.\nhi i just wanted to check whether the summer timetable has started yet.\nit starts on the first of june so not yet.\nright and will the late bus still run on fridays.\nyes the last one leaves at eleven fifteen.\ngreat. and can i pay with my phone on board.\nyou can tap a card or a phone on the reader by the driver.\nlovely thanks very much.\nno problem have a good day."
+  },
+  {
+   "id": "gn011",
+   "shape": "csv",
+   "text": "sku,product,colour,price_gbp,stock\nHB-201,Canvas tote bag,Natural,12.00,140\nHB-202,Canvas tote bag,Black,12.00,96\nMG-110,Stoneware mug,Rose,9.50,58\nMG-111,Stoneware mug,Sage,9.50,73\nTW-030,Tea towel set,Summer stripe,14.00,41"
+  },
+  {
+   "id": "gn012",
+   "shape": "product_copy",
+   "text": "The Hollybrook range is made in small batches in our Powys workshop. The Grace armchair has a solid oak frame and comes in four fabrics. The Wells sofa bed opens in one movement and takes a standard double sheet. Our café serves Victoria sponge and Bakewell tart on Saturdays. Order before 1pm for next-day dispatch."
+  }
+ ]
+}
