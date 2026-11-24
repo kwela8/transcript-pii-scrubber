@@ -828,5 +828,41 @@ class Usernames(unittest.TestCase):
             self.assertEqual(plain(text), text)
 
 
+class EveryMention(unittest.TestCase):
+    """The share preset numbers people, not tokens, so these check what is left."""
+
+    def assertGone(self, text, *names, kept=()):
+        out = plain(text)
+        for name in names:
+            self.assertNotIn(name, out.lower(), out)
+        for words in kept:
+            self.assertIn(words, out, out)
+        return out
+
+    def test_a_found_name_goes_wherever_it_appears(self):
+        self.assertGone("ask okonkwo first. Then Dr Okonkwo rang, and OKONKWO wrote.", "okonkwo")
+
+    def test_the_parts_of_a_name_go_too(self):
+        self.assertGone("Mr Tendai Phiri came in. Later phiri rang about TENDAI.",
+                        "phiri", "tendai")
+
+    def test_possessives_keep_their_s(self):
+        out = self.assertGone("Mr Phiri's bag. Then phiri's coat.", "phiri")
+        self.assertEqual(out.count("'s "), 2, out)
+
+    def test_a_part_that_is_a_word_stays_in_lower_case(self):
+        self.assertGone("Mr Will Baker came. We will ask the baker. Will Baker left.",
+                        "will baker", kept=("We will ask the baker.",))
+
+    def test_core_too(self):
+        out = core.TOKEN.sub("<T>", core.scrub("Dr Okonkwo rang. okonkwo again.")[0])
+        self.assertEqual(out, "<T> rang. <T> again.")
+
+    def test_restore_gives_back_each_mention(self):
+        text = "Mr Tendai Phiri came. phiri's coat and PHIRI's hat, then tendai left."
+        result = Hush("ask-ai").scrub(text)
+        self.assertNotIn("phiri", result.text.lower())
+        self.assertEqual(result.restore(result.text), text)
+
 if __name__ == "__main__":
     unittest.main()

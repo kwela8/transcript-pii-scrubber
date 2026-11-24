@@ -237,12 +237,17 @@ class Mapping:
         return hmac.new(self._key, material.encode("ascii"),
                         hashlib.sha256).hexdigest()[:16].upper()
 
-    def token_for(self, real, kind):
-        """The stable token for one real string, allocated on first sight."""
+    def token_for(self, real, kind, *, exact=False):
+        """The stable token for one real string, allocated on first sight. ``exact`` gives
+        a name written in another case than the one first seen a token of its own, so
+        restore puts back that spelling; labels still number it as the same person."""
         if not _KIND.match(kind):
             raise ValueError("hush: %r is not a token kind" % kind)
         key = ("name", real.lower()) if is_name_kind(kind) else ("value", real)
         known = self._keys.get(key)
+        if exact and known is not None and key[0] == "name" and self._real[known] != real:
+            key = ("exact", real)
+            known = self._keys.get(key)
         if known is not None:
             return known
         index = self.counters.get(kind, 0) + 1
@@ -1461,6 +1466,71 @@ def _outside_tokens(text, change, mapping):
     return "".join(pieces)
 
 
+_SENTENCE_START = re.compile(r"(?:[.!?:;]\s+|[\n\t\"“(\[|]\s*|,)\Z")
+_TITLE_WORDS = {"mr", "mrs", "ms", "miss", "mx", "dr", "prof", "sir", "dame", "lord", "lady"}
+_NAME_PART = re.compile(r"[^\W\d_]+(?:['’-][^\W\d_]+)*")
+
+
+def _propagate_names(text, mapping, guessed=frozenset()):
+    """Every other mention of a name already found, before it or after it, in any case:
+    the whole name and each of its parts ("Tendai Phiri", then "phiri's", "TENDAI"). A
+    part that is an English word stays when it is written in lower case ("will", "baker")
+    or starts a sentence ("Will you check it?"), a part of two letters needs its capital,
+    and a kept word, a title or a form word is never taken. A name made only of English
+    words goes only whole and with a capital ("Will Baker"). A name only the capitalised
+    guess found (``guessed``) goes only whole, and not at all when it is made of English
+    words: the guess takes headings and firm names too ("Hartford Capital Partners Risk"),
+    whose parts would go wherever they are written. Each mention gets the token of what it
+    says, so restore gives it back as written; a possessive "'s" stays outside the token."""
+    from hush.people import english_words
+    words = english_words()
+    keep = _ACTIVE_KEEP.get() or KEEP
+    forms = {}
+    for token, real in mapping.by_token.items():
+        kind = kind_of(token)
+        if kind is None or kind == "PLACE" or not is_name_kind(kind):
+            continue
+        whole = " ".join(real.split())
+        parts = _NAME_PART.findall(whole)
+        plain_words = all(p.lower() in words for p in parts)
+        # A guess with a title in front ("Dr Okonkwo") is as sure as a found name.
+        guess = token in guessed and not (parts and parts[0].lower() in _TITLE_WORDS)
+        if plain_words and guess:
+            continue
+        if len(whole) > 1 and whole.lower() not in keep:
+            forms.setdefault(whole.lower(), kind)
+        if plain_words or guess:
+            continue
+        for part in parts:
+            low = part.lower()
+            if len(part) < 2 or low in _TITLE_WORDS or low in keep or fold(part) in keep \
+                    or low in _FORM_WORDS or low in _GREETINGS:
+                continue
+            forms.setdefault(low, kind)
+    if not forms:
+        return text
+    names = sorted(forms, key=len, reverse=True)
+    pattern = re.compile(
+        r"(?<![\w'’-])(" + "|".join(r"[ \t]+".join(map(re.escape, n.split())) for n in names)
+        + r")(?![\w-]|['’](?![sS]\b)\w)", re.I)
+
+    def change(segment):
+        def one(match):
+            value = match.group(1)
+            low = " ".join(value.lower().split())
+            kind = forms.get(low)
+            if kind is None:
+                return value
+            if value == value.lower() and (len(low) < 3 or all(w in words for w in low.split())):
+                return value
+            if low in words and (match.start() == 0 or _SENTENCE_START.search(
+                    segment[max(0, match.start() - 4):match.start()])):
+                return value
+            return mapping.token_for(value, kind, exact=True)
+        return pattern.sub(one, segment)
+    return _outside_tokens(text, change, mapping)
+
+
 def _seal_foreign(text, mapping):
     """A token-shaped string this Mapping did not issue is sealed as a token of its own,
     so whatever it holds never leaves and restore gives it back as it came."""
@@ -1913,8 +1983,12 @@ def scrub(text, mapping=None, *, date_shift=0, extra_names=(), heuristic_names=T
             raise ValueError("hush: years must be one of %s" % ", ".join(YEARS))
         if general:
             out = _scrub_numbers(out, mapping)
+        # Then every other mention of the names found, once the guess has taken whole
+        # names, so a part never splits a name the guess would have taken.
+        found = mapping.issued()
         if heuristic_names:
             out = _scrub_proper(out, mapping, guess_filter)
+        out = _propagate_names(out, mapping, mapping.issued() - found)
     finally:
         _ACTIVE_KEEP.reset(active)
     return out, mapping
