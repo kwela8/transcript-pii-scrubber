@@ -1126,16 +1126,16 @@ _SHAPES = _DATES + _SPACED_SHAPES + (
     # A 00 number needs a break somewhere, because an unbroken run that starts 00 is far
     # more often a reference with leading zeros than a number someone dialled.
     _Rule("PHONE", _rx(
-        r"(?<![\w+.])00[1-9]\d{0,2}(?:[ .-]?(?:\(0\)|\(\d{1,5}\)|\d{1,6})){1,7}(?!\d)"),
+        r"(?<![\w+.])(?<!\w[/-])00[1-9]\d{0,2}(?:[ .-]?(?:\(0\)|\(\d{1,5}\)|\d{1,6})){1,7}(?!\d)"),
         check=_broken_digit_span(10, 17)),
     _Rule("PHONE", _rx(r"(?<!\d)(?:00)?447\d{9}(?!\d)"), pack="uk"),
     # A UK number written with its country code and no plus: "44 7700 900123".
     _Rule("PHONE", _rx(
-        r"(?<![\w+.])44[ .-]?(?:\(0\)[ .-]?)?[1-9]\d{1,4}(?:[ .-]?\d{2,4}){1,3}(?!\d)"),
+        r"(?<![\w+.])(?<!\w[/-])44[ .-]?(?:\(0\)[ .-]?)?[1-9]\d{1,4}(?:[ .-]?\d{2,4}){1,3}(?!\d)"),
         check=_broken_digit_span(12, 13), pack="uk"),
     # A UK number starts 0 then 1 to 9: 00 is the international prefix, never a number.
     _Rule("PHONE", _rx(
-        r"(?<![\w+.])(?:\(0[1-9]\d{1,3}\)|0[1-9]\d{1,3})(?:[ .-]?\d{2,4}){1,3}(?!\d)"),
+        r"(?<![\w+.])(?<!\w[/-])(?:\(0[1-9]\d{1,3}\)|0[1-9]\d{1,3})(?:[ .-]?\d{2,4}){1,3}(?!\d)"),
         check=_digit_span(10, 11), pack="uk"),
     # A North American number: "(212) 555-0134", "212-555-0134", "212.555.0134" or
     # "212 555 0134". A spaced NHS number with a good check was taken just above.

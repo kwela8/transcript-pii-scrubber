@@ -594,5 +594,52 @@ class Core(unittest.TestCase):
         self.assertFalse(core.is_name_kind("EMAIL"))
 
 
+# --- found by the public benchmark ---------------------------------------------------
+def _left(name, out):
+    """The words of ``name`` still in ``out``, and any word of ``out`` that holds a piece of
+    one (a cut name leaves "[person 1]łąkski")."""
+    import re
+    words = re.findall(r"\w+", name)
+    return [w for w in re.findall(r"\w+", out)
+            if any(w in n or n in w for n in words) and w not in ("person", "1", "2")]
+
+
+class LettersWithMarks(unittest.TestCase):
+    NAMES = ("Wołąkski", "Kaşıkçı", "Dvořák", "Bērziņš", "Kūrinas", "Ørsted", "Ćosić",
+             "Şahin", "İnce", "Ğürbüz", "Ōtsuka", "Țepeș", "Ęgle", "Ősz", "Đặng")
+
+    def test_a_titled_name_goes_whole_and_its_title_stays(self):
+        for name in self.NAMES:
+            self.assertEqual(plain("Mr %s called today." % name), "Mr [person 1] called today.",
+                             name)
+
+    def test_an_initial_and_a_surname_go_together(self):
+        self.assertEqual(plain("Mr T. Wołąkski signed it."), "Mr [person 1] signed it.")
+        self.assertEqual(plain("Dr Ł. Wołąkska signed it."), "Dr [person 1] signed it.")
+
+    def test_names_without_a_title_go_whole(self):
+        for text, name in (("I spoke to Ēriks Bērziņš yesterday.", "Ēriks Bērziņš"),
+                           ("Report by Kaşıkçı, signed.", "Kaşıkçı"),
+                           ("The file went to Ørjan Ørsted on Friday.", "Ørjan Ørsted"),
+                           ("We met Ćiro Ćosić and Petr Dvořák.", "Ćiro Ćosić Petr Dvořák"),
+                           ("Copy to Anna Kowalska-Łącka please.", "Anna Kowalska-Łącka")):
+            self.assertEqual(_left(name, plain(text)), [], text)
+            self.assertEqual(_left(name, core.scrub(text)[0]), [], text)
+
+
+class LongCodes(unittest.TestCase):
+    def test_a_ten_digit_run_inside_a_code_goes_with_the_code(self):
+        for text in ("My biometric identifier is BIO-5724169380", "ref 078-3527149560 ok",
+                     "device SN-0042-5724169380-X"):
+            for out in (plain(text), core.TOKEN.sub("<T>", core.scrub(text)[0])):
+                self.assertNotRegex(out, r"BIO|\d{3}|SN-", text)
+
+    def test_school_numbers_are_only_in_the_education_example(self):
+        rules = core._rules(tuple(core.PACKS))
+        self.assertFalse({"UPN", "ULN"} & {rule.kind for rule in rules})
+        self.assertFalse([rule for rule in rules
+                          if rule.pattern.pattern.replace("(?<![A-Za-z0-9.,])", "") == r"\d{10}"])
+
+
 if __name__ == "__main__":
     unittest.main()

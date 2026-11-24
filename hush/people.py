@@ -95,13 +95,22 @@ _WORD = re.compile(r"[^\W\d_]+(?:['’\-][^\W\d_]+)*")
 
 # A title, then up to three name words: capitalised, in capitals, or an initial, with
 # surname particles between. "Mrs Pemberton", "Mr J. Okafor", "Dr van der Berg".
-# Letters for a capitalised name: ASCII, Latin-1 and Latin Extended-A ("Szymański").
-_CAP = r"(?:[A-ZÀ-ÖØ-ÞŁŚŻŹĆŃŠŽČŘĐ][a-zà-ÿĀ-ſ]+(?:['’\-][A-Za-zà-ÿĀ-ſ]+)*|[A-Z]{2,}(?:['’\-][A-Z]+)*|[A-Z]\.?)"
+# Letters for a capitalised name: every upper- and lower-case Latin, Greek and Cyrillic
+# letter (``core._U``, ``core._L``), so "Şahin", "İnce" and "Đặng" read as "Smith" does.
+# A part may open with a letter and an apostrophe ("O'Brien") and hold inner capitals
+# ("McDonald"); parts join with a hyphen ("Kowalska-Łącka").
+_UP, _LO = core._U, core._L
+_ONE_PART = (r"(?:[" + _UP + r"]['’])?[" + _UP + r"][" + _LO + r"]+(?:[" + _UP + r"][" + _LO
+             + r"]+)*")
+_NAME_PART = _ONE_PART + r"(?:-" + _ONE_PART + r")*"
+_CAPS_PART = r"[" + _UP + r"]{2,}(?:['’\-][" + _UP + r"]+)*"
+_CAP = r"(?:" + _NAME_PART + r"|" + _CAPS_PART + r"|[" + _UP + r"]\.?)"
+_PARTICLE = r"(?:van|von|der|den|de|da|di|du|le|la|al|el|bin|ibn)[ \t]+"
 _TITLED = re.compile(
     r"\b(?:Mr|Mrs|Ms|Miss|Mx|Dr|Prof|Sir|Dame|MR|MRS|MS|MISS|MX|DR)\.?[ \t]+"
-    r"(?P<name>" + _CAP + r"(?:[ \t]+(?:(?:van|von|der|den|de|da|di|du|le|la|al|el|bin|ibn)[ \t]+)*"
-    r"(?:[A-ZÀ-ÖØ-ÞŁŚŻŹĆŃŠŽČŘĐ][a-zà-ÿĀ-ſ]+(?:['’\-][A-Za-zà-ÿĀ-ſ]+)*|[A-Z]{2,}(?:['’\-][A-Z]+)*)){0,2})"
-    r"(?<![A-Z]\.)(?!['’][a-z]{2,})")
+    r"(?P<name>(?:" + _PARTICLE + r")*" + _CAP + r"(?:[ \t]+(?:" + _PARTICLE + r")*"
+    r"(?:" + _NAME_PART + r"|" + _CAPS_PART + r")){0,2})"
+    r"(?<![" + _UP + r"]\.)(?!['’][a-z]{2,})(?![" + _UP + _LO + r"])")
 # An @handle, whole, so no name rule takes the name inside it; and a chat speaker at the
 # start of a line, with an optional [time], shaped like a login: lower case with a dot or
 # an underscore, or letters then digits ("ms_bell:", "sam.k:", "jdoe23:").
