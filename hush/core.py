@@ -505,7 +505,7 @@ def _rx(text, flags=0):
 _SPELLED = r"(?:zero|oh|one|two|three|four|five|six|seven|eight|nine)"
 # From a label to its value: spaces, "is", a colon, hash, equals, dash or table bar,
 # and at most one line break.
-_GAP = r"[ \t]*(?:is[ \t]+)?[:#=|-]*[ \t]*(?:\n[ \t]*)?"
+_GAP = r"[ \t]*\**[ \t]*(?:is[ \t]+)?[:#=|-]*[ \t]*\**[ \t]*(?:\n[ \t]*)?"
 # A short phrase between a cue and its number on the same line, or the cue ending its
 # line and the number starting the next. A cue never reads into the next line's prose.
 _NEAR = r"(?:[^\n\d]{0,24}?|[ \t]*[:#|.-]?[ \t]*\n[ \t]*)"
@@ -539,6 +539,123 @@ _FIRST = (
     _Rule("URL", _rx(
         r"(?i)(?<![\w@./-])(?:[a-z0-9-]+\.)+[a-z]{2,24}/[^\s<>\"'`]*"), check=_bare_link_check),
 )
+
+
+# --- addresses ------------------------------------------------------------------
+# A street address is a number, one to four name words and a street word, then what may
+# follow it: a direction, a flat or suite, a town, a state, county or province, a postal
+# code and a country. Found before the people step, so a street or a town named like a
+# person ("22 Jordan Avenue", "Silverholt") goes with its address. A number and a word
+# that is not a street word is not an address: "3 Big Boxes", "5 minutes down the road".
+_STREET_WORDS = (r"Street|St|Road|Rd|Avenue|Ave|Av|Lane|Ln|Drive|Dr|Boulevard|Blvd|Way|"
+                 r"Court|Ct|Place|Pl|Terrace|Terr|Close|Crescent|Cres|Parkway|Pkwy|Highway|"
+                 r"Hwy|Circle|Cir|Trail|Trl|Square|Sq|Mews|Grove|Gardens|Alley|Plaza")
+_ABBREVIATED = {"st", "rd", "ave", "av", "ln", "dr", "blvd", "ct", "pl", "terr", "cres",
+                "pkwy", "hwy", "cir", "trl", "sq"}
+_DIRECTION = r"(?:N|S|E|W|NE|NW|SE|SW|North|South|East|West)\.?"
+# Words that never start or sit inside a street's name: "Step 2 Fill In The Way".
+_NOT_IN_A_STREET = (r"(?:In|To|Of|And|For|On|At|By|With|From|Into|Your|My|Our|Their|His|Her|"
+                    r"This|That|These|Those|Is|Are|Was|Be|A|An|Or|If|We|You|They|It|I)")
+_STREET_NAME_WORD = (r"(?!" + _NOT_IN_A_STREET + r"\b)(?:[" + _U + r"](?:[\w'’-]*\w)?\.?|"
+                     r"\d{1,3}(?:st|nd|rd|th))")
+_HOUSE_NUMBER = (r"\d{1,6}(?:/\d{1,4})?(?:[ ]?[A-Ha-h](?![\w'’]))?(?:-\d{1,4}[A-Ha-h]?)?"
+                 r"(?![\w'’])")
+_UNIT_WORD = r"(?:Apt|Apartment|Suite|Ste|Unit|Flat|Floor|Fl|Bldg|Building|Room|Rm)\.?"
+_UNIT = r"(?:" + _UNIT_WORD + r"[ \t]*#?[ \t]*[A-Za-z0-9][A-Za-z0-9-]{0,5}|#[ \t]?\d{1,5}[A-Za-z]?)"
+_US_STATES = ("Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|"
+              "Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|"
+              "Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|"
+              "Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|"
+              "Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|"
+              "Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming|"
+              "District of Columbia|Puerto Rico|Ontario|Quebec|British Columbia|Alberta|"
+              "Manitoba|Saskatchewan|Nova Scotia|New Brunswick|Newfoundland and Labrador|"
+              "Prince Edward Island")
+_REGION_CODES = ("AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|"
+                 "MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|"
+                 "DC|PR|ON|QC|BC|AB|MB|SK|NS|NB|NL|PE|YT|NT|NU")
+_REGION = (r"(?:(?:" + _REGION_CODES + r")(?![\w])|(?:" + _US_STATES + r")\b|[" + _U
+           + r"][a-z]+(?:[ \t][" + _U + r"][a-z]+)?[ \t]County\b)")
+_POSTAL = (r"(?:\d{5}(?:-\d{4})?(?!\d)|[A-Z]\d[A-Z][ \t]?\d[A-Z]\d\b|"
+           r"[A-Z]{1,2}\d[A-Z\d]?[ \t]?\d[A-Z]{2}\b)")
+_COUNTRY = (r"(?:USA|U\.S\.A\.|US|United[ \t]States(?:[ \t]of[ \t]America)?|Canada|UK|"
+            r"United[ \t]Kingdom|England|Scotland|Wales|Northern[ \t]Ireland|Ireland|"
+            r"Australia|New[ \t]Zealand)\b")
+# A town after a comma: one to three capitalised words, not a word that starts a sentence.
+_TOWN_WORD = (r"(?!" + _NOT_IN_A_STREET + r"\b|(?:The|Then|But|So|Please|Thanks|Thank|He|She|"
+              r"Call|Ring|Phone|Email|Tel|Postcode|Zip|County)\b)[" + _U + r"][^\W\d_]+"
+              r"(?:['’-][^\W\d_]+)*(?![\w])(?:\.(?=[ \t]+[" + _U + r"]))?")
+_TOWN = _TOWN_WORD + r"(?:[ \t]+" + _TOWN_WORD + r"){0,2}"
+# After the street: a direction, a flat or a road number ("Dr 36", "Hwy 84"), up to two
+# towns or districts, a state, a postal code, a country, and a postal code after it.
+_ADDRESS_TAIL = (r"(?:[ \t]+" + _DIRECTION + r"(?![\w]))?"
+                 r"(?:,?[ \t]*" + _UNIT + r"|[ \t]+\d{1,5}[A-Za-z]?(?![\w]|[.,:/-]\d))?"
+                 r"(?:,[ \t]*(?!" + _REGION + r"|" + _COUNTRY + r")" + _TOWN + r"){0,2}"
+                 r"(?:,?[ \t]+" + _REGION + r")?"
+                 r"(?:,?[ \t]+" + _POSTAL + r")?"
+                 r"(?:,[ \t]*" + _COUNTRY + r"(?:,?[ \t]+" + _POSTAL + r")?)?")
+_STREET_ADDRESS = re.compile(
+    r"(?<![\w.,/-])(?:" + _UNIT + r",?[ \t]+)?" + _HOUSE_NUMBER + r",?[ \t]+"
+    r"(?:The[ \t]+)?(?:" + _DIRECTION + r"[ \t]+)?(?:" + _STREET_NAME_WORD + r"[ \t]+){1,4}?"
+    r"(?P<type>" + _STREET_WORDS + r")\b(?P<dot>\.(?=[ \t]*[,;]|[ \t]+(?:[a-z]|" + _UNIT_WORD
+    + r"|#|\d)))?" + _ADDRESS_TAIL)
+# The street word first, or a name and then the street word, and the number after:
+# "Via Roma, 42", "Calle El Conde 105", "Ulitsa Tverskaya, 19", "Herzl Street 14".
+_FRONT_STREET_WORDS = (r"Via|Viale|Corso|Piazza|Calle|Avenida|Av\.|Avda\.?|Rua|Rue|Strada|"
+                       r"Ulitsa|Ul\.|Carrera|Carretera|Praça|Plaza|Paseo|Camino|Boulevard|Bd\.?|"
+                       r"Allee|Chaussée|Straße|Strasse|Ulica")
+_PARTICLE_WORD = r"(?:de|del|della|di|da|das|dos|do|des|du|la|le|el|al|van|von|der|den|y|e)"
+_CONTINENTAL_ADDRESS = re.compile(
+    r"(?<![\w.-])(?:(?:" + _FRONT_STREET_WORDS + r")[ \t]+(?:(?:" + _STREET_NAME_WORD + r"|"
+    + _PARTICLE_WORD + r"|\d{1,3})[ \t]+){0,4}(?:" + _STREET_NAME_WORD + r"|\d{1,3})|(?:"
+    + _STREET_NAME_WORD + r"[ \t]+){1,3}(?:" + _STREET_WORDS + r")\.?)"
+    r",?[ \t]+(?:No\.?[ \t]*|#[ \t]?)?\d{1,5}[A-Ha-h]?(?:[ \t]*[/#-][ \t]*\d{1,5}(?:-\d{1,4})?)?"
+    r"(?![\w]|[.,:/-]\d)" + _ADDRESS_TAIL)
+_PO_BOX = re.compile(
+    r"(?i:\b(?:P\.?[ \t]?O\.?[ \t]?Box|Post[ \t]Office[ \t]Box))[ \t]*#?[ \t]*\d{1,7}\b"
+    + r"(?:,[ \t]*(?!" + _REGION + r")" + _TOWN + r")?(?:,?[ \t]+" + _REGION + r")?"
+    r"(?:,?[ \t]+" + _POSTAL + r")?(?:,[ \t]*" + _COUNTRY + r")?")
+# A town, a state or province and a ZIP code with no street: "Murfreesboro, TN 37130".
+_TOWN_REGION_ZIP = re.compile(
+    r"(?<![\w.-])(?:" + _TOWN + r",[ \t]*)?(?:" + _REGION_CODES + r"|" + _US_STATES + r"),?"
+    r"[ \t]+\d{5}(?:-\d{4})?(?![\d-])")
+# A Canadian postal code: letter, digit, letter, then digit, letter, digit.
+_CANADIAN_POSTCODE = re.compile(
+    r"(?<![A-Za-z0-9])[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ \t-]?\d[ABCEGHJ-NPRSTV-Z]\d"
+    r"(?![A-Za-z0-9])")
+
+
+def _address_spans(view, packs):
+    spans = []
+    if "general" in packs:
+        for match in _STREET_ADDRESS.finditer(view):
+            end = match.end()
+            spans.append((match.start(), end, "ADDRESS"))
+        spans += [(m.start(), m.end(), "ADDRESS") for m in _PO_BOX.finditer(view)]
+        spans += [(m.start(), m.end(), "ADDRESS") for m in _CONTINENTAL_ADDRESS.finditer(view)]
+    if "north-america" in packs:
+        spans += [(m.start(), m.end(), "ADDRESS") for m in _TOWN_REGION_ZIP.finditer(view)]
+        spans += [(m.start(), m.end(), "POSTCODE") for m in _CANADIAN_POSTCODE.finditer(view)]
+    return spans
+
+
+def _scrub_addresses(text, mapping, packs):
+    """Street addresses, post office boxes and, in the north-america pack, a town with
+    its state and ZIP code and a Canadian postal code. Longest first where two overlap."""
+    def change(segment):
+        view = _view(segment)
+        spans = sorted(_address_spans(view, packs), key=lambda s: (s[0], -(s[1] - s[0])))
+        pieces, cursor = [], 0
+        for start, end, kind in spans:
+            start, end = _strip_span(view, start, end)
+            if start < cursor or start >= end:
+                continue
+            pieces.append(segment[cursor:start])
+            pieces.append(mapping.token_for(segment[start:end], kind))
+            cursor = end
+        pieces.append(segment[cursor:])
+        return "".join(pieces)
+    return _outside_tokens(text, change, mapping)
 
 # Secrets are the hard line (on a zero-retention rail names may travel, secrets
 # never). Any value under a key or label that ends in password, pass, secret, token,
@@ -806,6 +923,11 @@ _LABELLED = (
         r"(?i:\b(?:reg(?:istration)?(?:[ \t]*(?:no\.?|number|mark|plate))?|vrm|number[ \t]+plate|"
         r"vehicle[ \t]+reg(?:istration)?)\b)" + _GAP +
         r"((?=[A-Z0-9 ]*\d)[A-Z0-9]{2,4}[ \t]?[A-Z0-9]{3,4})(?![A-Za-z0-9])"), group=1),
+    _Rule("POSTCODE", _rx(
+        r"(?i:\b(?:post(?:al)?[ \t-]*code|zip(?:[ \t-]*code)?|code[ \t]+postal)\b)"
+        r"(?:[ \t]+(?:of|is))?" + _GAP +
+        r"(\d{4,6}(?:-\d{4}|[ \t]?[A-Z]{2}(?![A-Za-z]))?|[A-Z]\d[A-Z][ \t-]?\d[A-Z]\d)(?![\w-])"),
+        group=1),
     _Rule("POSTCODE", _rx(
         r"(?i:\b(?:post(?:al)?[ \t-]*code|zip[ \t]*code))\b" + _GAP +
         r"((?:[A-Z0-9]{1,4}|(?i:" + _SPELLED + r"))(?:[ \t,]+(?:[A-Z0-9]{1,4}|(?i:"
@@ -1199,7 +1321,7 @@ _SHAPES = _DATES + _SPACED_SHAPES + (
     _Rule("HANDLE", _rx(r"(?<![\w@.])@(?!(?:here|channel|everyone)\b)"
                         r"[A-Za-z0-9_][A-Za-z0-9_.]{0,30}[A-Za-z0-9_]")),
     _Rule("ADDRESS", _rx(
-        r"(?<![\w.])\d{1,5}[A-Za-z]?,?[ \t]+(?:[" + _U + r"][\w'’.-]*[ \t]+){1,4}"
+        r"(?<![\w.])\d{1,5}[A-Za-z]?,?[ \t]+(?:" + _STREET_NAME_WORD + r"[ \t]+){1,4}"
         r"(?:" + _STREET_TYPES + r"|" + _STREET_TYPES.upper() + r")\b"), pack="uk"),
     # In lower case, one or two words between the number and the street type, and not
     # a unit or a small word, so "5 minutes down the road" and "2 hours drive" are prose.
@@ -1704,6 +1826,7 @@ def scrub(text, mapping=None, *, date_shift=0, extra_names=(), heuristic_names=T
             out = _scrub_columns(out, mapping)
             for rule in _FIRST:
                 out = _apply(rule, out, mapping)
+        out = _scrub_addresses(out, mapping, packs)
         detector = people if people is not None else students
         if detector is not None:
             out = detector(out, mapping)

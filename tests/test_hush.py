@@ -682,5 +682,49 @@ class Phones(unittest.TestCase):
             self.assertEqual(plain(text), text)
 
 
+class Addresses(unittest.TestCase):
+    def assertAddress(self, text, address, label="address"):
+        self.assertEqual(plain(text), text.replace(address, "[%s 1]" % label), text)
+
+    def test_street_unit_city_region_and_postal_code(self):
+        for address in ("6090 Willowquill Ave., Apt 11, Silverholt",
+                        "517 N Shelton Ave",
+                        "139 Justin Dr, Claremont, CA 91711, USA",
+                        "57 Arbor Trace Dr Unit E, Midlothian, VA 23112",
+                        "350 Albert Street Suite 200",
+                        "402 Dogwood Drive NW, TN",
+                        "12 Hollin Road, Leeds LS6 2AB",
+                        "Flat 3, 12 Hollin Road, Leeds",
+                        "88 Rue Brisemoor Boulevard, Apartment 4B",
+                        "108 39th Ave N, Murfreesboro, TN 37130",
+                        "1 The Avenue, Ashcombe",
+                        "15 St Mary's Road"):
+            self.assertAddress("They live at %s now." % address, address)
+
+    def test_post_office_boxes(self):
+        for address in ("PO Box 4471", "P.O. Box 12, Springfield, IL 62701", "Post Office Box 7"):
+            self.assertAddress("Write to %s please." % address, address)
+
+    def test_a_city_region_and_zip_alone(self):
+        self.assertAddress("Based in Murfreesboro, TN 37130 since May.", "Murfreesboro, TN 37130")
+        self.assertAddress("From Austin, Texas, 78201 to here.", "Austin, Texas, 78201")
+
+    def test_postal_codes_after_a_label(self):
+        for text, code in (("Postcode: 17408", "17408"), ("**Postcode:** 60611", "60611"),
+                           ("with a postal code of 13850, we", "13850"), ("ZIP: 07055", "07055"),
+                           ("zip code 90210-1234.", "90210-1234"), ("Code postal A1B 2C3", "A1B 2C3")):
+            self.assertEqual(plain(text), text.replace(code, "[postcode 1]"), text)
+
+    def test_a_number_and_a_word_that_is_no_street_word_stay(self):
+        for text in ("It takes 5 minutes down the road.", "We sold 3 Big Boxes.",
+                     "Chapter 12 Main Points", "There are 4 Lanes here.",
+                     "Step 2 Fill In The Way you like.", "Top 10 Places To Visit",
+                     "We need 3 Dr appointments.", "In 1995 the court ruled."):
+            self.assertEqual(plain(text), text)
+
+    def test_an_address_street_named_like_a_person_goes_whole(self):
+        self.assertAddress("Deliver to 22 Jordan Avenue, Hollow Bay.", "22 Jordan Avenue, Hollow Bay")
+
+
 if __name__ == "__main__":
     unittest.main()
