@@ -16,7 +16,7 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from hush import Hush, Person, config, core, presets, residual, transcripts  # noqa: E402
+from hush import Hush, Person, config, core, presets, quasi, residual, transcripts  # noqa: E402
 from hush.people import People, read_people, table_people  # noqa: E402
 from hush.tables import scrub_csv  # noqa: E402
 from hush import __main__ as cli  # noqa: E402
@@ -937,6 +937,40 @@ class RestoreVariants(unittest.TestCase):
             self.assertEqual(report.text, "x %s y" % text, text)
             self.assertEqual((report.restored, report.misses_by_reason), (0, {reason: 1}), text)
 
+
+class QuasiIdentifiers(unittest.TestCase):
+    """Details that identify no one alone but may together. Counted on what leaves, and
+    warned about above a threshold; nothing is removed."""
+
+    TEXT = ("The patient, a nurse aged 34, moved here in 2019. She was diagnosed with a "
+            "rare condition and is 6 ft 2 in tall.")
+
+    def test_the_kinds_counted(self):
+        self.assertEqual(quasi.count("a nurse aged 34 from Leeds, moved to Hollow Bay in 2019. "
+                                     "diagnosed with a rare condition, 6 ft 2 in tall"),
+                         {"age": 1, "job": 1, "place": 2, "date": 1, "rare": 3})
+
+    def test_details_are_counted_and_nothing_more_is_removed(self):
+        result = Hush("share").scrub(self.TEXT)
+        self.assertEqual(result.text, self.TEXT)
+        self.assertEqual(result.quasi, {"age": 1, "job": 1, "date": 1, "rare": 3})
+
+    def test_a_warning_above_the_threshold(self):
+        result = Hush("share").scrub(self.TEXT)
+        self.assertEqual(len(result.warnings), 1)
+        self.assertIn("6 details", result.warnings[0])
+        self.assertEqual(Hush("share").scrub("A nurse came in 2019.").warnings, [])
+
+    def test_the_threshold_is_set_in_the_config(self):
+        quiet = cfg(warn={"quasi": 0})
+        self.assertEqual(Hush("share", config=quiet).scrub(self.TEXT).warnings, [])
+        loud = cfg(warn={"quasi": 2})
+        self.assertEqual(len(Hush("share", config=loud).scrub("A nurse came in 2019.").warnings), 1)
+        with self.assertRaises(ValueError):
+            cfg(warn={"quasi": -1})
+
+    def test_ordinary_text_counts_nothing(self):
+        self.assertEqual(Hush("share").scrub("We met for coffee and talked about the weather.").quasi, {})
 
 if __name__ == "__main__":
     unittest.main()

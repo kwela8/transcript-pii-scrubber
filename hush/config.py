@@ -71,13 +71,14 @@ _KIND = re.compile(r"[A-Z][A-Z0-9_]{1,31}\Z")
 _FIELDS = ("first", "last", "preferred", "full", "username", "email", "id", "role")
 _SPEAKERS = ("text", "keep", "relabel")
 _TOP = {"name", "description", "preset", "flag", "check", "key_env", "packs", "names",
-        "people", "words", "redact", "detectors", "transcript", "cues", "labels", "dates"}
+        "people", "words", "redact", "detectors", "transcript", "cues", "labels", "dates", "warn"}
 _TABLES = {
     "names": {"list", "any_case", "guess", "files"},
     "people": {"known", "keep", "role", "columns", "login_labels"},
     "words": {"keep", "keep_files"},
     "transcript": {"speakers", "roles"},
     "dates": {"years"},
+    "warn": {"quasi"},
 }
 
 
@@ -109,6 +110,7 @@ class Config:
     cues: dict = field(default_factory=dict)
     cue_window: int = 4
     years: str = "off"
+    quasi: int = 5
 
 
 def _list(value, where):
@@ -183,6 +185,10 @@ def from_dict(data, *, base=".", source=None):
     if years not in core.YEARS:
         raise ValueError("hush config: dates.years must be one of %s" % ", ".join(core.YEARS))
     cfg.years = years
+    threshold = _table(data, "warn").get("quasi", 5)
+    if isinstance(threshold, bool) or not isinstance(threshold, int) or threshold < 0:
+        raise ValueError("hush config: warn.quasi must be a whole number, 0 to turn it off")
+    cfg.quasi = threshold
 
     packs = data.get("packs") or {}
     if not isinstance(packs, dict):

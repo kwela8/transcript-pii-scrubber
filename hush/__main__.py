@@ -139,6 +139,7 @@ def main(argv=None):
     if args.json:
         print(json.dumps({"text": result.text, "removed": result.removed,
                           "findings": result.findings, "flags": result.flags,
+                          "quasi": result.quasi, "warnings": result.warnings,
                           "refused": result.refused}, indent=1))
     else:
         if not result.refused:
@@ -155,6 +156,8 @@ def main(argv=None):
                 counts[flag["kind"]] = counts.get(flag["kind"], 0) + 1
             print("hush: flagged for review %s (use --json for where)"
                   % json.dumps(counts, sort_keys=True), file=sys.stderr)
+        for warned in result.warnings:
+            print("hush: warning: %s" % warned, file=sys.stderr)
     if result.preset.reversible and not args.json:
         print("hush: ask-ai tokens only restore inside the same process; use the Python "
               "API (Result.restore) for a round trip", file=sys.stderr)

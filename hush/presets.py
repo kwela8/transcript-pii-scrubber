@@ -32,7 +32,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field, replace
 from pathlib import Path
 
-from hush import core, residual, transcripts
+from hush import core, quasi, residual, transcripts
 from hush.config import Config, load
 from hush.people import People, Person, english_words, keep_guess
 from hush.styles import Renderer
@@ -76,7 +76,10 @@ class Result:
     ``removed`` counts the distinct values taken out, by kind; ``findings`` counts what
     the second check found, by kind; ``flags`` lists what a person should look at: the
     values of flagged kinds left in the text, and names a role cue relabelled. Each flag
-    gives a kind, where it sits in ``text`` and why, never the value itself."""
+    gives a kind, where it sits in ``text`` and why, never the value itself. ``quasi``
+    counts details left in ``text`` that may identify someone together (ages, places,
+    jobs, dates, rare details; :mod:`hush.quasi`), and ``warnings`` says so when they
+    reach the config's ``[warn] quasi`` threshold. Neither removes anything."""
     text: str
     preset: Preset
     removed: dict
@@ -85,6 +88,8 @@ class Result:
     mapping: core.Mapping = field(repr=False)
     tokens: str = field(repr=False, default="")
     flags: list = field(default_factory=list)
+    quasi: dict = field(default_factory=dict)
+    warnings: list = field(default_factory=list)
 
     def restore(self, reply):
         """Put the real words back into an AI's reply. ``ask-ai`` only, same process."""
@@ -212,4 +217,7 @@ class Hush:
                 elif kind in self.config.flag:
                     flags.append({"kind": kind, "start": start, "end": end,
                                   "why": "flagged kind, left in place"})
-        return Result(out, self.preset, removed, found, refused, mapping, tokens, flags)
+        details = quasi.count(out) if out else {}
+        warned = quasi.warning(details, self.config.quasi)
+        return Result(out, self.preset, removed, found, refused, mapping, tokens, flags,
+                      details, [warned] if warned else [])
