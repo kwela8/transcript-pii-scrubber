@@ -173,6 +173,15 @@ _TOKEN_BODY_LIKE = re.compile(
 _TOKEN_OPEN_PREFIX_LIKE = re.compile(
     r"(?i)(?:<|\[|\{|:)\s*P[0-9A-F]{8,}[A-Z0-9_]*(?:>|\]|\}|\Z)")
 _KIND = re.compile(r"[A-Z][A-Z0-9_]{1,31}\Z")
+# A token as a model may write it back: any case, spaces inside, square, round or curly
+# brackets, HTML-escaped angle brackets, or none.
+_TOKEN_LOOSE = re.compile(
+    r"(?:(?:<|&lt;|\[|\(|\{|«|‹)[ \t]*)?(?<![0-9A-Za-z])"
+    r"(?P<namespace>[Pp](?:[ \t]?[0-9A-Fa-f]){16})[ \t]*[_ ][ \t]*"
+    r"(?P<kind>[A-Za-z][A-Za-z0-9_ \t]{1,40}?)[ \t]*[_ ][ \t]*"
+    r"(?P<index>\d{4})[ \t]*[_ ][ \t]*"
+    r"(?P<check>(?:[0-9A-Fa-f][ \t]?){15}[0-9A-Fa-f])(?![0-9A-Za-z])"
+    r"(?:[ \t]*(?:>|&gt;|\]|\)|\}|»|›))?")
 
 #: Kinds whose values are names: matched and restored without regard to case. A known
 #: person with a role has the kind ``PERSON_`` and the role ("PERSON_CUSTOMER"), which is
@@ -2027,42 +2036,50 @@ class Restored:
     restored: int
     restore_misses: int
     misses_by_reason: dict
+    variants: int = 0
 
 
 def restore_report(text, mapping):
     """Put the real words back into a reply, and count what could not be put back.
 
-    Only an exact token this Mapping issued is replaced. A well-formed token from another
-    namespace, one with a check this Mapping did not compute, or one it never issued is
-    left as it is and counted. So is anything that looks like part of a token (a changed
-    case, a lost bracket, a fullwidth look-alike). Dates are not shifted back.
+    A token this Mapping issued is replaced, exact or as a model may change it: another
+    case, spaces inside, other brackets or none (``variants`` counts those). A token from
+    another namespace, one with a check this Mapping did not compute, or one it never
+    issued is refused: left as it is and counted, in any of those forms. So is anything
+    that looks like part of a token (a fullwidth look-alike, half a token). Dates are not
+    shifted back.
     """
     issued = mapping.by_token
     reasons = {}
-    restored = 0
+    restored = variants = 0
 
     def miss(reason):
         reasons[reason] = reasons.get(reason, 0) + 1
 
     def repl(match):
-        nonlocal restored
-        token = match.group(0)
-        if match.group("namespace") != mapping.namespace:
+        nonlocal restored, variants
+        written = match.group(0)
+        namespace = re.sub(r"[ \t]", "", match.group("namespace")).upper()
+        kind = re.sub(r"[ \t]+", "_", match.group("kind").strip()).upper()
+        check = re.sub(r"[ \t]", "", match.group("check")).upper()
+        token = "<%s_%s_%s_%s>" % (namespace, kind, match.group("index"), check)
+        if namespace != mapping.namespace:
             miss("foreign_namespace")
-            return token
-        expected = mapping.check_for(match.group("kind"), int(match.group("index")))
-        if not hmac.compare_digest(expected, match.group("check")):
+            return written
+        if not _KIND.match(kind) or not hmac.compare_digest(
+                mapping.check_for(kind, int(match.group("index"))), check):
             miss("bad_check")
-            return token
+            return written
         real = issued.get(token)
         if real is None:
             miss("unknown_token")
-            return token
+            return written
         restored += 1
+        variants += written != token
         return real
 
-    out = TOKEN.sub(repl, text)
-    rest = unicodedata.normalize("NFKC", TOKEN.sub(" ", text))
+    out = _TOKEN_LOOSE.sub(repl, text)
+    rest = unicodedata.normalize("NFKC", _TOKEN_LOOSE.sub(" ", text))
     spans = sorted(m.span() for pattern in (_TOKEN_BODY_LIKE, _TOKEN_OPEN_PREFIX_LIKE)
                    for m in pattern.finditer(rest))
     last_end = -1
@@ -2070,7 +2087,7 @@ def restore_report(text, mapping):
         if start >= last_end:
             miss("lookalike")
         last_end = max(last_end, end)
-    return Restored(out, restored, sum(reasons.values()), reasons)
+    return Restored(out, restored, sum(reasons.values()), reasons, variants)
 
 
 def restore(text, mapping):

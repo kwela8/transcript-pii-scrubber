@@ -897,5 +897,46 @@ class ContextCues(unittest.TestCase):
                          "license plate number: [code 1]")
 
 
+class RestoreVariants(unittest.TestCase):
+    """A model may change a token's case, spacing or brackets. An issued token comes
+    back in any of those forms; anything token-shaped that was not issued is left as it
+    is and counted."""
+
+    def scrubbed(self):
+        mapping = core.Mapping()
+        out, mapping = core.scrub("Dr Okonkwo rang.", mapping)
+        token = core.TOKEN.search(out).group(0)
+        return mapping, token
+
+    def test_variants_of_an_issued_token_come_back(self):
+        mapping, token = self.scrubbed()
+        body = token[1:-1]
+        for variant in (token.lower(), "< %s >" % body, "[%s]" % body, body,
+                        "&lt;%s&gt;" % body, "<%s>" % body.replace("_", " "),
+                        "<%s>" % body.replace("_", " _ ", 1)):
+            report = core.restore_report("Reply: %s said hi." % variant, mapping)
+            self.assertEqual(report.text, "Reply: Dr Okonkwo said hi.", variant)
+            self.assertEqual((report.restored, report.variants, report.restore_misses),
+                             (1, 1, 0), variant)
+
+    def test_the_exact_token_is_not_a_variant(self):
+        mapping, token = self.scrubbed()
+        report = core.restore_report(token, mapping)
+        self.assertEqual((report.text, report.restored, report.variants), ("Dr Okonkwo", 1, 0))
+
+    def test_a_token_never_issued_is_left_and_counted(self):
+        mapping, token = self.scrubbed()
+        ns, kind, index, check = token[1:-1].split("_")
+        made_up = "<%s_%s_0002_%s>" % (ns, kind, mapping.check_for(kind, 2))
+        forged = "<%s_%s_%s_%s>" % (ns, kind, index, "0" * 16)
+        foreign = "<P%s_%s_%s_%s>" % ("1" * 16, kind, index, check)
+        for text, reason in ((made_up, "unknown_token"), (made_up.lower(), "unknown_token"),
+                             (forged, "bad_check"), ("[%s]" % forged[1:-1], "bad_check"),
+                             (foreign, "foreign_namespace")):
+            report = core.restore_report("x %s y" % text, mapping)
+            self.assertEqual(report.text, "x %s y" % text, text)
+            self.assertEqual((report.restored, report.misses_by_reason), (0, {reason: 1}), text)
+
+
 if __name__ == "__main__":
     unittest.main()
